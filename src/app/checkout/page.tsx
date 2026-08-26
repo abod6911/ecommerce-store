@@ -80,7 +80,7 @@ export default function CheckoutPage() {
     }
     setIsSubmitting(true);
 
-    const primaryBookTitle = items.map((i) => `${i.book.title} (×${i.quantity})`).join(" + ");
+    const primaryBookTitle = items.map((i) => `${i.title} (×${i.quantity})`).join(" + ");
     const mappedPaymentMethod: PaymentMethod = 
       paymentMethod === "MADA" ? "mada" :
       paymentMethod === "APPLE_PAY" ? "apple_pay" :
