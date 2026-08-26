@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSupabaseAuth } from "@/context/SupabaseAuthContext";
+import { getAssetPath } from "@/lib/utils";
 
 export default function RealAuthModal() {
   const { isAuthModalOpen, closeAuthModal, signIn, signUp, setAdminRole } = useSupabaseAuth();
@@ -74,18 +75,18 @@ export default function RealAuthModal() {
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md font-ibm text-right" dir="rtl">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md font-ibm text-right" dir="rtl">
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="relative w-full max-w-md rounded-3xl bg-brand-dark-900 border-2 border-brand-amber-400/50 p-6 sm:p-8 shadow-2xl backdrop-blur-2xl space-y-6 overflow-hidden"
+          className="relative w-full max-w-md max-h-[92vh] overflow-y-auto rounded-3xl bg-brand-dark-900 border-2 border-brand-amber-400/50 p-5 sm:p-8 shadow-2xl backdrop-blur-2xl space-y-5 sm:space-y-6"
         >
           {/* Close button */}
           <button
             type="button"
             onClick={closeAuthModal}
-            className="absolute top-4 left-4 w-8 h-8 rounded-full bg-white/10 text-slate-400 hover:text-white flex items-center justify-center transition-colors"
+            className="absolute top-4 left-4 w-8 h-8 rounded-full bg-white/10 text-slate-400 hover:text-white flex items-center justify-center transition-colors z-10"
           >
             <X className="w-4 h-4" />
           </button>
@@ -94,7 +95,7 @@ export default function RealAuthModal() {
           <div className="text-center space-y-2">
             <div className="w-12 h-12 rounded-2xl overflow-hidden bg-black border border-brand-amber-400/40 p-0.5 shadow-gold-glow mx-auto flex items-center justify-center">
               <img
-                src="/images/logo.jpg"
+                src={getAssetPath("/images/logo.jpg")}
                 alt="أحمد الشوا"
                 className="w-full h-full object-cover"
               />
