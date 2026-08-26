@@ -1,0 +1,149 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-ibm: 'IBM Plex Sans Arabic', sans-serif;
+  --font-cairo: 'Cairo', sans-serif;
+  --font-alexandria: 'Alexandria', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  letter-spacing: normal !important;
+}
+
+html {
+  direction: rtl;
+  scroll-behavior: smooth;
+  color-scheme: dark;
+  background-color: #061412;
+  color: #F8FAFC;
+  font-family: 'IBM Plex Sans Arabic', 'Cairo', system-ui, -apple-system, sans-serif;
+  letter-spacing: normal !important;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background-color: #061412;
+  color: #F8FAFC;
+  overflow-x: hidden;
+  min-height: 100vh;
+  line-height: 1.85;
+  letter-spacing: normal !important;
+}
+
+/* Headings anti-clipping & distinct scale */
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: normal !important;
+  line-height: 1.6;
+  padding-top: 0.06em;
+  padding-bottom: 0.12em;
+  overflow: visible;
+}
+
+p, span, label, li, a {
+  letter-spacing: normal !important;
+}
+
+/* Custom Luxury Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #040D0B;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #143833;
+  border-radius: 4px;
+  border: 1px solid rgba(245, 158, 11, 0.15);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #059669;
+}
+
+/* Ultra Luxury Glassmorphic Surfaces */
+.glass-surface {
+  background: rgba(13, 38, 34, 0.65);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(52, 211, 153, 0.15);
+}
+
+.glass-surface-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-surface-hover:hover {
+  background: rgba(13, 38, 34, 0.85);
+  border-color: rgba(245, 158, 11, 0.35);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 35px -10px rgba(0, 0, 0, 0.7), 0 0 25px -5px rgba(245, 158, 11, 0.2);
+}
+
+.gold-text-gradient {
+  background: linear-gradient(135deg, #FFFBEB 0%, #FDE68A 30%, #F59E0B 70%, #D97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  line-height: 1.6;
+  padding-top: 0.08em;
+  padding-bottom: 0.14em;
+  overflow: visible;
+}
+
+.emerald-text-gradient {
+  background: linear-gradient(135deg, #ECFDF5 0%, #6EE7B7 40%, #10B981 80%, #059669 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  line-height: 1.6;
+  padding-top: 0.08em;
+  padding-bottom: 0.14em;
+  overflow: visible;
+}
+
+/* User Selection on DRM */
+.user-select-none {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@keyframes ripple {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+}
+
+.animate-ripple {
+  animation: ripple 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}

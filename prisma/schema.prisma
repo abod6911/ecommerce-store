@@ -1,0 +1,258 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  STUDENT
+  VIP_CLIENT
+  INSTRUCTOR
+  ADMIN
+}
+
+enum ProductType {
+  PHYSICAL_BOOK
+  EBOOK
+  BUNDLE
+  COURSE
+  CONSULTATION
+}
+
+enum PaymentMethod {
+  MADA
+  APPLE_PAY
+  CREDIT_CARD
+  BANK_TRANSFER
+  CASH_ON_DELIVERY // الدفع عند الاستلام
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum ShippingStatus {
+  PROCESSING        // قيد المعالجة والتجهيز
+  HANDED_TO_COURIER // تم التسليم لشركة الشحن
+  IN_TRANSIT        // قيد التوصيل
+  DELIVERED         // تم التوصيل بنجاح
+  CANCELLED         // ملغي
+}
+
+enum ConsultationStatus {
+  UPCOMING          // موعد قادم
+  COMPLETED         // مكتمل
+  RESCHEDULED       // معاد جدولته
+  CANCELLED         // ملغي
+}
+
+enum CourierProvider {
+  SMSA
+  ARAMEX
+  REDBOX
+  LOCAL_DRIVER      // مندوب جدة الخاص
+}
+
+model User {
+  id            String         @id @default(cuid())
+  name          String
+  phone         String         @unique
+  email         String?
+  city          String?        @default("Jeddah")
+  role          UserRole       @default(STUDENT)
+  avatar        String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  orders        BookOrder[]
+  enrollments   Enrollment[]
+  consultations Consultation[]
+  reviews       Review[]
+  watermarkLogs WatermarkLog[]
+
+  @@index([phone])
+}
+
+model BookOrder {
+  id              String          @id @default(cuid())
+  orderNumber     String          @unique // e.g. SHW-8491
+  userId          String?
+  user            User?           @relation(fields: [userId], references: [id], onDelete: SetNull)
+  customerName    String
+  customerPhone   String
+  customerEmail   String?
+  shippingCity    String          @default("Jeddah")
+  shippingAddress String
+  bookTitle       String
+  quantity        Int             @default(1)
+  totalPrice      Float           // in SAR
+  paymentMethod   PaymentMethod   @default(MADA)
+  paymentStatus   PaymentStatus   @default(PENDING)
+  shippingStatus  ShippingStatus  @default(PROCESSING)
+  courierName     CourierProvider @default(SMSA)
+  trackingCode    String?
+  notes           String?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  @@index([orderNumber])
+  @@index([customerPhone])
+}
+
+model Consultation {
+  id               String             @id @default(cuid())
+  userId           String?
+  user             User?              @relation(fields: [userId], references: [id], onDelete: SetNull)
+  clientName       String
+  clientPhone      String
+  clientEmail      String?
+  sessionType      String             // "جلسة حضورية خاصة في جدة" / "استشارة تسويقية عن بُعد Zoom"
+  date             String             // "الخميس، 27 أغسطس 2026"
+  timeSlot         String             // "11:00 ص"
+  price            Float              // in SAR
+  zoomMeetingUrl   String?
+  status           ConsultationStatus @default(UPCOMING)
+  paymentMethod    PaymentMethod      @default(MADA)
+  paymentStatus    PaymentStatus      @default(PAID)
+  intakeField      String?            // مجال المشروع أو النشاط
+  intakeSocial     String?            // رابط حساب المشروع
+  intakeChallenge  String?            // التحدي التسويقي
+  intakeBudget     String?            // الميزانية المقترحة
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+
+  @@index([clientPhone])
+}
+
+model Course {
+  id              String        @id @default(cuid())
+  title           String
+  slug            String        @unique
+  subtitle        String?
+  description     String
+  price           Float         // in SAR
+  originalPrice   Float?        // in SAR
+  thumbnail       String
+  trailerVideoUrl String?
+  level           String        @default("جميع المستويات")
+  durationHours   Int           @default(12)
+  certificate     Boolean       @default(true)
+  drmProtected    Boolean       @default(true)
+  isFeatured      Boolean       @default(false)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  modules         CourseModule[]
+  enrollments     Enrollment[]
+  reviews         Review[]
+}
+
+model CourseModule {
+  id          String   @id @default(cuid())
+  courseId    String
+  course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  title       String
+  orderIndex  Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  lessons     Lesson[]
+}
+
+model Lesson {
+  id              String       @id @default(cuid())
+  moduleId        String
+  module          CourseModule @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  title           String
+  description     String?
+  durationMinutes Int          @default(15)
+  videoProviderId String       // Cloudflare Stream / Vimeo ID
+  streamPlaybackUrl String?    // Signed HLS / DASH stream URL
+  isFreePreview   Boolean      @default(false)
+  orderIndex      Int          @default(0)
+  resources       Resource[]
+  progress        LessonProgress[]
+}
+
+model Resource {
+  id          String   @id @default(cuid())
+  lessonId    String
+  lesson      Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  title       String
+  fileUrl     String
+  fileType    String   // PDF, XLSX, ZIP
+  fileSize    String
+  createdAt   DateTime @default(now())
+}
+
+model Enrollment {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courseId    String
+  course      Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  enrolledAt  DateTime  @default(now())
+  completedAt DateTime?
+  progressPct Float     @default(0)
+
+  @@unique([userId, courseId])
+}
+
+model LessonProgress {
+  id          String   @id @default(cuid())
+  lessonId    String
+  lesson      Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  userId      String
+  completed   Boolean  @default(false)
+  lastPositionSec Int  @default(0)
+  updatedAt   DateTime @updatedAt
+
+  @@unique([userId, lessonId])
+}
+
+model AnalyticsSnapshot {
+  id                  String   @id @default(cuid())
+  date                DateTime @default(now())
+  totalRevenue        Float
+  monthlyRevenue      Float
+  booksSold           Int
+  pendingDeliveries   Int
+  totalCustomers      Int
+  upcomingBookings    Int
+  completedBookings   Int
+}
+
+model Review {
+  id          String    @id @default(cuid())
+  userId      String?
+  user        User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  courseId    String?
+  course      Course?   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  rating      Int       @default(5)
+  authorName  String
+  authorTitle String?
+  content     String
+  isVerified  Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+}
+
+model WatermarkLog {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lessonId    String
+  ipAddress   String
+  userAgent   String
+  sessionHash String
+  loggedAt    DateTime @default(now())
+
+  @@index([userId, lessonId])
+}
