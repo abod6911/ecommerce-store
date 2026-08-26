@@ -74,7 +74,7 @@ export default function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProp
             animate="visible"
             exit="exit"
             drag="x"
-            dragConstraints={{ min: 0, max: 300 }}
+            dragConstraints={{ left: 0, right: 300 }}
             dragElastic={{ left: 0, right: 0.5 }}
             onDragEnd={(_, info) => {
               if (info.offset.x > 80 || info.velocity.x > 300) {
