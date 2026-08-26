@@ -108,12 +108,6 @@ export default function HeroSection() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-dark-950 via-brand-dark-950/15 to-transparent" />
 
-                  {/* Rating Badge Top Right */}
-                  <div className="absolute top-3 right-3 bg-brand-dark-900/85 backdrop-blur-md px-3 py-1.5 rounded-full border border-brand-amber-400/30 flex items-center gap-1.5 text-xs text-white shadow-sm">
-                    <Star className="w-3.5 h-3.5 fill-brand-amber-400 text-brand-amber-400" />
-                    <span className="font-bold">4.98/5 (تقييم المستفيدين)</span>
-                  </div>
-
                   {/* Bottom Slogan Quote Overlay */}
                   <div className="absolute bottom-3 right-3 left-3 p-4 rounded-xl bg-brand-dark-900/90 backdrop-blur-md border border-brand-emerald-500/30 text-right space-y-1">
                     <div className="flex items-center gap-2">
