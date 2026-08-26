@@ -46,7 +46,7 @@
 
 1. **استنساخ المستودع (Clone Repository)**:
    ```bash
-   git clone https://github.com/abed6911/ecommerce-store.git
+   git clone https://github.com/abod6911/ecommerce-store.git
    cd ecommerce-store
    ```
 
