@@ -332,7 +332,9 @@ export default function EmailOtpAuthModal({ isOpen, onClose }: EmailOtpAuthModal
                   {otpValues.map((val, idx) => (
                     <input
                       key={idx}
-                      ref={(el) => (inputRefs.current[idx] = el)}
+                      ref={(el) => {
+                        inputRefs.current[idx] = el;
+                      }}
                       type="text"
                       inputMode="numeric"
                       maxLength={1}
