@@ -77,6 +77,8 @@ export default function BooksSection() {
                           src={getAssetPath(book.coverImage)}
                           alt={`${book.title} - تأليف أحمد الشوا`}
                           className="w-full h-full object-cover"
+                          loading="lazy"
+                          decoding="async"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
                       </div>

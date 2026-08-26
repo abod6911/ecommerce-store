@@ -71,6 +71,8 @@ export default function CoursesSection() {
                     src={getAssetPath(course.thumbnail)}
                     alt={course.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-dark-950 via-brand-dark-950/30 to-transparent" />
 

@@ -5,6 +5,10 @@ const isGithubPages = isProd && !isVercel;
 
 const nextConfig = {
   reactStrictMode: true,
+  swcMinify: true,
+  compiler: {
+    removeConsole: isProd ? { exclude: ['error'] } : false,
+  },
   ...(isGithubPages
     ? {
         output: 'export',
@@ -14,7 +18,8 @@ const nextConfig = {
       }
     : {}),
   images: {
-    unoptimized: true,
+    formats: ['image/avif', 'image/webp'],
+    unoptimized: isGithubPages,
     remotePatterns: [
       {
         protocol: 'https',

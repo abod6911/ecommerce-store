@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Alexandria, Cairo, IBM_Plex_Sans_Arabic } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
 import { AudioProvider } from "@/context/AudioContext";
@@ -13,6 +14,27 @@ import RealAuthModal from "@/components/auth/RealAuthModal";
 import AbandonedCartModal from "@/components/marketing/AbandonedCartModal";
 import MobileActionBar from "@/components/layout/MobileActionBar";
 
+const ibmFont = IBM_Plex_Sans_Arabic({
+  subsets: ["arabic"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-ibm",
+  display: "swap",
+});
+
+const alexandriaFont = Alexandria({
+  subsets: ["arabic"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-alexandria",
+  display: "swap",
+});
+
+const cairoFont = Cairo({
+  subsets: ["arabic"],
+  weight: ["400", "600", "700", "800"],
+  variable: "--font-cairo",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "أحمد الشوا | المستشار ومدرب التسويق الرقمي المعتمد",
   description: "المنصة الرسمية للمستشار أحمد الشوا. كتب حصرية، برامج ماستر كلاس مشفرة DRM، استشارات VIP مخصصة لرواد الأعمال والمستثمرين في السعودية والخليج.",
@@ -23,7 +45,7 @@ export const metadata: Metadata = {
 export const viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
+  maximumScale: 5,
 };
 
 export default function RootLayout({
@@ -32,14 +54,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ar" dir="rtl" className="dark scroll-smooth">
+    <html
+      lang="ar"
+      dir="rtl"
+      className={`dark scroll-smooth ${ibmFont.variable} ${alexandriaFont.variable} ${cairoFont.variable}`}
+    >
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800;900&family=Cairo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
       </head>
       <body className="bg-brand-dark-900 text-slate-100 antialiased min-h-screen flex flex-col font-ibm selection:bg-brand-amber-400 selection:text-slate-950">
         <SupabaseAuthProvider>

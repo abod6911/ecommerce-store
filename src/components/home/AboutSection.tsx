@@ -32,6 +32,8 @@ export default function AboutSection() {
                   src={getAssetPath("/images/ahmed-alshawa-about.jpg")}
                   alt={INSTRUCTOR_INFO.name}
                   className="w-full h-full object-cover object-top"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-dark-950 via-transparent to-transparent opacity-75" />
 

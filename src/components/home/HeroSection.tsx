@@ -103,6 +103,8 @@ export default function HeroSection() {
                     src={getAssetPath("/images/ahmed-alshawa-hero.jpg")}
                     alt="أحمد الشوا - مستشار ومدرب تسويق رقمي معتمد"
                     className="w-full h-full object-cover object-top"
+                    decoding="async"
+                    fetchPriority="high"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-dark-950 via-brand-dark-950/15 to-transparent" />
 
