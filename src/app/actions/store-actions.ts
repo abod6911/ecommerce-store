@@ -175,7 +175,7 @@ export async function requestEmailOtp(
   email: string,
   fullName: string,
   phone: string
-) {
+): Promise<{ success: boolean; error?: string }> {
   try {
     const { error } = await supabase.auth.signInWithOtp({
       email,
@@ -191,6 +191,7 @@ export async function requestEmailOtp(
 
     if (error) {
       console.warn("Supabase Auth OTP Notice:", error.message);
+      return { success: false, error: error.message };
     }
 
     // Log OTP request telemetry
@@ -210,7 +211,7 @@ export async function verifyEmailOtp(
   token: string,
   fullName?: string,
   phone?: string
-) {
+): Promise<{ success: boolean; error?: string; user?: any; session?: any }> {
   try {
     const { data, error } = await supabase.auth.verifyOtp({
       email,
@@ -220,6 +221,7 @@ export async function verifyEmailOtp(
 
     if (error) {
       console.warn("Supabase OTP Verify Notice:", error.message);
+      return { success: false, error: error.message };
     }
 
     // If verified, upsert profile
