@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useSupabaseAuth } from "@/context/SupabaseAuthContext";
+import { getAssetPath } from "@/lib/utils";
 
 export default function Header() {
   const { itemCount, setIsCartOpen } = useCart();
@@ -36,7 +37,7 @@ export default function Header() {
             <div className="relative shrink-0">
               <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl overflow-hidden bg-black border-2 border-brand-amber-400/50 shadow-gold-glow group-hover:scale-105 transition-transform flex items-center justify-center p-0.5">
                 <img
-                  src="/images/logo.jpg"
+                  src={getAssetPath("/images/logo.jpg")}
                   alt="أحمد الشوا - الشعار الرسمي"
                   className="w-full h-full object-cover"
                 />

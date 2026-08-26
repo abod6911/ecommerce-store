@@ -14,6 +14,7 @@ import {
   MapPin
 } from "lucide-react";
 import { INSTRUCTOR_INFO } from "@/data/mockData";
+import { getAssetPath } from "@/lib/utils";
 
 export default function AboutSection() {
   return (
@@ -28,7 +29,7 @@ export default function AboutSection() {
             <div className="relative mx-auto max-w-md rounded-3xl overflow-hidden bg-brand-dark-950 border-2 border-brand-amber-400/40 p-2.5 shadow-gold-glow">
               <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
                 <img
-                  src="/images/ahmed-alshawa-about.jpg"
+                  src={getAssetPath("/images/ahmed-alshawa-about.jpg")}
                   alt={INSTRUCTOR_INFO.name}
                   className="w-full h-full object-cover object-top"
                 />

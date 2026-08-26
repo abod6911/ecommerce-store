@@ -18,6 +18,7 @@ import {
   ChevronLeft
 } from "lucide-react";
 import { useAdmin } from "@/context/AdminContext";
+import { getAssetPath } from "@/lib/utils";
 
 export default function AdminSidebar() {
   const pathname = usePathname();
@@ -61,7 +62,7 @@ export default function AdminSidebar() {
         <div className="flex items-center gap-3 border-b border-white/10 pb-5">
           <div className="w-11 h-11 rounded-2xl overflow-hidden bg-black border-2 border-brand-amber-400/50 p-0.5 shadow-gold-glow flex items-center justify-center shrink-0">
             <img
-              src="/images/logo.jpg"
+              src={getAssetPath("/images/logo.jpg")}
               alt="أحمد الشوا"
               className="w-full h-full object-cover"
             />

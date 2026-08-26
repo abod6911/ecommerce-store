@@ -20,6 +20,7 @@ import {
   CheckCircle2
 } from "lucide-react";
 import { INSTRUCTOR_INFO } from "@/data/mockData";
+import { getAssetPath } from "@/lib/utils";
 
 export default function Footer() {
   const [activePolicyModal, setActivePolicyModal] = useState<"REFUND" | "TERMS" | null>(null);
@@ -36,7 +37,7 @@ export default function Footer() {
             <div className="flex items-center gap-3">
               <div className="w-11 h-11 rounded-xl overflow-hidden bg-black border-2 border-brand-amber-400/50 p-0.5 shadow-gold-glow flex items-center justify-center shrink-0">
                 <img
-                  src="/images/logo.jpg"
+                  src={getAssetPath("/images/logo.jpg")}
                   alt="أحمد الشوا - الشعار الرسمي"
                   className="w-full h-full object-cover"
                 />

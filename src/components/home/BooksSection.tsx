@@ -19,6 +19,7 @@ import { useCart } from "@/context/CartContext";
 import { formatSAR } from "@/lib/utils";
 import TiltCard from "@/components/animations/TiltCard";
 import MagneticButton from "@/components/animations/MagneticButton";
+import { getAssetPath } from "@/lib/utils";
 
 export default function BooksSection() {
   const { addItem, setIsCartOpen } = useCart();
@@ -73,7 +74,7 @@ export default function BooksSection() {
                     <TiltCard maxTilt={14} glareOpacity={0.32}>
                       <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.85)] border-2 border-brand-amber-400/50 relative bg-brand-dark-950">
                         <img
-                          src={book.coverImage}
+                          src={getAssetPath(book.coverImage)}
                           alt={`${book.title} - تأليف أحمد الشوا`}
                           className="w-full h-full object-cover"
                         />

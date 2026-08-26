@@ -18,7 +18,7 @@ import {
   ChevronDown
 } from "lucide-react";
 import { COURSES_DATA, CourseItem } from "@/data/mockData";
-import { formatSAR } from "@/lib/utils";
+import { formatSAR, getAssetPath } from "@/lib/utils";
 import { useCart } from "@/context/CartContext";
 
 export default function CoursesSection() {
@@ -68,7 +68,7 @@ export default function CoursesSection() {
                 {/* Course Thumbnail with Video Badge */}
                 <div className="relative aspect-video rounded-2xl overflow-hidden bg-brand-dark-950 border border-white/10">
                   <img
-                    src={course.thumbnail}
+                    src={getAssetPath(course.thumbnail)}
                     alt={course.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />

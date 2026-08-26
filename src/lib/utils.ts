@@ -5,6 +5,19 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export function getAssetPath(path: string): string {
+  if (!path) return "";
+  if (path.startsWith("http://") || path.startsWith("https://") || path.startsWith("data:")) {
+    return path;
+  }
+  const basePath = process.env.NODE_ENV === "production" ? "/ecommerce-store" : "";
+  const cleanPath = path.startsWith("/") ? path : `/${path}`;
+  if (cleanPath.startsWith("/ecommerce-store/")) {
+    return cleanPath;
+  }
+  return `${basePath}${cleanPath}`;
+}
+
 export function formatSAR(amount: number): string {
   if (isNaN(amount)) return "0 ر.س";
   return `${amount.toLocaleString("en-US")} ر.س`;

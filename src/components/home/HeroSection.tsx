@@ -20,6 +20,7 @@ import { INSTRUCTOR_INFO } from "@/data/mockData";
 import StatsCounter from "@/components/animations/StatsCounter";
 import TiltCard from "@/components/animations/TiltCard";
 import MagneticButton from "@/components/animations/MagneticButton";
+import { getAssetPath } from "@/lib/utils";
 
 export default function HeroSection() {
   return (
@@ -99,7 +100,7 @@ export default function HeroSection() {
                 {/* Image Frame */}
                 <div className="relative aspect-[4/4.8] rounded-2xl overflow-hidden bg-brand-dark-950">
                   <img
-                    src="/images/ahmed-alshawa-hero.jpg"
+                    src={getAssetPath("/images/ahmed-alshawa-hero.jpg")}
                     alt="أحمد الشوا - مستشار ومدرب تسويق رقمي معتمد"
                     className="w-full h-full object-cover object-top"
                   />

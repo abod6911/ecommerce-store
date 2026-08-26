@@ -15,6 +15,7 @@ import {
 import { motion } from "framer-motion";
 
 import { useSupabaseAuth } from "@/context/SupabaseAuthContext";
+import { getAssetPath } from "@/lib/utils";
 
 function AdminAuthGuard({ children }: { children: React.ReactNode }) {
   const { isAdminAuthenticated, authenticateAdmin, adminPin } = useAdmin();
@@ -47,7 +48,7 @@ function AdminAuthGuard({ children }: { children: React.ReactNode }) {
           <div className="text-center space-y-3">
             <div className="w-16 h-16 rounded-2xl overflow-hidden bg-black border-2 border-brand-amber-400/50 p-0.5 shadow-gold-glow mx-auto flex items-center justify-center">
               <img
-                src="/images/logo.jpg"
+                src={getAssetPath("/images/logo.jpg")}
                 alt="أحمد الشوا"
                 className="w-full h-full object-cover"
               />
