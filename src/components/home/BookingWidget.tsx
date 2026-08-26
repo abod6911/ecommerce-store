@@ -30,6 +30,7 @@ import MagneticButton from "@/components/animations/MagneticButton";
 import CalendarSync from "@/components/booking/CalendarSync";
 import PostBookingIntake from "@/components/booking/PostBookingIntake";
 import { useUserAuth, BookingRecord } from "@/context/UserAuthContext";
+import { createConsultationBooking, logStoreActivity } from "@/app/actions/store-actions";
 
 interface SessionType {
   id: string;
@@ -143,7 +144,7 @@ export default function BookingWidget() {
 
   const currentActiveDay = daysList[selectedDateIdx] || INITIAL_DAYS[0];
 
-  const handleBookingSubmit = (e: React.FormEvent) => {
+  const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!clientName.trim() || !clientPhone.trim()) {
       alert("يرجى إدخال الاسم ورقم الجوال والواتساب لاستكمال الحجز.");
@@ -152,26 +153,39 @@ export default function BookingWidget() {
     setIsSubmitting(true);
 
     const bookingId = `book-${Date.now()}`;
+    const mappedDate = new Date().toISOString().split("T")[0];
+
+    const res = await createConsultationBooking({
+      clientName: clientName.trim(),
+      clientPhone: clientPhone.trim(),
+      clientEmail: clientEmail?.trim() || null,
+      sessionType: selectedSession.id,
+      sessionDate: mappedDate,
+      timeSlot: selectedTimeSlot,
+      priceSar: selectedSession.price,
+      paymentMethod: paymentMethod,
+    });
+
+    const zoomLink = res.zoomUrl || res.fallbackZoomUrl || `https://zoom.us/j/${Math.floor(10000000000 + Math.random() * 90000000000)}?pwd=VIP_SHAWA`;
+
     const newBooking: BookingRecord = {
-      id: bookingId,
+      id: res.booking?.id || bookingId,
       sessionTitle: selectedSession.title,
       deliveryLabel: selectedSession.deliveryLabel,
       dateStr: currentActiveDay.fullDate,
       timeSlot: selectedTimeSlot,
       price: selectedSession.price,
-      zoomLink: `https://zoom.us/j/${Math.floor(10000000000 + Math.random() * 90000000000)}?pwd=VIP_SHAWA`,
+      zoomLink: zoomLink,
       createdAt: new Date().toISOString(),
     };
 
-    setTimeout(() => {
-      if (!user) {
-        login(clientName, clientPhone, clientEmail);
-      }
-      addBooking(newBooking);
-      setCreatedBookingId(bookingId);
-      setIsSubmitting(false);
-      setIsBooked(true);
-    }, 700);
+    if (!user) {
+      login(clientName, clientPhone, clientEmail);
+    }
+    addBooking(newBooking);
+    setCreatedBookingId(res.booking?.id || bookingId);
+    setIsSubmitting(false);
+    setIsBooked(true);
   };
 
   const handleIntakeCompleted = (intakeData: { businessField: string; socialLink: string; marketingChallenge: string }) => {

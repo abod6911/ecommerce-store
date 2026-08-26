@@ -21,6 +21,8 @@ import {
 import { useCart } from "@/context/CartContext";
 import { formatSAR } from "@/lib/utils";
 import { SAUDI_CITIES, JEDDAH_DISTRICTS, INSTRUCTOR_INFO } from "@/data/mockData";
+import { createBookOrder, logStoreActivity } from "@/app/actions/store-actions";
+import { PaymentMethod } from "@/lib/supabase/types";
 
 export default function CheckoutPage() {
   const {
@@ -70,20 +72,38 @@ export default function CheckoutPage() {
   const discountAmount = subtotal * discountPercent;
   const finalTotal = Math.max(0, total - discountAmount);
 
-  const handleSubmitOrder = (e: React.FormEvent) => {
+  const handleSubmitOrder = async (e: React.FormEvent) => {
     e.preventDefault();
     if (items.length === 0) {
       alert("سلة الشراء فارغة!");
       return;
     }
     setIsSubmitting(true);
-    setTimeout(() => {
-      const ordNum = `ALSHAWA-ORD-${Math.floor(100000 + Math.random() * 900000)}`;
-      setCompletedOrderNumber(ordNum);
-      setOrderCompleted(true);
-      setIsSubmitting(false);
-      clearCart();
-    }, 1200);
+
+    const primaryBookTitle = items.map((i) => `${i.book.title} (×${i.quantity})`).join(" + ");
+    const mappedPaymentMethod: PaymentMethod = 
+      paymentMethod === "MADA" ? "mada" :
+      paymentMethod === "APPLE_PAY" ? "apple_pay" :
+      paymentMethod === "CASH_ON_DELIVERY" ? "cod" : "credit_card";
+
+    const res = await createBookOrder({
+      customerName: formData.name,
+      customerPhone: formData.phone,
+      customerEmail: formData.email,
+      shippingCity: selectedCity,
+      shippingAddress: `${formData.district} - ${formData.streetAddress}`,
+      bookTitle: primaryBookTitle,
+      quantity: items.reduce((acc, i) => acc + i.quantity, 0),
+      amountSar: finalTotal,
+      paymentMethod: mappedPaymentMethod,
+      notes: formData.notes,
+    });
+
+    const ordNum = res.orderNumber || res.fallbackOrderNumber || `SHW-${Math.floor(1000 + Math.random() * 9000)}`;
+    setCompletedOrderNumber(ordNum);
+    setOrderCompleted(true);
+    setIsSubmitting(false);
+    clearCart();
   };
 
   if (orderCompleted) {

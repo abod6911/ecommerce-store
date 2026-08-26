@@ -12,6 +12,17 @@ export type PaymentStatus = "paid" | "pending" | "failed" | "refunded";
 export type ShippingStatus = "processing" | "handed_to_courier" | "in_transit" | "delivered" | "cancelled";
 export type CourierProvider = "SMSA" | "ARAMEX" | "REDBOX" | "LOCAL_DRIVER";
 export type ConsultationStatus = "upcoming" | "completed" | "rescheduled" | "cancelled";
+export type StoreEventType = 
+  | "login"
+  | "otp_requested"
+  | "otp_verified"
+  | "book_purchase_attempt"
+  | "book_order_created"
+  | "consultation_view"
+  | "consultation_booked"
+  | "checkout_started"
+  | "checkout_abandoned"
+  | "drm_video_play";
 
 export interface Database {
   public: {
@@ -123,7 +134,7 @@ export interface Database {
           client_name: string;
           client_phone: string;
           client_email: string | null;
-          session_type: "in_person_jeddah" | "online_zoom";
+          session_type: "in_person_jeddah" | "online_zoom" | string;
           session_date: string;
           time_slot: string;
           price_sar: number;
@@ -136,6 +147,7 @@ export interface Database {
             social_links?: string;
             challenges?: string;
             budget?: string;
+            [key: string]: any;
           } | null;
           created_at: string;
           updated_at: string;
@@ -146,7 +158,7 @@ export interface Database {
           client_name: string;
           client_phone: string;
           client_email?: string | null;
-          session_type: "in_person_jeddah" | "online_zoom";
+          session_type: "in_person_jeddah" | "online_zoom" | string;
           session_date: string;
           time_slot: string;
           price_sar: number;
@@ -159,6 +171,7 @@ export interface Database {
             social_links?: string;
             challenges?: string;
             budget?: string;
+            [key: string]: any;
           } | null;
           created_at?: string;
           updated_at?: string;
@@ -169,7 +182,7 @@ export interface Database {
           client_name?: string;
           client_phone?: string;
           client_email?: string | null;
-          session_type?: "in_person_jeddah" | "online_zoom";
+          session_type?: "in_person_jeddah" | "online_zoom" | string;
           session_date?: string;
           time_slot?: string;
           price_sar?: number;
@@ -182,9 +195,39 @@ export interface Database {
             social_links?: string;
             challenges?: string;
             budget?: string;
+            [key: string]: any;
           } | null;
           created_at?: string;
           updated_at?: string;
+        };
+      };
+      customer_activity_logs: {
+        Row: {
+          id: string;
+          user_id: string | null;
+          event_type: StoreEventType | string;
+          metadata: Json | null;
+          ip_address: string | null;
+          user_agent: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id?: string | null;
+          event_type: StoreEventType | string;
+          metadata?: Json | null;
+          ip_address?: string | null;
+          user_agent?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string | null;
+          event_type?: StoreEventType | string;
+          metadata?: Json | null;
+          ip_address?: string | null;
+          user_agent?: string | null;
+          created_at?: string;
         };
       };
     };
