@@ -10,12 +10,23 @@ export function getAssetPath(path: string): string {
   if (path.startsWith("http://") || path.startsWith("https://") || path.startsWith("data:")) {
     return path;
   }
-  const basePath = process.env.NODE_ENV === "production" ? "/ecommerce-store" : "";
+  
+  // Detect if running on Vercel, local preview, or GitHub Pages
+  const isVercelOrLocal = typeof window !== "undefined" 
+    ? !window.location.hostname.includes("github.io")
+    : Boolean(process.env.VERCEL || process.env.NEXT_PUBLIC_VERCEL_ENV);
+
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
+
+  if (isVercelOrLocal) {
+    return cleanPath.replace(/^\/ecommerce-store/, "");
+  }
+
+  // GitHub Pages environment
   if (cleanPath.startsWith("/ecommerce-store/")) {
     return cleanPath;
   }
-  return `${basePath}${cleanPath}`;
+  return `/ecommerce-store${cleanPath}`;
 }
 
 export function formatSAR(amount: number): string {

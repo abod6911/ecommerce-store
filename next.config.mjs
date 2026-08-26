@@ -1,10 +1,18 @@
 /** @type {import('next').NextConfig} */
+const isVercel = Boolean(process.env.VERCEL || process.env.NEXT_PUBLIC_VERCEL_ENV);
 const isProd = process.env.NODE_ENV === 'production';
+const isGithubPages = isProd && !isVercel;
+
 const nextConfig = {
   reactStrictMode: true,
-  output: 'export',
-  basePath: isProd ? '/ecommerce-store' : '',
-  assetPrefix: isProd ? '/ecommerce-store' : '',
+  ...(isGithubPages
+    ? {
+        output: 'export',
+        basePath: '/ecommerce-store',
+        assetPrefix: '/ecommerce-store',
+        trailingSlash: true,
+      }
+    : {}),
   images: {
     unoptimized: true,
     remotePatterns: [
@@ -19,10 +27,9 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'avatar.vercel.sh',
-      }
+      },
     ],
   },
-  trailingSlash: true,
 };
 
 export default nextConfig;
