@@ -21,6 +21,8 @@ import {
 import { useCart } from "@/context/CartContext";
 import { useSupabaseAuth } from "@/context/SupabaseAuthContext";
 import { getAssetPath } from "@/lib/utils";
+import MobileMenuTrigger from "@/components/navigation/MobileMenuTrigger";
+import MobileNavDrawer from "@/components/navigation/MobileNavDrawer";
 
 export default function Header() {
   const { itemCount, setIsCartOpen } = useCart();
@@ -240,81 +242,22 @@ export default function Header() {
               <span>احجز جلستك الاستشارية</span>
             </Link>
 
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2.5 rounded-xl bg-white/5 text-slate-200 border border-white/10 shrink-0"
-              aria-label="القائمة"
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
+            {/* Animated Morphing Mobile Menu Trigger Button */}
+            <div className="lg:hidden shrink-0">
+              <MobileMenuTrigger
+                isOpen={mobileMenuOpen}
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              />
+            </div>
           </div>
         </div>
-
-        {/* Mobile Menu Drawer */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden bg-brand-dark-950 border-t border-brand-emerald-500/20 py-4 px-2 space-y-2 text-right animate-in slide-in-from-top-4 duration-200">
-            {isAdmin && (
-              <Link
-                href="/admin"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block px-4 py-2.5 rounded-xl text-sm font-bold text-brand-amber-300 bg-brand-amber-400/10 border border-brand-amber-400/30"
-              >
-                ⚡ بوابة الإدارة المركزية (/admin)
-              </Link>
-            )}
-            <Link
-              href="/"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block px-4 py-2.5 rounded-xl text-sm font-semibold text-white hover:bg-white/5"
-            >
-              الرئيسية
-            </Link>
-            <Link
-              href="/#about"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block px-4 py-2.5 rounded-xl text-sm font-semibold text-white hover:bg-white/5"
-            >
-              عن المستشار
-            </Link>
-            <Link
-              href="/#books"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block px-4 py-2.5 rounded-xl text-sm font-semibold text-white hover:bg-white/5"
-            >
-              المتجر والكتب
-            </Link>
-            <Link
-              href="/#courses"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block px-4 py-2.5 rounded-xl text-sm font-semibold text-white hover:bg-white/5"
-            >
-              الدورات المحمية DRM
-            </Link>
-            <Link
-              href="/#calculator"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block px-4 py-2.5 rounded-xl text-sm font-semibold text-white hover:bg-white/5"
-            >
-              حاسبة العائد الإعلاني
-            </Link>
-            <Link
-              href="/#booking"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block px-4 py-2.5 rounded-xl text-sm font-semibold text-white hover:bg-white/5"
-            >
-              اللقاءات والاستشارات
-            </Link>
-            <Link
-              href="/dashboard"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block px-4 py-2.5 rounded-xl text-sm font-semibold text-brand-amber-300 hover:bg-white/5"
-            >
-              لوحة المشترك ومكتبتي
-            </Link>
-          </div>
-        )}
       </div>
+
+      {/* High-End RTL Animated Mobile Navigation Drawer */}
+      <MobileNavDrawer
+        isOpen={mobileMenuOpen}
+        onClose={() => setMobileMenuOpen(false)}
+      />
     </header>
   );
 }

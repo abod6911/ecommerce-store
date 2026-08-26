@@ -1,14 +1,14 @@
 import React from "react";
 import HeroSection from "@/components/home/HeroSection";
 import MediaMarquee from "@/components/home/MediaMarquee";
+import BooksSection from "@/components/home/BooksSection";
+import CoursesSection from "@/components/home/CoursesSection";
 import AboutSection from "@/components/home/AboutSection";
 import MarketingFramework from "@/components/home/MarketingFramework";
 import RoiCalculator from "@/components/home/RoiCalculator";
-import TrainingTracks from "@/components/home/TrainingTracks";
-import BooksSection from "@/components/home/BooksSection";
-import CoursesSection from "@/components/home/CoursesSection";
-import MediaFeatures from "@/components/home/MediaFeatures";
 import BookingWidget from "@/components/home/BookingWidget";
+import MediaFeatures from "@/components/home/MediaFeatures";
+import TrainingTracks from "@/components/home/TrainingTracks";
 import PodcastSection from "@/components/home/PodcastSection";
 import TrustBanner from "@/components/home/TrustBanner";
 
@@ -21,31 +21,31 @@ export default function HomePage() {
       {/* 2. Infinite Media Logo Marquee (العربية، بانوراما FM، TVTC، الغرفة التجارية) */}
       <MediaMarquee />
 
-      {/* 3. About Instructor & TVTC Accreditation */}
-      <AboutSection />
-
-      {/* 4. Core Marketing Framework (قواعد أحمد الشوا للنمو) */}
-      <MarketingFramework />
-
-      {/* 5. Interactive Marketing ROI Calculator (حاسبة العائد الإعلاني الذكية) */}
-      <RoiCalculator />
-
-      {/* 6. Training Capabilities & Pillars */}
-      <TrainingTracks />
-
-      {/* 7. Physical Books with 3D Tilt & Magnetic CTAs */}
+      {/* 3. Physical Books Store with 3D Tilt & Instant Delivery (Raised to the Top!) */}
       <BooksSection />
 
-      {/* 8. DRM-Protected Masterclasses */}
+      {/* 4. DRM-Protected Masterclasses & Video Courses (Directly accessible!) */}
       <CoursesSection />
 
-      {/* 9. Media Features with Waveform Audio Visualizer */}
-      <MediaFeatures />
+      {/* 5. About Instructor & TVTC Accreditation */}
+      <AboutSection />
 
-      {/* 10. VIP Consultation Booking Portal (جدة حضورياً / أونلاين) */}
+      {/* 6. Core Marketing Framework (قواعد أحمد الشوا للنمو) */}
+      <MarketingFramework />
+
+      {/* 7. Interactive Marketing ROI Calculator (حاسبة العائد الإعلاني الذكية) */}
+      <RoiCalculator />
+
+      {/* 8. VIP Consultation Booking Portal (جدة حضورياً / أونلاين عبر Zoom) */}
       <BookingWidget />
 
-      {/* 11. Free Audio Podcasts */}
+      {/* 9. Media Features & Workshop Photo Gallery */}
+      <MediaFeatures />
+
+      {/* 10. Training Capabilities & Executive Tracks */}
+      <TrainingTracks />
+
+      {/* 11. Free Audio Podcasts & Radio Broadcasts */}
       <PodcastSection />
 
       {/* 12. Social Proof & Trust Testimonials */}

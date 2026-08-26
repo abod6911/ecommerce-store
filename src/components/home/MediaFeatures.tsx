@@ -16,6 +16,7 @@ import {
 import { MEDIA_FEATURES_DATA, PODCAST_EPISODES } from "@/data/mockData";
 import { useAudio } from "@/context/AudioContext";
 import MediaMarquee from "@/components/home/MediaMarquee";
+import { getAssetPath } from "@/lib/utils";
 
 export default function MediaFeatures() {
   const { currentEpisode, isPlaying, playEpisode, togglePlay } = useAudio();
@@ -55,9 +56,11 @@ export default function MediaFeatures() {
                 {/* Media Image Box */}
                 <div className="relative aspect-video rounded-2xl overflow-hidden bg-brand-dark-950 border border-white/10">
                   <img
-                    src={item.image}
+                    src={getAssetPath(item.image)}
                     alt={item.outlet}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-dark-950 via-transparent to-transparent opacity-80" />
 

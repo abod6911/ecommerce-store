@@ -162,7 +162,7 @@ export const MEDIA_FEATURES_DATA: MediaFeatureItem[] = [
     program: "برنامج صباح العربية",
     badge: "ظهور تلفزيوني مميز",
     topic: "تحليل اتجاهات الإنفاق الإعلاني وطرق بناء حملات ممولة ناجحة",
-    image: "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=800&q=80",
+    image: "/images/ahmed-alshawa-workshop.jpg",
     summary: "استضافة المستشار أحمد الشوا للحديث عن التغيرات المتسارعة في سلوك المستهلك السعودي وأفضل الاستراتيجيات لخفض تكلفة اكتساب العميل (CAC) مع تعظيم العائد الاستثماري.",
   },
   {
@@ -171,7 +171,7 @@ export const MEDIA_FEATURES_DATA: MediaFeatureItem[] = [
     program: "برنامج هدى وهن",
     badge: "لقاء إذاعي تفاعلي",
     topic: "استشارات تسويقية وحلول استثمارية مباشرة للشركات الناشئة",
-    image: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=800&q=80",
+    image: "/images/ahmed-alshawa-coaching.jpg",
     summary: "حوار إذاعي مباشر يقدم فيه حلولاً وتوجيهات عملية لأصحاب المشاريع المنزلية والمتاجر الرقمية حول صناعة المحتوى الجذاب والتسعير الذكي.",
   },
   {
@@ -180,7 +180,7 @@ export const MEDIA_FEATURES_DATA: MediaFeatureItem[] = [
     program: "برنامج بانوراما كافيه",
     badge: "توجيه ريادي",
     topic: "سيكولوجية الإقناع والتفاوض وتحويل الفرص التسويقية إلى مبيعات",
-    image: "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?auto=format&fit=crop&w=800&q=80",
+    image: "/images/ahmed-alshawa-about.jpg",
     summary: "نقاش ملهم مع رواد الأعمال في المملكة حول فنون الإغلاق البيعي وبناء علاقات طويلة الأمد مع العملاء.",
   }
 ];
