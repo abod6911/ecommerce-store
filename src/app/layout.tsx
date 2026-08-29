@@ -8,7 +8,6 @@ import { SupabaseAuthProvider } from "@/context/SupabaseAuthContext";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CartDrawer from "@/components/common/CartDrawer";
-import WhatsAppButton from "@/components/common/WhatsAppButton";
 import GlobalAudioPlayer from "@/components/audio/GlobalAudioPlayer";
 import EmailOtpAuthModal from "@/components/auth/EmailOtpAuthModal";
 import AbandonedCartModal from "@/components/marketing/AbandonedCartModal";
@@ -71,7 +70,6 @@ export default function RootLayout({
                 <main className="flex-grow">{children}</main>
                 <Footer />
                 <CartDrawer />
-                <WhatsAppButton />
                 <GlobalAudioPlayer />
                 <EmailOtpAuthModal />
                 <AbandonedCartModal />
