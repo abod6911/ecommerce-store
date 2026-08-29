@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Alexandria, Cairo, IBM_Plex_Sans_Arabic } from "next/font/google";
+import { Alexandria, IBM_Plex_Sans_Arabic } from "next/font/google";
+import dynamic from "next/dynamic";
 import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
 import { AudioProvider } from "@/context/AudioContext";
@@ -7,31 +8,28 @@ import { UserAuthProvider } from "@/context/UserAuthContext";
 import { SupabaseAuthProvider } from "@/context/SupabaseAuthContext";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import CartDrawer from "@/components/common/CartDrawer";
-import GlobalAudioPlayer from "@/components/audio/GlobalAudioPlayer";
-import EmailOtpAuthModal from "@/components/auth/EmailOtpAuthModal";
-import AbandonedCartModal from "@/components/marketing/AbandonedCartModal";
 import MobileActionBar from "@/components/layout/MobileActionBar";
+
+// Dynamically load client-only modals & audio player to eliminate main thread blocking on mobile
+const CartDrawer = dynamic(() => import("@/components/common/CartDrawer"), { ssr: false });
+const GlobalAudioPlayer = dynamic(() => import("@/components/audio/GlobalAudioPlayer"), { ssr: false });
+const EmailOtpAuthModal = dynamic(() => import("@/components/auth/EmailOtpAuthModal"), { ssr: false });
+const AbandonedCartModal = dynamic(() => import("@/components/marketing/AbandonedCartModal"), { ssr: false });
 
 const ibmFont = IBM_Plex_Sans_Arabic({
   subsets: ["arabic"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "600", "700"],
   variable: "--font-ibm",
   display: "swap",
+  preload: true,
 });
 
 const alexandriaFont = Alexandria({
   subsets: ["arabic"],
-  weight: ["400", "500", "600", "700", "800", "900"],
+  weight: ["400", "700", "800"],
   variable: "--font-alexandria",
   display: "swap",
-});
-
-const cairoFont = Cairo({
-  subsets: ["arabic"],
-  weight: ["400", "600", "700", "800"],
-  variable: "--font-cairo",
-  display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -56,9 +54,11 @@ export default function RootLayout({
     <html
       lang="ar"
       dir="rtl"
-      className={`dark scroll-smooth ${ibmFont.variable} ${alexandriaFont.variable} ${cairoFont.variable}`}
+      className={`dark scroll-smooth ${ibmFont.variable} ${alexandriaFont.variable}`}
     >
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
       </head>
       <body className="bg-brand-dark-900 text-slate-100 antialiased min-h-screen flex flex-col font-ibm selection:bg-brand-amber-400 selection:text-slate-950">
@@ -67,7 +67,7 @@ export default function RootLayout({
             <CartProvider>
               <AudioProvider>
                 <Header />
-                <main className="flex-grow">{children}</main>
+                <main className="flex-grow pt-16 sm:pt-20 pb-16 lg:pb-0">{children}</main>
                 <Footer />
                 <CartDrawer />
                 <GlobalAudioPlayer />

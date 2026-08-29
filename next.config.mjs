@@ -6,8 +6,13 @@ const isGithubPages = isProd && !isVercel;
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  poweredByHeader: false,
+  compress: true,
+  experimental: {
+    optimizePackageImports: ['lucide-react', 'framer-motion'],
+  },
   compiler: {
-    removeConsole: isProd ? { exclude: ['error'] } : false,
+    removeConsole: isProd ? { exclude: ['error', 'warn'] } : false,
   },
   ...(isGithubPages
     ? {

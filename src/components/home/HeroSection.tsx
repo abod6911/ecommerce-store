@@ -24,7 +24,7 @@ import { getAssetPath } from "@/lib/utils";
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-[90vh] pt-32 pb-20 overflow-hidden bg-brand-dark-900 font-ibm" dir="rtl">
+    <section className="relative pt-6 sm:pt-10 pb-12 sm:pb-16 overflow-hidden bg-brand-dark-900 font-ibm" dir="rtl">
       {/* Ambient background glows */}
       <div className="absolute top-1/4 right-1/2 translate-x-1/2 w-[700px] h-[700px] bg-brand-emerald-900/15 rounded-full blur-[160px] pointer-events-none -z-0" />
       <div className="absolute -top-20 left-10 w-96 h-96 bg-brand-amber-500/10 rounded-full blur-[140px] pointer-events-none -z-0" />
