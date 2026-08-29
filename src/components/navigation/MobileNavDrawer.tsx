@@ -13,7 +13,9 @@ import {
   ChevronLeft,
   LayoutDashboard,
   ExternalLink,
-  MessageCircle
+  MessageCircle,
+  User,
+  LogOut
 } from "lucide-react";
 import { MOBILE_NAV_ITEMS, MobileNavItem } from "./NavItems";
 import {
@@ -33,17 +35,20 @@ interface MobileNavDrawerProps {
 
 export default function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProps) {
   const pathname = usePathname();
-  const { profile, isAdmin, openAuthModal, signOut } = useSupabaseAuth();
+  const { profile, isAdmin, isSuperAdmin, openAuthModal, signOut } = useSupabaseAuth();
 
   // Lock body scroll when drawer is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      document.body.style.touchAction = "none";
     } else {
       document.body.style.overflow = "unset";
+      document.body.style.touchAction = "auto";
     }
     return () => {
       document.body.style.overflow = "unset";
+      document.body.style.touchAction = "auto";
     };
   }, [isOpen]);
 
@@ -56,7 +61,7 @@ export default function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProp
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden font-ibm text-right" dir="rtl">
+        <div className="fixed inset-0 z-[100] lg:hidden font-ibm text-right select-none" dir="rtl">
           {/* 1. Frosted Glass Backdrop */}
           <motion.div
             variants={backdropVariants}
@@ -64,7 +69,7 @@ export default function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProp
             animate="visible"
             exit="exit"
             onClick={onClose}
-            className="absolute inset-0 bg-slate-950/85 backdrop-blur-2xl"
+            className="absolute inset-0 bg-slate-950/85 backdrop-blur-xl"
           />
 
           {/* 2. Drawer Surface (Right-to-Left Slide-in with Touch Swipe-to-Dismiss) */}
@@ -75,28 +80,28 @@ export default function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProp
             exit="exit"
             drag="x"
             dragConstraints={{ left: 0, right: 300 }}
-            dragElastic={{ left: 0, right: 0.5 }}
+            dragElastic={{ left: 0, right: 0.4 }}
             onDragEnd={(_, info) => {
-              if (info.offset.x > 80 || info.velocity.x > 300) {
+              if (info.offset.x > 70 || info.velocity.x > 250) {
                 onClose();
               }
             }}
-            className="absolute top-0 right-0 bottom-0 w-[88vw] max-w-[360px] bg-gradient-to-b from-brand-dark-950 via-brand-dark-900 to-brand-dark-950 border-l border-brand-emerald-500/30 shadow-[-15px_0_40px_rgba(0,0,0,0.85)] flex flex-col justify-between overflow-hidden"
+            className="absolute top-0 right-0 bottom-0 w-[86vw] max-w-[340px] h-[100dvh] bg-gradient-to-b from-brand-dark-950 via-brand-dark-900 to-brand-dark-950 border-l border-brand-emerald-500/30 shadow-[-20px_0_50px_rgba(0,0,0,0.9)] flex flex-col justify-between overflow-hidden"
           >
             {/* Ambient Corner Glows */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-brand-emerald-500/15 rounded-full blur-3xl pointer-events-none -z-0" />
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-amber-500/10 rounded-full blur-3xl pointer-events-none -z-0" />
+            <div className="absolute top-0 right-0 w-48 h-48 bg-brand-emerald-500/15 rounded-full blur-3xl pointer-events-none -z-0" />
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-brand-amber-500/10 rounded-full blur-3xl pointer-events-none -z-0" />
 
             {/* Scrollable Container */}
-            <div className="flex-1 overflow-y-auto px-5 pt-6 pb-4 space-y-6 relative z-10 scrollbar-none">
+            <div className="flex-1 overflow-y-auto px-4 pt-5 pb-6 space-y-5 relative z-10 overscroll-contain">
               {/* Drawer Top Bar: Brand & Close Button */}
-              <div className="flex items-center justify-between border-b border-white/10 pb-5">
+              <div className="flex items-center justify-between border-b border-white/10 pb-4">
                 <Link
                   href="/"
                   onClick={onClose}
-                  className="flex items-center gap-3 group"
+                  className="flex items-center gap-2.5 group"
                 >
-                  <div className="w-11 h-11 rounded-2xl overflow-hidden bg-black border-2 border-brand-amber-400/60 p-0.5 shadow-gold-glow flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl overflow-hidden bg-black border-2 border-brand-amber-400/60 p-0.5 shadow-gold-glow flex items-center justify-center shrink-0">
                     <img
                       src={getAssetPath("/images/logo.jpg")}
                       alt="أحمد الشوا"
@@ -105,12 +110,12 @@ export default function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProp
                   </div>
                   <div>
                     <div className="flex items-center gap-1.5">
-                      <h2 className="font-alexandria font-bold text-base text-white">
+                      <h2 className="font-alexandria font-bold text-sm text-white">
                         أحمد الشوا
                       </h2>
                       <span className="w-2 h-2 rounded-full bg-brand-emerald-400 animate-pulse" />
                     </div>
-                    <p className="text-[11px] text-brand-emerald-300 font-medium">
+                    <p className="text-[10px] text-brand-emerald-300 font-medium">
                       مستشار ومدرب تسويق معتمد
                     </p>
                   </div>
@@ -119,21 +124,67 @@ export default function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProp
                 <button
                   type="button"
                   onClick={onClose}
-                  className="w-9 h-9 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white flex items-center justify-center transition-colors"
+                  className="w-8 h-8 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 text-slate-300 hover:text-white flex items-center justify-center transition-colors"
                   aria-label="إغلاق القائمة"
                 >
-                  <X className="w-5 h-5" />
+                  <X className="w-4 h-4" />
                 </button>
               </div>
+
+              {/* User Account / Role Quick Card */}
+              {profile ? (
+                <div className="p-3 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between">
+                  <Link
+                    href="/account"
+                    onClick={onClose}
+                    className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"
+                  >
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-r from-brand-amber-400 to-brand-amber-500 text-slate-950 font-black text-xs flex items-center justify-center shadow-gold-glow">
+                      {profile.fullName.slice(0, 1)}
+                    </div>
+                    <div className="text-right">
+                      <p className="text-xs font-bold text-white truncate max-w-[130px]">
+                        {profile.fullName}
+                      </p>
+                      <p className="text-[10px] text-brand-emerald-400">
+                        {isSuperAdmin ? "Super Admin" : isAdmin ? "مسؤول النظام" : "مشترك معتمد"}
+                      </p>
+                    </div>
+                  </Link>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      signOut();
+                      onClose();
+                    }}
+                    className="px-2.5 py-1 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 text-[10px] font-bold border border-red-500/30 transition-colors"
+                  >
+                    خروج
+                  </button>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => {
+                    onClose();
+                    openAuthModal("login");
+                  }}
+                  className="w-full py-2.5 px-3.5 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/15 text-white font-alexandria font-bold text-xs flex items-center justify-center gap-2 transition-all active:scale-95 shadow-sm"
+                >
+                  <User className="w-3.5 h-3.5 text-brand-amber-400" />
+                  <span>تسجيل الدخول / إنشاء حساب</span>
+                </button>
+              )}
 
               {/* Admin Link if Logged in */}
               {isAdmin && (
                 <Link
                   href="/admin"
                   onClick={onClose}
-                  className="flex items-center justify-between p-3.5 rounded-2xl bg-gradient-to-r from-brand-amber-500/20 to-brand-amber-600/20 border border-brand-amber-400 text-brand-amber-300 shadow-gold-glow animate-pulse"
+                  className="flex items-center justify-between p-3 rounded-2xl bg-gradient-to-r from-brand-amber-500/20 to-brand-amber-600/20 border border-brand-amber-400 text-brand-amber-300 shadow-gold-glow"
                 >
-                  <div className="flex items-center gap-2.5">
+                  <div className="flex items-center gap-2">
                     <LayoutDashboard className="w-4 h-4 text-brand-amber-400" />
                     <span className="font-alexandria font-bold text-xs">
                       لوحة الإدارة والعمليات المركزية
@@ -144,9 +195,9 @@ export default function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProp
               )}
 
               {/* Staggered Navigation Items */}
-              <nav className="space-y-1.5">
+              <nav className="space-y-1">
                 <span className="text-[10px] font-bold text-slate-400 uppercase px-2 block pb-1">
-                  أقسام المنصة الرئيسية
+                  أقسام المنصة
                 </span>
 
                 {MOBILE_NAV_ITEMS.map((item) => {
@@ -158,22 +209,22 @@ export default function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProp
                       <Link
                         href={item.href}
                         onClick={onClose}
-                        className={`relative flex items-center justify-between p-3 rounded-2xl transition-all duration-200 group ${
+                        className={`relative flex items-center justify-between p-2.5 rounded-xl transition-all duration-200 group ${
                           isActive
-                            ? "bg-brand-emerald-950/80 border border-brand-amber-400/50 text-white shadow-sm"
-                            : "hover:bg-white/5 text-slate-200 border border-transparent hover:border-white/10"
+                            ? "bg-brand-emerald-950/90 border border-brand-amber-400/60 text-white shadow-sm"
+                            : "hover:bg-white/5 text-slate-200 border border-transparent"
                         }`}
                       >
                         {/* Active Gold Indicator Bar on Right */}
                         {isActive && (
                           <motion.span
                             layoutId="activeNavIndicator"
-                            className="absolute right-0 top-2 bottom-2 w-1 rounded-l-full bg-gradient-to-b from-brand-amber-300 to-brand-amber-500 shadow-gold-glow"
+                            className="absolute right-0 top-1.5 bottom-1.5 w-1 rounded-l-full bg-gradient-to-b from-brand-amber-300 to-brand-amber-500 shadow-gold-glow"
                           />
                         )}
 
-                        <div className="flex items-center gap-3">
-                          <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
+                        <div className="flex items-center gap-2.5">
+                          <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
                             isActive
                               ? "bg-brand-amber-400 text-slate-950 shadow-gold-glow font-bold"
                               : "bg-white/5 text-brand-emerald-400 group-hover:bg-white/10 group-hover:text-brand-amber-300"
@@ -196,7 +247,7 @@ export default function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProp
                         {/* Badges / Arrow */}
                         <div className="flex items-center gap-1.5 shrink-0">
                           {item.badge && (
-                            <span className={`px-2 py-0.5 rounded-full text-[9px] font-black ${
+                            <span className={`px-1.5 py-0.5 rounded-full text-[9px] font-black ${
                               item.badgeColor === "gold"
                                 ? "bg-brand-amber-400 text-slate-950 shadow-sm"
                                 : item.badgeColor === "emerald"
@@ -213,61 +264,18 @@ export default function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProp
                   );
                 })}
               </nav>
-
-              {/* User Account / Auth Section */}
-              <div className="pt-2 border-t border-white/10">
-                {profile ? (
-                  <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-r from-brand-amber-400 to-brand-amber-500 text-slate-950 font-black text-xs flex items-center justify-center">
-                        {profile.fullName.slice(0, 1)}
-                      </div>
-                      <div className="text-right">
-                        <p className="text-xs font-bold text-white truncate max-w-[140px]">
-                          {profile.fullName}
-                        </p>
-                        <p className="text-[10px] text-brand-emerald-400">
-                          {isAdmin ? "مدير النظام" : "مشترك معتمد"}
-                        </p>
-                      </div>
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={() => {
-                        signOut();
-                        onClose();
-                      }}
-                      className="px-2.5 py-1.5 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 text-[10px] font-bold border border-red-500/30 transition-colors"
-                    >
-                      خروج
-                    </button>
-                  </div>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      onClose();
-                      openAuthModal("login");
-                    }}
-                    className="w-full py-3 px-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/15 text-white font-alexandria font-bold text-xs flex items-center justify-center gap-2 transition-all active:scale-95"
-                  >
-                    <span>تسجيل الدخول / إنشاء حساب</span>
-                  </button>
-                )}
-              </div>
             </div>
 
             {/* 3. Drawer Sticky Footer: CTAs, WhatsApp, Socials & TVTC Badge */}
             <motion.div
               variants={footerVariants}
-              className="p-5 border-t border-white/10 bg-brand-dark-950/95 backdrop-blur-md space-y-3.5 relative z-10 shrink-0"
+              className="p-4 border-t border-white/10 bg-brand-dark-950/98 backdrop-blur-xl space-y-2.5 relative z-10 shrink-0"
             >
               {/* Primary Glowing Gold CTA */}
               <Link
                 href="/#booking"
                 onClick={onClose}
-                className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-brand-amber-400 via-brand-amber-500 to-brand-amber-600 text-slate-950 font-alexandria font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-gold-glow hover:brightness-110 active:scale-95 transition-all text-center"
+                className="w-full py-3 px-3.5 rounded-xl bg-gradient-to-r from-brand-amber-400 via-brand-amber-500 to-brand-amber-600 text-slate-950 font-alexandria font-bold text-xs flex items-center justify-center gap-2 shadow-gold-glow hover:brightness-110 active:scale-95 transition-all text-center"
               >
                 <Sparkles className="w-4 h-4 shrink-0" />
                 <span>احجز جلستك الاستشارية ⚡</span>
@@ -277,7 +285,7 @@ export default function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProp
               <button
                 type="button"
                 onClick={handleWhatsApp}
-                className="w-full py-2.5 px-3.5 rounded-2xl bg-brand-emerald-950/80 border border-brand-emerald-500/40 text-brand-emerald-300 font-bold text-xs flex items-center justify-center gap-2 active:scale-95 transition-all"
+                className="w-full py-2.5 px-3 rounded-xl bg-brand-emerald-950/80 border border-brand-emerald-500/40 text-brand-emerald-300 font-bold text-xs flex items-center justify-center gap-2 active:scale-95 transition-all"
               >
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-emerald-400 opacity-75" />
@@ -287,50 +295,10 @@ export default function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProp
                 <span>تواصل عبر الواتساب (0555583379)</span>
               </button>
 
-              {/* Social Media Channels Row */}
-              <div className="flex items-center justify-center gap-4 pt-1">
-                <a
-                  href={INSTRUCTOR_INFO.socials.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-8 h-8 rounded-xl bg-white/5 hover:bg-brand-amber-400/20 text-slate-400 hover:text-brand-amber-300 border border-white/10 flex items-center justify-center text-xs transition-colors"
-                  aria-label="Instagram"
-                >
-                  📸
-                </a>
-                <a
-                  href={INSTRUCTOR_INFO.socials.threads}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-8 h-8 rounded-xl bg-white/5 hover:bg-brand-emerald-500/20 text-slate-400 hover:text-brand-emerald-300 border border-white/10 flex items-center justify-center text-xs transition-colors"
-                  aria-label="Threads"
-                >
-                  🧵
-                </a>
-                <a
-                  href={INSTRUCTOR_INFO.socials.snapchat}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-8 h-8 rounded-xl bg-white/5 hover:bg-yellow-400/20 text-slate-400 hover:text-yellow-300 border border-white/10 flex items-center justify-center text-xs transition-colors"
-                  aria-label="Snapchat"
-                >
-                  👻
-                </a>
-                <a
-                  href={INSTRUCTOR_INFO.socials.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-8 h-8 rounded-xl bg-white/5 hover:bg-brand-emerald-500/20 text-slate-400 hover:text-brand-emerald-300 border border-white/10 flex items-center justify-center text-xs transition-colors"
-                  aria-label="WhatsApp"
-                >
-                  💬
-                </a>
-              </div>
-
-              {/* TVTC Trust Badge Pin */}
-              <div className="pt-2 border-t border-white/5 flex items-center justify-center gap-1.5 text-[10px] text-slate-400">
+              {/* TVTC Trust Badge */}
+              <div className="pt-1.5 border-t border-white/5 flex items-center justify-center gap-1.5 text-[10px] text-slate-400">
                 <ShieldCheck className="w-3.5 h-3.5 text-brand-emerald-400 shrink-0" />
-                <span>اعتماد TVTC • وثيقة العمل الحر المعتمدة</span>
+                <span>اعتماد TVTC • وثيقة العمل الحر</span>
               </div>
             </motion.div>
           </motion.aside>
