@@ -18,6 +18,7 @@ interface SupabaseAuthContextType {
   user: any | null;
   profile: UserProfile | null;
   isAdmin: boolean;
+  isSuperAdmin: boolean;
   isLoading: boolean;
   isAuthModalOpen: boolean;
   openAuthModal: (defaultMode?: "login" | "register") => void;
@@ -26,15 +27,26 @@ interface SupabaseAuthContextType {
   signUp: (fullName: string, email: string, phone: string, password?: string) => Promise<{ success: boolean; error?: string }>;
   signOut: () => Promise<void>;
   setAdminRole: (isAdmin: boolean) => void;
+  setSuperAdminRole: (isSuper: boolean) => void;
+  updateProfileLocal: (updates: Partial<UserProfile>) => void;
 }
 
 const SupabaseAuthContext = createContext<SupabaseAuthContextType | undefined>(undefined);
 
-const DEMO_ADMIN_PROFILE: UserProfile = {
+const DEMO_SUPER_ADMIN_PROFILE: UserProfile = {
   id: "usr-admin-shawa",
-  fullName: "أحمد محمد الشوا",
+  fullName: "أحمد محمد الشوا (مالك المنصة)",
   email: "admin@ahmedalshawa.com",
   phone: "0555583379",
+  role: "super_admin",
+  city: "جدة",
+};
+
+const DEMO_ADMIN_PROFILE: UserProfile = {
+  id: "usr-admin-manager-1",
+  fullName: "م. فهد السلمي",
+  email: "manager@alshawa.com",
+  phone: "0554819203",
   role: "admin",
   city: "جدة",
 };
@@ -63,6 +75,11 @@ export function SupabaseAuthProvider({ children }: { children: React.ReactNode }
         const parsed = JSON.parse(savedProfile);
         setProfile(parsed);
         setUser({ id: parsed.id, email: parsed.email });
+      } else {
+        // Default to super admin for owner access in demo mode if unset
+        setProfile(DEMO_SUPER_ADMIN_PROFILE);
+        setUser({ id: DEMO_SUPER_ADMIN_PROFILE.id, email: DEMO_SUPER_ADMIN_PROFILE.email });
+        localStorage.setItem("alshawa_auth_profile", JSON.stringify(DEMO_SUPER_ADMIN_PROFILE));
       }
 
       // Check active Supabase session
@@ -133,18 +150,22 @@ export function SupabaseAuthProvider({ children }: { children: React.ReactNode }
   const signIn = async (emailOrPhone: string, password = "password123") => {
     setIsLoading(true);
 
-    // If logging in as admin keyword or phone
-    if (emailOrPhone === "admin@ahmedalshawa.com" || emailOrPhone === "0555583379" || emailOrPhone.toLowerCase() === "admin") {
-      setProfile(DEMO_ADMIN_PROFILE);
-      setUser({ id: DEMO_ADMIN_PROFILE.id, email: DEMO_ADMIN_PROFILE.email });
-      localStorage.setItem("alshawa_auth_profile", JSON.stringify(DEMO_ADMIN_PROFILE));
+    // If logging in as owner / super-admin keyword
+    if (
+      emailOrPhone === "admin@ahmedalshawa.com" ||
+      emailOrPhone === "0555583379" ||
+      emailOrPhone.toLowerCase() === "admin" ||
+      emailOrPhone.toLowerCase() === "superadmin"
+    ) {
+      setProfile(DEMO_SUPER_ADMIN_PROFILE);
+      setUser({ id: DEMO_SUPER_ADMIN_PROFILE.id, email: DEMO_SUPER_ADMIN_PROFILE.email });
+      localStorage.setItem("alshawa_auth_profile", JSON.stringify(DEMO_SUPER_ADMIN_PROFILE));
       setIsLoading(false);
       closeAuthModal();
       return { success: true };
     }
 
     try {
-      // Attempt Supabase email login
       const cleanEmail = emailOrPhone.includes("@")
         ? emailOrPhone
         : `${emailOrPhone.replace(/[^0-9]/g, "")}@alshawa-customer.sa`;
@@ -165,7 +186,7 @@ export function SupabaseAuthProvider({ children }: { children: React.ReactNode }
       console.warn("Supabase signIn error fallback:", e);
     }
 
-    // Instant graceful fallback for users with phone or demo credentials
+    // Instant graceful fallback
     const fallbackProfile: UserProfile = {
       id: `usr-${Date.now()}`,
       fullName: emailOrPhone.split("@")[0] || "المشترك أحمد",
@@ -199,7 +220,6 @@ export function SupabaseAuthProvider({ children }: { children: React.ReactNode }
       });
 
       if (!error && data.user) {
-        // Also insert/upsert in profiles
         await (supabase.from("profiles") as any).upsert({
           id: data.user.id,
           full_name: fullName,
@@ -266,7 +286,28 @@ export function SupabaseAuthProvider({ children }: { children: React.ReactNode }
     }
   };
 
-  const isAdmin = profile?.role === "admin";
+  const setSuperAdminRole = (isSuper: boolean) => {
+    if (isSuper) {
+      setProfile(DEMO_SUPER_ADMIN_PROFILE);
+      setUser({ id: DEMO_SUPER_ADMIN_PROFILE.id, email: DEMO_SUPER_ADMIN_PROFILE.email });
+      localStorage.setItem("alshawa_auth_profile", JSON.stringify(DEMO_SUPER_ADMIN_PROFILE));
+    } else {
+      setProfile(DEMO_CUSTOMER_PROFILE);
+      setUser({ id: DEMO_CUSTOMER_PROFILE.id, email: DEMO_CUSTOMER_PROFILE.email });
+      localStorage.setItem("alshawa_auth_profile", JSON.stringify(DEMO_CUSTOMER_PROFILE));
+    }
+  };
+
+  const updateProfileLocal = (updates: Partial<UserProfile>) => {
+    if (profile) {
+      const updated = { ...profile, ...updates };
+      setProfile(updated);
+      localStorage.setItem("alshawa_auth_profile", JSON.stringify(updated));
+    }
+  };
+
+  const isSuperAdmin = profile?.role === "super_admin";
+  const isAdmin = profile?.role === "admin" || isSuperAdmin;
 
   return (
     <SupabaseAuthContext.Provider
@@ -274,6 +315,7 @@ export function SupabaseAuthProvider({ children }: { children: React.ReactNode }
         user,
         profile,
         isAdmin,
+        isSuperAdmin,
         isLoading,
         isAuthModalOpen,
         openAuthModal,
@@ -282,6 +324,8 @@ export function SupabaseAuthProvider({ children }: { children: React.ReactNode }
         signUp,
         signOut,
         setAdminRole,
+        setSuperAdminRole,
+        updateProfileLocal,
       }}
     >
       {children}

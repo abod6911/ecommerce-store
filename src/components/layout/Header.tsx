@@ -182,16 +182,25 @@ export default function Header() {
                     )}
 
                     <Link
-                      href="/dashboard"
+                      href="/account"
+                      onClick={() => setUserDropdownOpen(false)}
+                      className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs text-white font-bold bg-white/10 hover:bg-white/15 transition-colors"
+                    >
+                      <User className="w-4 h-4 text-brand-amber-400" />
+                      <span>الملف الشخصي والأمان</span>
+                    </Link>
+
+                    <Link
+                      href="/account"
                       onClick={() => setUserDropdownOpen(false)}
                       className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
                     >
                       <Layers className="w-4 h-4 text-brand-emerald-400" />
-                      <span>مكتبتي الرقمية</span>
+                      <span>دوراتي والماستر كلاس</span>
                     </Link>
 
                     <Link
-                      href="/dashboard"
+                      href="/account"
                       onClick={() => setUserDropdownOpen(false)}
                       className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
                     >
@@ -200,12 +209,12 @@ export default function Header() {
                     </Link>
 
                     <Link
-                      href="/store#tracking"
+                      href="/account"
                       onClick={() => setUserDropdownOpen(false)}
                       className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
                     >
                       <Package className="w-4 h-4 text-brand-emerald-400" />
-                      <span>طلباتي وشحناتي</span>
+                      <span>كتبي وشحناتي والفواتير</span>
                     </Link>
 
                     <button

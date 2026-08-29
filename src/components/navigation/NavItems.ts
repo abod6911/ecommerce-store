@@ -8,6 +8,7 @@ import {
   PhoneCall,
   LayoutDashboard,
   ShieldCheck,
+  User,
   LucideIcon
 } from "lucide-react";
 
@@ -29,6 +30,15 @@ export const MOBILE_NAV_ITEMS: MobileNavItem[] = [
     subLabel: "واجهة المنصة والمستشار",
     href: "/",
     icon: Home,
+  },
+  {
+    id: "account",
+    label: "حسابي ومكتبتي الرقمية",
+    subLabel: "الدورات المشفرة، الشحنات، والفواتير",
+    href: "/account",
+    icon: User,
+    badge: "جديد",
+    badgeColor: "gold",
   },
   {
     id: "books",

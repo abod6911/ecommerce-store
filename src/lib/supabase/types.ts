@@ -6,7 +6,7 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[];
 
-export type UserRole = "customer" | "admin" | "vip_client";
+export type UserRole = "customer" | "admin" | "super_admin" | "vip_client";
 export type PaymentMethod = "mada" | "apple_pay" | "credit_card" | "bank_transfer" | "cod";
 export type PaymentStatus = "paid" | "pending" | "failed" | "refunded";
 export type ShippingStatus = "processing" | "handed_to_courier" | "in_transit" | "delivered" | "cancelled";
@@ -22,7 +22,9 @@ export type StoreEventType =
   | "consultation_booked"
   | "checkout_started"
   | "checkout_abandoned"
-  | "drm_video_play";
+  | "drm_video_play"
+  | "role_delegated"
+  | "passkey_verified";
 
 export interface Database {
   public: {
@@ -227,6 +229,32 @@ export interface Database {
           metadata?: Json | null;
           ip_address?: string | null;
           user_agent?: string | null;
+          created_at?: string;
+        };
+      };
+      security_audit_logs: {
+        Row: {
+          id: string;
+          performed_by: string | null;
+          target_user: string | null;
+          action_type: string;
+          metadata: Json | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          performed_by?: string | null;
+          target_user?: string | null;
+          action_type: string;
+          metadata?: Json | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          performed_by?: string | null;
+          target_user?: string | null;
+          action_type?: string;
+          metadata?: Json | null;
           created_at?: string;
         };
       };
