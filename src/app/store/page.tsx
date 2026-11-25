@@ -2,8 +2,7 @@ import React from "react";
 import BooksSection from "@/components/home/BooksSection";
 import CoursesSection from "@/components/home/CoursesSection";
 import OrderTracking from "@/components/store/OrderTracking";
-import TrustBanner from "@/components/home/TrustBanner";
-import { BookOpen, Sparkles, Truck } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 export default function StorePage() {
   return (
@@ -29,7 +28,6 @@ export default function StorePage() {
       </div>
 
       <CoursesSection />
-      <TrustBanner />
     </div>
   );
 }

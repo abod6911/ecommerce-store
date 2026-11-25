@@ -46,21 +46,24 @@ interface SessionType {
   slots: string[];
 }
 
+const BASE_CONSULTATION_PRICE = 800;
+const EXTRA_HOUR_PRICE = 200;
+
 const SESSION_TYPES: SessionType[] = [
   {
     id: "session-inperson-vip",
     title: "جلسة حضورية خاصة في جدة",
-    typeBadge: "⭐ الأكثر طلباً - VIP",
+    typeBadge: "⭐ متاحة حضورياً في جدة",
     delivery: "IN_PERSON",
     deliveryLabel: "لقاء مباشر في المكتب (جدة)",
-    durationMin: 60,
-    durationLabel: "60 دقيقة",
-    price: 950,
-    originalPrice: 1500,
+    durationMin: 120,
+    durationLabel: "ساعتين (800 ر.س)",
+    price: 800,
+    originalPrice: 800,
     perks: [
-      "لقاء استراتيجي مباشر وجهاً لوجه بمكتب المستشار بجدة",
-      "تشخيص وتحليل ميزانياتك الإعلانية وحساباتك الإعلانية",
-      "خطة عمل وتوصيات تنفيذية مطبوعة وموقعة"
+      "مدة الجلسة الأساسية ساعتين بـ 800 ر.س",
+      "كل ساعة إضافية بعد الساعتين بـ 200 ر.س فقط",
+      "تشخيص شامل للمشروع وخطة عمل تنفيذية"
     ],
     slots: ["11:00 ص", "04:30 م", "06:00 م", "08:30 م"]
   },
@@ -70,14 +73,14 @@ const SESSION_TYPES: SessionType[] = [
     typeBadge: "متاحة لكافة مدن المملكة",
     delivery: "ONLINE_ZOOM",
     deliveryLabel: "جلسة فيديو مباشرة عبر Zoom",
-    durationMin: 45,
-    durationLabel: "45 دقيقة",
-    price: 650,
-    originalPrice: 1100,
+    durationMin: 120,
+    durationLabel: "ساعتين (800 ر.س)",
+    price: 800,
+    originalPrice: 800,
     perks: [
-      "قاعة اجتماع افتراضية خاصة ومحمية عبر Zoom",
-      "تسجيل كامل للجلسة بدقة عالية متاح لك للرجوع إليه",
-      "متابعة أسئلة واستفسارات عبر الواتساب لمدة أسبوع"
+      "مدة الجلسة الأساسية ساعتين بـ 800 ر.س",
+      "كل ساعة إضافية بعد الساعتين بـ 200 ر.س فقط",
+      "قاعة اجتماع افتراضية خاصة ومحمية عبر Zoom"
     ],
     slots: ["10:30 ص", "03:00 م", "05:15 م", "07:30 م", "09:00 م"]
   }
@@ -97,6 +100,7 @@ const INITIAL_DAYS = [
 export default function BookingWidget() {
   const { user, login, addBooking, updateBookingIntake } = useUserAuth();
   const [selectedSession, setSelectedSession] = useState<SessionType>(SESSION_TYPES[0]);
+  const [extraHours, setExtraHours] = useState<number>(0);
   const [selectedDateIdx, setSelectedDateIdx] = useState(0);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(selectedSession.slots[0]);
   const [clientName, setClientName] = useState(user?.username || "");
@@ -143,6 +147,9 @@ export default function BookingWidget() {
   };
 
   const currentActiveDay = daysList[selectedDateIdx] || INITIAL_DAYS[0];
+  const totalHours = 2 + extraHours;
+  const totalPrice = BASE_CONSULTATION_PRICE + extraHours * EXTRA_HOUR_PRICE;
+  const durationText = totalHours === 2 ? "ساعتين" : `${totalHours} ساعات`;
 
   const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -162,7 +169,7 @@ export default function BookingWidget() {
       sessionType: selectedSession.id,
       sessionDate: mappedDate,
       timeSlot: selectedTimeSlot,
-      priceSar: selectedSession.price,
+      priceSar: totalPrice,
       paymentMethod: paymentMethod,
     });
 
@@ -170,11 +177,11 @@ export default function BookingWidget() {
 
     const newBooking: BookingRecord = {
       id: res.booking?.id || bookingId,
-      sessionTitle: selectedSession.title,
+      sessionTitle: `${selectedSession.title} (${durationText})`,
       deliveryLabel: selectedSession.deliveryLabel,
       dateStr: currentActiveDay.fullDate,
       timeSlot: selectedTimeSlot,
-      price: selectedSession.price,
+      price: totalPrice,
       zoomLink: zoomLink,
       createdAt: new Date().toISOString(),
     };
@@ -290,10 +297,7 @@ export default function BookingWidget() {
                             <span className="font-alexandria font-black text-xl text-brand-amber-300">
                               {formatSAR(session.price)}
                             </span>
-                            <span className="text-xs text-slate-500 line-through">
-                              {formatSAR(session.originalPrice)}
-                            </span>
-                            <span className="text-[10px] text-slate-400 mr-auto font-medium">
+                            <span className="text-[11px] text-slate-300 mr-auto font-medium">
                               ({session.durationLabel})
                             </span>
                           </div>
@@ -393,7 +397,7 @@ export default function BookingWidget() {
                         onClick={() => setSelectedTimeSlot(slot)}
                         className={`p-3.5 rounded-2xl border text-xs font-bold text-center transition-all duration-200 flex items-center justify-center gap-2 ${
                           isSelected
-                            ? "bg-gradient-to-r from-brand-emerald-600 to-teal-600 text-white border-brand-emerald-400 shadow-emerald-glow scale-105"
+                            ? "bg-gradient-to-r from-brand-emerald-600 to-blue-600 text-white border-brand-emerald-400 shadow-emerald-glow scale-105"
                             : "bg-white/5 border-white/10 text-slate-300 hover:bg-white/10 hover:border-brand-emerald-500/40"
                         }`}
                       >
@@ -540,11 +544,51 @@ export default function BookingWidget() {
                     </div>
                   </div>
 
+                  {/* Extra Hours Selector */}
+                  <div className="space-y-2 pt-2 border-t border-white/10">
+                    <div className="flex items-center justify-between text-[11px]">
+                      <label className="font-bold text-slate-300">
+                        ساعات إضافية (كل ساعة بـ 200 ر.س):
+                      </label>
+                      <span className="text-brand-amber-300 font-bold">
+                        المدة الإجمالية: {durationText}
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-5 gap-1.5">
+                      {[0, 1, 2, 3, 4].map((hrs) => (
+                        <button
+                          key={hrs}
+                          type="button"
+                          onClick={() => setExtraHours(hrs)}
+                          className={`py-2 rounded-xl border text-xs font-bold transition-all ${
+                            extraHours === hrs
+                              ? "bg-brand-emerald-600 text-white border-brand-emerald-400 shadow-emerald-glow"
+                              : "bg-white/5 border-white/10 text-slate-300 hover:bg-white/10"
+                          }`}
+                        >
+                          {hrs === 0 ? "ساعتين" : `+${hrs} س`}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
                   {/* Pricing Breakdown & CTA */}
                   <div className="pt-3 border-t border-white/10 space-y-3">
                     <div className="flex items-center justify-between text-xs text-slate-300">
-                      <span>قيمة الجلسة الاستشارية:</span>
-                      <span className="font-alexandria font-bold text-sm text-white">{formatSAR(selectedSession.price)}</span>
+                      <span>الاستشارة الأساسية (ساعتين):</span>
+                      <span className="font-bold text-white">{formatSAR(BASE_CONSULTATION_PRICE)}</span>
+                    </div>
+
+                    {extraHours > 0 && (
+                      <div className="flex items-center justify-between text-xs text-brand-emerald-300">
+                        <span>ساعات إضافية ({extraHours} × {EXTRA_HOUR_PRICE} ر.س):</span>
+                        <span className="font-bold">{formatSAR(extraHours * EXTRA_HOUR_PRICE)}</span>
+                      </div>
+                    )}
+
+                    <div className="flex items-center justify-between text-sm font-bold text-white pt-1 border-t border-white/10">
+                      <span>الإجمالي ({durationText}):</span>
+                      <span className="font-alexandria font-black text-lg text-brand-amber-300">{formatSAR(totalPrice)}</span>
                     </div>
 
                     <div className="flex items-center justify-between text-[11px] text-brand-emerald-400 font-semibold">
@@ -610,7 +654,7 @@ export default function BookingWidget() {
               <button
                 type="button"
                 onClick={openWhatsAppConfirmation}
-                className="w-full sm:flex-1 py-4 rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-emerald-glow hover:brightness-110 active:scale-95 transition-all whitespace-nowrap"
+                className="w-full sm:flex-1 py-4 rounded-2xl bg-gradient-to-r from-brand-emerald-600 via-blue-600 to-brand-emerald-700 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-emerald-glow hover:brightness-110 active:scale-95 transition-all whitespace-nowrap"
               >
                 <Send className="w-4 h-4 shrink-0" />
                 <span>فتح المحادثة لتأكيد الموعد عبر الواتساب</span>

@@ -59,8 +59,8 @@ export default function BooksSection() {
           </p>
         </div>
 
-        {/* Books Grid - Spacious 2-Column Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
+        {/* Books Grid */}
+        <div className={BOOKS_DATA.length === 1 ? "max-w-3xl mx-auto" : "grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10"}>
           {BOOKS_DATA.map((book) => (
             <div
               key={book.id}
@@ -147,9 +147,11 @@ export default function BooksSection() {
                     <span className="font-alexandria font-black text-2xl text-brand-amber-300">
                       {formatSAR(book.price)}
                     </span>
-                    <span className="text-xs text-slate-500 line-through">
-                      {formatSAR(book.originalPrice)}
-                    </span>
+                    {book.originalPrice > book.price && (
+                      <span className="text-xs text-slate-500 line-through">
+                        {formatSAR(book.originalPrice)}
+                      </span>
+                    )}
                   </div>
                   <span className="text-[11px] text-slate-400 block whitespace-nowrap mt-0.5">
                     شامل الضريبة 15% وتغليف الإهداء

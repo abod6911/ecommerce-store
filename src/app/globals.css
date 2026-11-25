@@ -17,7 +17,7 @@ html {
   direction: rtl;
   scroll-behavior: smooth;
   color-scheme: dark;
-  background-color: #061412;
+  background-color: #050B18;
   color: #F8FAFC;
   font-family: 'IBM Plex Sans Arabic', 'Cairo', system-ui, -apple-system, sans-serif;
   letter-spacing: normal !important;
@@ -25,7 +25,7 @@ html {
 }
 
 body {
-  background-color: #061412;
+  background-color: #050B18;
   color: #F8FAFC;
   overflow-x: hidden;
   min-height: 100vh;
@@ -53,35 +53,35 @@ p, span, label, li, a {
 }
 
 ::-webkit-scrollbar-track {
-  background: #040D0B;
+  background: #030712;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #143833;
+  background: #172E5C;
   border-radius: 4px;
-  border: 1px solid rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.25);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #059669;
+  background: #2563EB;
 }
 
 /* Ultra Luxury Glassmorphic Surfaces */
 .glass-surface {
-  background: rgba(13, 38, 34, 0.65);
+  background: rgba(10, 22, 46, 0.68);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(52, 211, 153, 0.15);
+  border: 1px solid rgba(96, 165, 250, 0.18);
 }
 
 .glass-surface-hover {
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .glass-surface-hover:hover {
-  background: rgba(13, 38, 34, 0.85);
-  border-color: rgba(245, 158, 11, 0.35);
+  background: rgba(15, 32, 66, 0.88);
+  border-color: rgba(59, 130, 246, 0.45);
   transform: translateY(-4px);
-  box-shadow: 0 16px 35px -10px rgba(0, 0, 0, 0.7), 0 0 25px -5px rgba(245, 158, 11, 0.2);
+  box-shadow: 0 16px 35px -10px rgba(0, 0, 0, 0.7), 0 0 25px -5px rgba(59, 130, 246, 0.25);
 }
 
 .gold-text-gradient {
@@ -96,7 +96,7 @@ p, span, label, li, a {
 }
 
 .emerald-text-gradient {
-  background: linear-gradient(135deg, #ECFDF5 0%, #6EE7B7 40%, #10B981 80%, #059669 100%);
+  background: linear-gradient(135deg, #EFF6FF 0%, #93C5FD 40%, #3B82F6 80%, #2563EB 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;

@@ -140,7 +140,6 @@ export const INSTRUCTOR_INFO = {
   stats: [
     { label: "متدرب ومستفيد", value: "+5,000" },
     { label: "خبرة في التسويق وتطوير الذات", value: "+20 سنة" },
-    { label: "ميزانيات واستشارات مدارة", value: "+25 مليون ر.س" },
     { label: "نسبة رضا العملاء", value: "98.7%" },
   ],
   socials: {
@@ -226,56 +225,56 @@ export const MARKETING_FRAMEWORK_DATA: MarketingFrameworkItem[] = [
 
 export const TRAINING_TRACKS_DATA: TrainingTrackItem[] = [
   {
-    id: "track-marketing",
-    title: "التسويق الرقمي وبناء الحملات",
+    id: "service-social-management",
+    title: "إدارة حسابات سوشل ميديا",
+    icon: "Share2",
+    tagline: "إدارة احترافية متكاملة لحساباتك وبناء حضور رقمي مؤثر",
+    summary: "نتولى إدارة حساباتك على منصات التواصل الاجتماعي من تخطيط المحتوى والكتابة الإبداعية والنشر المنتظم إلى التفاعل مع الجمهور وتحليل الأداء لتحقيق نمو حقيقي.",
+    outcomes: [
+      "إعداد خطة محتوى شهرية متوافقة مع هوية علامتك التجارية",
+      "صياغة نصوص ومنشورات جذابة ترفع التفاعل والثقة",
+      "متابعة الأداء وتقارير دورية لقياس النتائج والنمو"
+    ],
+    targetAudience: "الشركات، المتاجر، ورواد الأعمال الباحثين عن حضور رقمي احترافي"
+  },
+  {
+    id: "service-ad-campaigns",
+    title: "حملات إعلانية",
     icon: "Megaphone",
-    tagline: "إطلاق حملات ممولة باحترافية وأعلى عائد ROAS",
-    summary: "برامج تدريبية متكاملة تغطي إعلانات سناب شات، تيك توك، جوجل، وإنستغرام باستهداف دقيق يواكب سلوك المستهلك في السعودية.",
+    tagline: "إطلاق وإدارة حملات إعلانية ممولة تستهدف عملاءك بدقة",
+    summary: "تصميم وإدارة الحملات الإعلانية الممولة على سناب شات، تيك توك، إنستغرام، وجوجل بأسلوب احترافي يركز على جودة الاستهداف وتحويل المشاهدات إلى مبيعات.",
     outcomes: [
-      "هيكلة الحملات الإعلانية ومسارات التحويل (Funnels)",
-      "قراءة وتفسير لوحات تحليلات الإعلانات بدقة",
-      "إتقان استراتيجيات التسويق بالمحتوى والظهور المؤثر"
+      "استهداف دقيق للجمهور المهتم في السوق السعودي والخليجي",
+      "تحسين مستمر للإعلانات لخفض تكلفة الوصول ورفع المبيعات",
+      "تقارير واضحة لنتائج الحملة ومعدلات التحويل"
     ],
-    targetAudience: "أصحاب المتاجر الرقمية والمسوقون ورواد الأعمال"
+    targetAudience: "أصحاب المشاريع والمتاجر الإلكترونية والخدمات"
   },
   {
-    id: "track-sales",
-    title: "المبيعات وفنون الإقناع والتفاوض",
-    icon: "Handshake",
-    tagline: "تحويل المهتمين إلى مشترين دائمين وسفراء لعلامتك",
-    summary: "تدريب تطبيقي على مهارات التفاوض المتقدم، التعامل مع الاعتراضات، وفنون الإغلاق البيعي للصفقات الكبرى والمتوسطة.",
+    id: "service-author-books",
+    title: "تسويق كتب المؤلفين",
+    icon: "BookOpen",
+    tagline: "خطط تسويقية متخصصة لإيصال كتابك لأوسع شريحة من القراء",
+    summary: "خدمة مخصصة للمؤلفين والكتّاب لتسويق إصداراتهم العلمية والأدبية وبناء حملات إطلاق احترافية تعزز انتشار الكتاب ومبيعاته محلياً وإقليمياً.",
     outcomes: [
-      "تقنيات الإقناع المعتمدة على علم النفس السلوكي",
-      "بناء سيناريوهات بيعية تذلل اعتراضات الأسعار",
-      "إدارة علاقات العملاء وخدمة ما بعد البيع لزيادة التكرار"
+      "بناء هوية تسويقية جاذبة للكتاب والمؤلف",
+      "حملات ترويجية تستهدف القراء المهتمين بمجال الكتاب",
+      "استراتيجيات فعالة لرفع المبيعات والوصول لمعارض الكتب والمنصات"
     ],
-    targetAudience: "مدراء ومسؤولو المبيعات وممثلو خدمة العملاء"
+    targetAudience: "المؤلفون، الأكاديميون، والكتّاب في مختلف المجالات"
   },
   {
-    id: "track-leadership",
-    title: "تطوير الذات والقيادة المهنية",
-    icon: "Compass",
-    tagline: "صناعة العقلية القيادية والانضباط الإداري للنجاح المستمر",
-    summary: "محاضرات وورش عمل لتطوير المهارات القيادية، تنظيم الوقت، وبناء عادات النجاح والإنتاجية العالية في بيئة الأعمال.",
+    id: "service-clinics",
+    title: "تسويق العيادات",
+    icon: "Stethoscope",
+    tagline: "استقطاب المرضى وبناء السمعة الرقمية للعيادات والمراكز الطبية",
+    summary: "تسويق طبي احترافي للعيادات والمراكز الصحية يلتزم بالضوابط المهنية ويركز على إبراز خدمات العيادة والأطباء لزيادة الحجوزات والمراجعين.",
     outcomes: [
-      "إدارة الضغوط واتخاذ القرارات الاستراتيجية الحاسمة",
-      "مهارات التحدث أمام الجمهور والعرض الاحترافي",
-      "بناء ثقافة العمل بروح الفريق وتحفيز الإنجاز"
+      "إدارة المحتوى التوعوي والتعريفي لخدمات العيادة والأطباء",
+      "حملات إعلانية موجهة لزيادة حجوزات المواعيد والاستشارات",
+      "تحسين الظهور الرقمي وبناء الثقة مع المراجعين"
     ],
-    targetAudience: "المدراء التنفيذيون، قادة الفرق، والمهنيون الطموحون"
-  },
-  {
-    id: "track-startups",
-    title: "ريادة الأعمال ونمو المشاريع الناشئة",
-    icon: "Rocket",
-    tagline: "من الفكرة إلى التشغيل والربحية والتوسع المدروس",
-    summary: "خارطة طريق متكاملة لمؤسسي الشركات الناشئة لبناء نموذج العمل، دراسة الجدوى التسويقية، وتفادي الفخاخ المالية الشائعة.",
-    outcomes: [
-      "اختبار فكرة المشروع بأقل تكلفة (MVP)",
-      "إدارة السيولة وتدفقات النقد التأسيسية",
-      "استراتيجيات التوسع وجذب الاستثمارات والشراكات"
-    ],
-    targetAudience: "رواد الأعمال والمستثمرون الجدد"
+    targetAudience: "العيادات التخصصية، المراكز الطبية، والأطباء"
   }
 ];
 
@@ -285,10 +284,10 @@ export const BOOKS_DATA: BookItem[] = [
     slug: "digital-marketing-strategies",
     title: "استراتيجيات التسويق الرقمي",
     subtitle: "دليل عملي لبناء عقلية تسويقية مبدعة تواكب السوق السعودي",
-    tagline: "الكتاب التطبيقي الأكثر شمولاً لرواد الأعمال والمسوقين في المملكة 2026",
+    tagline: "الكتاب التطبيقي الشامل لرواد الأعمال والمسوقين",
     description: "كتاب تطبيقي فريد يلخص خبرة أكثر من 20 عاماً للمستشار أحمد الشوا. يشرح بأسلوب سلس ومباشر كيفية بناء منظومة تسويقية رابحة، وصياغة الرسائل المقنعة، واقتناص فرص النمو في بيئة التجارة الرقمية السعودية.",
-    price: 185,
-    originalPrice: 260,
+    price: 50,
+    originalPrice: 50,
     type: "PHYSICAL_BOOK",
     coverImage: "/images/book-marketing-strategies.jpg",
     rating: 4.98,
@@ -298,156 +297,220 @@ export const BOOKS_DATA: BookItem[] = [
     stockQuantity: 38,
     isBestseller: true,
     features: [
-      "نسخة ورقية فاخرة ومجلدة بغلاف مقوى وتوقيع شخصي من المستشار",
+      "نسخة ورقية فاخرة وتوقيع شخصي من المستشار أحمد الشوا",
       "توصيل فوري بنفس اليوم داخل جدة وشحن سريع لكافة مدن المملكة",
-      "ملحق مجاني: دليل قوالب صناعة المحتوى الإعلاني المعتمدة",
-      "خيار الدفع عند الاستلام لمندوب جدة أو الدفع الإلكتروني الآمن"
+      "خيار الدفع عند الاستلام بجدة أو الدفع الإلكتروني الآمن"
     ],
     samplePdfUrl: "/samples/marketing-strategies-sample.pdf"
-  },
-  {
-    id: "book-psychology-wealth",
-    slug: "sales-psychology-persuasion",
-    title: "سيكولوجية الإقناع وفنون المبيعات",
-    subtitle: "كيف تحول العميل المتردد إلى مشتري وفيّ لعلامتك التجارية",
-    tagline: "أسرار التأثير وبناء الصفقات الناجحة",
-    description: "يكشف الكتاب خفايا العقل البشري أثناء اتخاذ قرار الشراء، وكيف تصوغ عروضك بأسلوب يجذب الانتباه ويكسر حواجز الخوف والتردد لدى العميل.",
-    price: 155,
-    originalPrice: 220,
-    type: "PHYSICAL_BOOK",
-    coverImage: "/images/book-psychology-sales.jpg",
-    rating: 4.9,
-    reviewCount: 340,
-    pagesCount: 280,
-    isbn: "978-603-8455-36-4",
-    stockQuantity: 24,
-    isBestseller: false,
-    features: [
-      "طباعة فاخرة مع أمثلة وسيناريوهات تطبيقية من السوق الخليجي",
-      "نماذج جاهزة للرد على أشهر 20 اعتراض بيعي",
-      "شحن سريع مع أرامكس وسمسا"
-    ],
-    samplePdfUrl: "/samples/sales-psychology-sample.pdf"
   }
 ];
 
 export const COURSES_DATA: CourseItem[] = [
   {
-    id: "course-growth-marketing-masterclass",
-    slug: "growth-marketing-saudi-masterclass",
-    title: "ماستر كلاس التسويق الرقمي وهندسة النمو 2026",
-    subtitle: "البرنامج التدريبي الشامل المعتمد لبناء حملات إعلانية تحقق عائد ROAS يتجاوز 5x",
-    description: "برنامج تدريبي تطبيقي مكثف مسجل بأعلى جودة إنتاجية مع نظام حماية رقمي مشدد DRM. يغطي خطوة بخطوة إعداد مسارات البيع، إطلاق وتتبع الحملات الإعلانية في تيك توك وسناب شات وجوجل، وإدارة الميزانيات باحترافية.",
-    price: 1250,
-    originalPrice: 2400,
+    id: "course-sales-marketing-pro",
+    slug: "professional-sales-marketing-skills",
+    title: "مهارات البيع والتسويق المحترف",
+    subtitle: "إتقان فنون البيع الحديثة وبناء استراتيجيات تسويقية عملية",
+    description: "دورة تدريبية شاملة تؤهلك لفهم سيكولوجية العميل، بناء العرض المقنع، وإتقان مهارات البيع والتسويق الاحترافي لتحقيق نتائج ملموسة في المبيعات.",
+    price: 450,
+    originalPrice: 450,
     thumbnail: "/images/course-digital-marketing.jpg",
     trailerVideoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    level: "من المبتدئ إلى المحترف",
-    durationHours: 16,
-    studentsCount: 4200,
+    level: "شامل لجميع المستويات",
+    durationHours: 8,
+    studentsCount: 1450,
     rating: 4.97,
-    reviewCount: 710,
+    reviewCount: 320,
     certificate: true,
     drmProtected: true,
     isFeatured: true,
-    badge: "البرنامج الأكثر طلباً للمسوقين",
+    badge: "دورة معتمدة",
     whatYouWillLearn: [
-      "بناء خطة تسويقية شاملة متوافقة مع سلوك المستهلك السعودي",
-      "صناعة إعلانات فيديو تحقق أعلى معدلات نقر (CTR) وتحويل مباشر",
-      "إتقان استهداف الشرائح المربحة وتفادي هدر الميزانيات الإعلانية",
-      "تحليل مقاييس الأداء واستخدام أدوات التتبع المتقدمة",
-      "الحصول على شهادة معتمدة وقوالب عمل حصرية"
+      "أساسيات البيع الاحترافي وفهم احتياجات العميل",
+      "بناء الرسالة التسويقية المقنعة وصياغة العروض",
+      "معالجة اعتراضات العملاء وإتمام الصفقات بنجاح"
     ],
     modules: [
       {
-        id: "mod-1",
-        title: "الوحدة 1: الأساسيات وعقلية المسوق الاستراتيجي",
+        id: "mod-sm-1",
+        title: "الوحدة 1: أسس البيع والتسويق المحترف",
         lessons: [
           {
-            id: "les-101",
-            title: "المقدمة: خارطة طريق النمو التسويقي وأهداف البرنامج",
-            durationMinutes: 15,
+            id: "les-sm-1",
+            title: "مدخل إلى مهارات البيع والتسويق الحديث",
+            durationMinutes: 25,
             isFreePreview: true,
             videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-            description: "شرح شامل لمنهجية البرنامج وكيفية الاستفادة القصوى من الأدوات والنماذج المرفقة.",
-            resources: [
-              { title: "دليل الدورة التعريفي والخطة الزمنية", type: "PDF", size: "2.1 MB", url: "#" },
-              { title: "نموذج التشخيص التسويقي للمشروع", type: "XLSX", size: "1.2 MB", url: "#" }
-            ]
-          },
-          {
-            id: "les-102",
-            title: "تحليل السوق والمنافسين: كيف تكتشف الفرص الذهبية المهملة",
-            durationMinutes: 26,
-            isFreePreview: false,
-            videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-            description: "تحليل معمق للبيئة التسويقية واقتناص نقاط الضعف لدى المنافسين.",
-            resources: [
-              { title: "شيت مصفوفة تحليل المنافسين", type: "XLSX", size: "3.1 MB", url: "#" }
-            ]
-          }
-        ]
-      },
-      {
-        id: "mod-2",
-        title: "الوحدة 2: صناعة العروض التي لا تقاوم وإطلاق الحملات",
-        lessons: [
-          {
-            id: "les-201",
-            title: "معادلة العرض المغري (Offer Architecture) لرفع التحويل",
-            durationMinutes: 32,
-            isFreePreview: false,
-            videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-            description: "كيف تبني عرضاً يجعل الشراء قراراً بديهياً لدى العميل.",
-            resources: [
-              { title: "قوالب صياغة العروض الخاطفة", type: "PDF", size: "1.7 MB", url: "#" }
-            ]
+            description: "التعرف على العلاقة التكاملية بين التسويق والمبيعات.",
+            resources: []
           }
         ]
       }
     ]
   },
   {
-    id: "course-sales-mastery",
-    slug: "sales-psychology-mastery",
-    title: "ماستر كلاس سيكولوجية الإغلاق والمبيعات المتقدمة 2026",
-    subtitle: "تدريب تطبيقي على فنون الإقناع، معالجة الاعتراضات، وإغلاق الصفقات الكبرى",
-    description: "منهجية متكاملة لمدراء ومسؤولي المبيعات ورواد الأعمال لتعلم سيكولوجية المشتري السعودي، بناء نصوص بيعية قوية، وتحويل العملاء المترددين إلى صفقات رابحة.",
-    price: 950,
-    originalPrice: 1800,
-    thumbnail: "/images/course-sales-mastery.jpg",
+    id: "course-master-social-media",
+    slug: "master-social-media",
+    title: "احترف السوشل ميديا",
+    subtitle: "صناعة المحتوى وإدارة المنصات وبناء الجمهور المستهدف",
+    description: "برنامج عملي متكامل لتعلم أسرار النجاح على منصات التواصل الاجتماعي، من التخطيط وصناعة المحتوى المؤثر إلى زيادة التفاعل وتحويل المتابعين إلى عملاء.",
+    price: 400,
+    originalPrice: 400,
+    thumbnail: "/images/ahmed-alshawa-workshop.jpg",
     trailerVideoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-    level: "المستوى المتقدم",
-    durationHours: 12,
-    studentsCount: 2850,
-    rating: 4.95,
-    reviewCount: 430,
+    level: "من المبتدئ إلى المحترف",
+    durationHours: 6,
+    studentsCount: 1820,
+    rating: 4.96,
+    reviewCount: 280,
     certificate: true,
     drmProtected: true,
     isFeatured: true,
-    badge: "الأعلى تقييماً في المبيعات",
+    badge: "الأكثر طلباً",
     whatYouWillLearn: [
-      "فهم الدوافع النفسية لقرار الشراء في بيئة الأعمال السعودية",
-      "صياغة سيناريوهات تفاوض وحوار تذلل اعتراضات الأسعار",
-      "تقنيات الإغلاق البيعي الفوري (Closing Techniques)",
-      "إدارة ومتابعة العملاء المحتملين (Lead Nurturing)",
-      "نماذج وعقود بيعية جاهزة للتحميل والتعديل"
+      "فهم خوارزميات المنصات (إنستغرام، تيك توك، سناب شات)",
+      "إعداد خطة محتوى احترافية تجذب الجمهور المستهدف",
+      "تحليل الأداء ومضاعفة الوصول العضوي والممول"
     ],
     modules: [
       {
-        id: "mod-sales-1",
-        title: "الوحدة 1: سيكولوجية العميل والتأثير السلوكي",
+        id: "mod-soc-1",
+        title: "الوحدة 1: استراتيجيات السوشل ميديا",
         lessons: [
           {
-            id: "les-s1",
-            title: "المقدمة: كيف يشتري العميل ولماذا يتردد؟",
+            id: "les-soc-1",
+            title: "كيف تبني حضوراً قوياً على منصات التواصل",
+            durationMinutes: 22,
+            isFreePreview: true,
+            videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+            description: "مقدمة شاملة في إدارة وتطوير حسابات التواصل الاجتماعي.",
+            resources: []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "course-sales-service-excellence",
+    slug: "excellence-in-sales-service",
+    title: "التميز في خدمة المبيعات",
+    subtitle: "تقديم تجربة عميل استثنائية ترفع الولاء وتضاعف المبيعات",
+    description: "تركز هذه الدورة على الارتقاء بجودة خدمة المبيعات، مهارات التواصل الراقي مع العملاء، وبناء تجربة شراء احترافية تضمن عودة العميل وتوصيته للآخرين.",
+    price: 380,
+    originalPrice: 380,
+    thumbnail: "/images/course-sales-mastery.jpg",
+    trailerVideoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+    level: "للفرق ومقدمي الخدمات",
+    durationHours: 6,
+    studentsCount: 980,
+    rating: 4.95,
+    reviewCount: 190,
+    certificate: true,
+    drmProtected: true,
+    isFeatured: false,
+    badge: "تطوير مهني",
+    whatYouWillLearn: [
+      "معايير التميز في استقبال وخدمة العملاء قبل وأثناء وبعد البيع",
+      "التعامل الاحترافي مع شكاوى واستفسارات العملاء",
+      "رفع ولاء العميل وزيادة معدل تكرار الشراء"
+    ],
+    modules: [
+      {
+        id: "mod-ss-1",
+        title: "الوحدة 1: معايير التميز في خدمة المبيعات",
+        lessons: [
+          {
+            id: "les-ss-1",
+            title: "رحلة العميل وصناعة الانطباع الأول",
             durationMinutes: 20,
             isFreePreview: true,
+            videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+            description: "أسس تقديم خدمة مبيعات احترافية ومتميزة.",
+            resources: []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "course-tot",
+    slug: "training-of-trainers-tot",
+    title: "تدريب المدربين (TOT)",
+    subtitle: "إعداد وتأهيل المدرب المحترف في الإلقاء وتصميم الحقائب التدريبية",
+    description: "برنامج متخصص لإعداد المدربين وتطوير مهارات العرض والإلقاء، إدارة القاعات التدريبية، وتصميم الحقائب التدريبية وفق المعايير المعتمدة.",
+    price: 650,
+    originalPrice: 650,
+    thumbnail: "/images/ahmed-alshawa-coaching.jpg",
+    trailerVideoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    level: "متقدم / تأهيلي",
+    durationHours: 12,
+    studentsCount: 740,
+    rating: 4.99,
+    reviewCount: 215,
+    certificate: true,
+    drmProtected: true,
+    isFeatured: true,
+    badge: "معتمد TVTC",
+    whatYouWillLearn: [
+      "مهارات الإلقاء المؤثر ولغة الجسد أمام الجمهور",
+      "تصميم الحقائب التدريبية وبناء الأنشطة التفاعلية",
+      "إدارة المتدربين والتعامل مع مختلف الأنماط في القاعة"
+    ],
+    modules: [
+      {
+        id: "mod-tot-1",
+        title: "الوحدة 1: أساسيات المدرب المحترف",
+        lessons: [
+          {
+            id: "les-tot-1",
+            title: "مواصفات المدرب الناجح وكسر حاجز الرهبة",
+            durationMinutes: 28,
+            isFreePreview: true,
             videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-            description: "شرح معمق للمحفزات العاطفية والمنطقية لقرار الشراء.",
-            resources: [
-              { title: "دليل سيكولوجية المشتري", type: "PDF", size: "2.4 MB", url: "#" }
-            ]
+            description: "خطوات عملية لإتقان فنون التدريب والإلقاء.",
+            resources: []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "course-write-scientific-book",
+    slug: "how-to-write-a-scientific-book",
+    title: "كيف تؤلف كتاباً علمياً",
+    subtitle: "منهجية عملية من الفكرة والبحث حتى الطباعة والنشر والتسويق",
+    description: "دورة عملية ترشدك خطوة بخطوة في اختيار فكرة الكتاب العلمي، هيكلة الفصول، توثيق المصادر، الصياغة الواضحة، وإخراج الكتاب للنشر باحترافية.",
+    price: 350,
+    originalPrice: 350,
+    thumbnail: "/images/ahmed-alshawa-about.jpg",
+    trailerVideoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+    level: "للباحثين والمؤلفين",
+    durationHours: 5,
+    studentsCount: 620,
+    rating: 4.96,
+    reviewCount: 145,
+    certificate: true,
+    drmProtected: true,
+    isFeatured: false,
+    badge: "تأليف ونشر",
+    whatYouWillLearn: [
+      "تحديد موضوع الكتاب العلمي وبناء الفهرس والهيكل العام",
+      "منهجية البحث العلمي والتوثيق الأكاديمي الصحيح",
+      "خطوات المراجعة اللغوية والطباعة والترقيم الدولي (ISBN)"
+    ],
+    modules: [
+      {
+        id: "mod-bk-1",
+        title: "الوحدة 1: التخطيط لتأليف الكتاب العلمي",
+        lessons: [
+          {
+            id: "les-bk-1",
+            title: "من الفكرة إلى خطة الكتاب المتكاملة",
+            durationMinutes: 20,
+            isFreePreview: true,
+            videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+            description: "كيف تبدأ رحلة تأليف كتابك العلمي بخطوات واضحة.",
+            resources: []
           }
         ]
       }
@@ -483,35 +546,33 @@ export const PODCAST_EPISODES: PodcastEpisode[] = [
 export const CONSULTATION_SERVICES: ConsultationService[] = [
   {
     id: "consult-in-person-jeddah",
-    title: "جلسة استشارية حضورية خاصة في جدة (60 دقيقة)",
-    durationMin: 60,
-    price: 950,
-    originalPrice: 1500,
+    title: "جلسة استشارية حضورية خاصة في جدة (ساعتين)",
+    durationMin: 120,
+    price: 800,
+    originalPrice: 800,
     deliveryType: "IN_PERSON_JEDDAH",
     badge: "متاحة حضورياً بمقر المستشار بجدة",
-    description: "لقاء حضوري مباشر وجهاً لوجه مع المستشار أحمد الشوا لمراجعة خطتك التسويقية، تشخيص حملاتك الإعلانية، ووضع استراتيجية نمو تنفيذية فورية.",
+    description: "لقاء حضوري مباشر وجهاً لوجه مع المستشار أحمد الشوا لمدة ساعتين (800 ر.س، وكل ساعة إضافية بـ 200 ر.س) لمراجعة خطتك التسويقية، تشخيص حملاتك الإعلانية، ووضع استراتيجية نمو تنفيذية.",
     features: [
-      "مراجعة مسبقة لمتجرك وحساباتك الإعلانية قبل الجلسة",
-      "جلسة نقاش مغلقة واستراتيجية وجهاً لوجه بجدة",
-      "خطة عمل وتوصيات تنفيذية مطبوعة وموقعة",
-      "متابعة استفسارات عبر الواتساب لمدة 14 يوماً"
+      "مدة الجلسة الأساسية ساعتين مقابل 800 ر.س",
+      "إمكانية التمديد بساعات إضافية (200 ر.س لكل ساعة بعد الساعتين)",
+      "تشخيص شامل للمشروع ووضع خطة عمل وتوصيات تنفيذية"
     ],
     availableSlots: ["11:00 ص", "04:30 م", "06:00 م", "08:30 م"]
   },
   {
     id: "consult-online-remote",
-    title: "استشارة تسويقية استراتيجية عن بُعد عبر Zoom (45 دقيقة)",
-    durationMin: 45,
-    price: 650,
-    originalPrice: 1100,
+    title: "استشارة تسويقية استراتيجية عن بُعد عبر Zoom (ساعتين)",
+    durationMin: 120,
+    price: 800,
+    originalPrice: 800,
     deliveryType: "ONLINE_REMOTE",
     badge: "أونلاين لجميع مدن المملكة والخليج",
-    description: "جلسة مرئية مباشرة ومكثفة عبر Zoom تركز على حل مشكلات ضعف المبيعات، تحسين معدل التحويل، وضبط ميزانيات الإعلانات.",
+    description: "جلسة مرئية مباشرة ومكثفة عبر Zoom لمدة ساعتين (800 ر.س، وكل ساعة إضافية بـ 200 ر.س) لحل مشكلات المبيعات، تحسين التسويق، وضبط الحملات الإعلانية.",
     features: [
-      "تشخيص سريع لمتجرك أو نشاطك التجاري",
-      "تسجيل فيديو عالي الدقة للجلسة يرسل لك مباشرة",
-      "قوالب عمل ومؤشرات قياس مخصصة لمشروعك",
-      "مرونة وسرعة في تنسيق المواعيد"
+      "مدة الجلسة الأساسية ساعتين مقابل 800 ر.س",
+      "إمكانية التمديد بساعات إضافية (200 ر.س لكل ساعة بعد الساعتين)",
+      "مرونة وسرعة في تنسيق المواعيد لكافة المدن"
     ],
     availableSlots: ["01:00 م", "05:00 م", "07:30 م", "09:30 م"]
   }

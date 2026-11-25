@@ -91,13 +91,13 @@ export default function Footer() {
               <li>
                 <Link href="/#courses" className="hover:text-brand-amber-300 transition-colors flex items-center gap-2">
                   <ArrowUpLeft className="w-3.5 h-3.5 text-slate-500" />
-                  برامج الماستر كلاس المشفرة DRM
+                  الدورات التدريبية المعتمدة
                 </Link>
               </li>
               <li>
-                <Link href="/#calculator" className="hover:text-brand-amber-300 transition-colors flex items-center gap-2">
+                <Link href="/#services" className="hover:text-brand-amber-300 transition-colors flex items-center gap-2">
                   <ArrowUpLeft className="w-3.5 h-3.5 text-slate-500" />
-                  حاسبة العائد الإعلاني الذكية
+                  الخدمات التسويقية (سوشل ميديا، إعلانات، كتب، عيادات)
                 </Link>
               </li>
               <li>

@@ -58,7 +58,7 @@ export default function CoursesSection() {
         </div>
 
         {/* Courses Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {COURSES_DATA.map((course) => (
             <div
               key={course.id}
@@ -148,9 +148,11 @@ export default function CoursesSection() {
                     <span className="font-alexandria font-black text-2xl text-brand-amber-300">
                       {formatSAR(course.price)}
                     </span>
-                    <span className="text-xs text-slate-500 line-through">
-                      {formatSAR(course.originalPrice)}
-                    </span>
+                    {course.originalPrice > course.price && (
+                      <span className="text-xs text-slate-500 line-through">
+                        {formatSAR(course.originalPrice)}
+                      </span>
+                    )}
                   </div>
                   <span className="text-[11px] text-brand-emerald-400 font-semibold block whitespace-nowrap mt-0.5">
                     وصول فوري وشامل لجميع الوحدات والملفات

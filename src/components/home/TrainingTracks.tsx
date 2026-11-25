@@ -3,9 +3,9 @@
 import React, { useState } from "react";
 import {
   Megaphone,
-  Handshake,
-  Compass,
-  Rocket,
+  Share2,
+  BookOpen,
+  Stethoscope,
   CheckCircle2,
   Users,
   Award,
@@ -22,35 +22,35 @@ export default function TrainingTracks() {
 
   const getTrackIcon = (iconName: string) => {
     switch (iconName) {
+      case "Share2":
+        return <Share2 className="w-5 h-5 text-brand-emerald-400" />;
       case "Megaphone":
         return <Megaphone className="w-5 h-5 text-brand-amber-400" />;
-      case "Handshake":
-        return <Handshake className="w-5 h-5 text-brand-emerald-400" />;
-      case "Compass":
-        return <Compass className="w-5 h-5 text-brand-amber-400" />;
-      case "Rocket":
-        return <Rocket className="w-5 h-5 text-brand-emerald-400" />;
+      case "BookOpen":
+        return <BookOpen className="w-5 h-5 text-brand-emerald-400" />;
+      case "Stethoscope":
+        return <Stethoscope className="w-5 h-5 text-brand-amber-400" />;
       default:
         return <Award className="w-5 h-5 text-brand-amber-400" />;
     }
   };
 
   return (
-    <section id="tracks" className="py-24 bg-brand-dark-950 relative overflow-hidden font-ibm" dir="rtl">
+    <section id="services" className="py-24 bg-brand-dark-950 relative overflow-hidden font-ibm" dir="rtl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-emerald-500/10 border border-brand-emerald-500/30 text-brand-emerald-300 text-xs sm:text-sm font-bold">
             <Award className="w-4 h-4 text-brand-amber-400 shrink-0" />
-            <span>برامج ومسارات تدريبية وتطويرية معتمدة</span>
+            <span>الخدمات التسويقية الاحترافية</span>
           </div>
 
           <h2 className="font-alexandria font-extrabold text-2xl sm:text-3xl md:text-4xl text-white leading-[1.45] pb-1">
-            مجالات التدريب وبناء <span className="gold-text-gradient">القدرات المؤسسية والفردية</span>
+            خدمات متخصصة <span className="gold-text-gradient">لإدارة ونمو مشاريعك</span>
           </h2>
 
           <p className="text-sm sm:text-base text-slate-300 leading-[1.85] max-w-2xl mx-auto">
-            برامج تطبيقية مخصصة للشركات، المتاجر الإلكترونية، وفرق العمل تهدف لتحقيق قفزة نوعية في المبيعات، التسويق، والقيادة.
+            نقدم حلولاً تنفيذية متكاملة في إدارة حسابات التواصل الاجتماعي، الحملات الإعلانية، تسويق كتب المؤلفين، وتسويق العيادات.
           </p>
         </div>
 
@@ -138,13 +138,13 @@ export default function TrainingTracks() {
                 href="/#booking"
                 className="w-full sm:flex-1 py-3.5 rounded-xl bg-gradient-to-r from-brand-amber-400 via-brand-amber-500 to-brand-amber-600 text-slate-950 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-gold-glow hover:brightness-110 transition-all whitespace-nowrap"
               >
-                <span>طلب تدريب مخصص أو استشارة</span>
+                <span>طلب الخدمة أو حجز استشارة</span>
               </Link>
               <Link
                 href="/#courses"
                 className="w-full sm:w-auto px-5 py-3.5 rounded-xl bg-brand-emerald-950/80 hover:bg-brand-emerald-900 text-brand-emerald-300 border border-brand-emerald-500/30 text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-all whitespace-nowrap"
               >
-                <span>استعراض البرامج المتاحة فوراً</span>
+                <span>استعراض الدورات التدريبية</span>
               </Link>
             </div>
           </div>

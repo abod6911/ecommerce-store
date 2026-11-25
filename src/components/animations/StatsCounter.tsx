@@ -114,13 +114,6 @@ export default function StatsCounter() {
       decimals: 0,
     },
     {
-      label: "ميزانيات واستشارات مدارة",
-      value: 25,
-      prefix: "+",
-      suffix: "مليون ر.س",
-      decimals: 0,
-    },
-    {
       label: "نسبة رضا العملاء",
       value: 98.7,
       prefix: "",
@@ -131,7 +124,7 @@ export default function StatsCounter() {
 
   return (
     <div className="rounded-3xl bg-brand-dark-850/90 border border-brand-emerald-500/25 shadow-2xl backdrop-blur-xl p-4 sm:p-6 lg:p-7">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-0 items-center divide-y md:divide-y-0">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-0 items-center divide-y sm:divide-y-0">
         {stats.map((stat, idx) => (
           <SingleCounter
             key={idx}

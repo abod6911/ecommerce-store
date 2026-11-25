@@ -88,13 +88,13 @@ export default function Header() {
               href="/#courses"
               className="hover:text-brand-amber-300 transition-colors py-1 whitespace-nowrap border-b-2 border-transparent hover:border-brand-amber-400"
             >
-              الدورات المحمية
+              الدورات التدريبية
             </Link>
             <Link
-              href="/#calculator"
+              href="/#services"
               className="hover:text-brand-amber-300 transition-colors py-1 whitespace-nowrap border-b-2 border-transparent hover:border-brand-amber-400"
             >
-              حاسبة العائد
+              الخدمات التسويقية
             </Link>
             <Link
               href="/#booking"
