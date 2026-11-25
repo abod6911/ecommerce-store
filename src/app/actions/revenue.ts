@@ -58,12 +58,11 @@ export async function getLiveRevenueMetrics(): Promise<LiveRevenueMetrics> {
     const lifetimeOrdersSum = ((allOrders || []) as Array<{ amount_sar: number; quantity: number }>).reduce((sum, o) => sum + Number(o.amount_sar || 0), 0);
     const lifetimeBookingsSum = ((allBookings || []) as Array<{ price_sar: number }>).reduce((sum, b) => sum + Number(b.price_sar || 0), 0);
 
-    // Baseline fallback values if database is fresh / starting up
-    const currentMonthRevenue = (monthOrdersSum + monthBookingsSum) || 185500;
-    const totalLifetimeRevenue = (lifetimeOrdersSum + lifetimeBookingsSum) || 1248900;
-    const booksSoldThisMonth = booksSoldMonth || 428;
-    const upcomingConsultationsCount = upcomingCount ?? 4;
-    const totalCustomersCount = customersCount ?? 1855;
+    const currentMonthRevenue = monthOrdersSum + monthBookingsSum;
+    const totalLifetimeRevenue = lifetimeOrdersSum + lifetimeBookingsSum;
+    const booksSoldThisMonth = booksSoldMonth;
+    const upcomingConsultationsCount = upcomingCount ?? 0;
+    const totalCustomersCount = customersCount ?? 0;
 
     return {
       currentMonthRevenue,
@@ -71,18 +70,18 @@ export async function getLiveRevenueMetrics(): Promise<LiveRevenueMetrics> {
       booksSoldThisMonth,
       upcomingConsultationsCount,
       totalCustomersCount,
-      revenueGrowthPct: 24.8,
+      revenueGrowthPct: 0,
       lastUpdated: new Date().toISOString(),
     };
   } catch (error) {
     console.error("Error fetching live revenue metrics:", error);
     return {
-      currentMonthRevenue: 185500,
-      totalLifetimeRevenue: 1248900,
-      booksSoldThisMonth: 428,
-      upcomingConsultationsCount: 4,
-      totalCustomersCount: 1855,
-      revenueGrowthPct: 24.8,
+      currentMonthRevenue: 0,
+      totalLifetimeRevenue: 0,
+      booksSoldThisMonth: 0,
+      upcomingConsultationsCount: 0,
+      totalCustomersCount: 0,
+      revenueGrowthPct: 0,
       lastUpdated: new Date().toISOString(),
     };
   }

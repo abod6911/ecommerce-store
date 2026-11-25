@@ -27,7 +27,7 @@ export default function AdminCharts() {
   };
   const totalOrders = orders.length || 1;
 
-  const maxMonthlyRevenue = Math.max(...MONTHLY_REVENUE_CHART.map((m) => m.total));
+  const maxMonthlyRevenue = Math.max(...MONTHLY_REVENUE_CHART.map((m) => m.total), 1);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 font-ibm text-right" dir="rtl">
@@ -105,15 +105,15 @@ export default function AdminCharts() {
                 >
                   <div
                     className="w-full bg-brand-amber-400"
-                    style={{ height: `${(data.books / data.total) * 100}%` }}
+                    style={{ height: `${data.total > 0 ? (data.books / data.total) * 100 : 0}%` }}
                   />
                   <div
                     className="w-full bg-brand-emerald-500"
-                    style={{ height: `${(data.consultations / data.total) * 100}%` }}
+                    style={{ height: `${data.total > 0 ? (data.consultations / data.total) * 100 : 0}%` }}
                   />
                   <div
                     className="w-full bg-teal-400"
-                    style={{ height: `${(data.courses / data.total) * 100}%` }}
+                    style={{ height: `${data.total > 0 ? (data.courses / data.total) * 100 : 0}%` }}
                   />
                 </div>
 

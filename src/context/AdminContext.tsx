@@ -183,19 +183,20 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
     document.body.removeChild(link);
   };
 
-  // Aggregated KPIs
-  const totalRevenue = orders.reduce((sum, o) => sum + o.totalPrice, 0) +
-    consultations.reduce((sum, c) => sum + c.price, 0) + 124500; // includes course sales
+  // Aggregated KPIs (real data only, no dummy offsets)
+  const totalRevenue =
+    orders.reduce((sum, o) => sum + o.totalPrice, 0) +
+    consultations.reduce((sum, c) => sum + c.price, 0);
 
   const pendingDeliveryCount = orders.filter((o) => o.shippingStatus !== "DELIVERED" && o.shippingStatus !== "CANCELLED").length;
   const upcomingConsultationsCount = consultations.filter((c) => c.status === "UPCOMING").length;
 
   const metrics = {
     totalRevenue,
-    revenueGrowthPct: 24.8,
-    totalBooksSold: 420 + orders.length,
+    revenueGrowthPct: 0,
+    totalBooksSold: orders.reduce((sum, o) => sum + (o.quantity || 1), 0),
     pendingDeliveryCount,
-    totalCustomersCount: 1850 + customers.length,
+    totalCustomersCount: customers.length,
     upcomingConsultationsCount,
   };
 

@@ -62,7 +62,7 @@ export default function AdminKpiCards() {
       id: "customers",
       title: "إجمالي المشتركين والعملاء",
       value: `${metrics.totalCustomersCount.toLocaleString("en-US")} مشترك`,
-      change: "+85 مشترك جديد هذا الأسبوع",
+      change: metrics.totalCustomersCount > 0 ? "عملاء مسجلون بالمنصة" : "لا يوجد عملاء بعد",
       changePositive: true,
       icon: Users,
       color: "from-brand-amber-500 to-brand-emerald-500",
