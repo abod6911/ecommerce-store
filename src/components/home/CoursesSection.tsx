@@ -17,11 +17,14 @@ import {
   ArrowLeft,
   ChevronDown
 } from "lucide-react";
-import { COURSES_DATA, CourseItem } from "@/data/mockData";
+import { CourseItem } from "@/data/mockData";
+import { useSiteContent } from "@/context/SiteContentContext";
 import { formatSAR, getAssetPath } from "@/lib/utils";
 import { useCart } from "@/context/CartContext";
 
 export default function CoursesSection() {
+  const { content } = useSiteContent();
+  const coursesList = content.courses;
   const { addItem } = useCart();
 
   const handleEnroll = (course: CourseItem) => {
@@ -59,7 +62,7 @@ export default function CoursesSection() {
 
         {/* Courses Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {COURSES_DATA.map((course) => (
+          {coursesList.map((course) => (
             <div
               key={course.id}
               className="rounded-3xl bg-brand-dark-850/90 border border-brand-emerald-500/20 hover:border-brand-emerald-500/40 p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-emerald-glow shadow-2xl relative group backdrop-blur-md overflow-hidden"

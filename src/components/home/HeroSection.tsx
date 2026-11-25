@@ -16,13 +16,16 @@ import {
   Star,
   Quote
 } from "lucide-react";
-import { INSTRUCTOR_INFO } from "@/data/mockData";
+import { useSiteContent } from "@/context/SiteContentContext";
 import StatsCounter from "@/components/animations/StatsCounter";
 import TiltCard from "@/components/animations/TiltCard";
 import MagneticButton from "@/components/animations/MagneticButton";
 import { getAssetPath } from "@/lib/utils";
 
 export default function HeroSection() {
+  const { content } = useSiteContent();
+  const { hero } = content;
+
   return (
     <section className="relative pt-6 sm:pt-10 pb-12 sm:pb-16 overflow-hidden bg-brand-dark-900 font-ibm" dir="rtl">
       {/* Ambient background glows */}
@@ -37,22 +40,22 @@ export default function HeroSection() {
             {/* Pill Badge with TVTC Accreditation */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-dark-850 border border-brand-amber-400/40 text-brand-amber-300 text-xs sm:text-sm font-bold shadow-sm backdrop-blur-md">
               <Sparkles className="w-4 h-4 text-brand-amber-400 shrink-0" />
-              <span>{INSTRUCTOR_INFO.accreditation}</span>
+              <span>{hero.accreditation}</span>
             </div>
 
             {/* Main Headline H1 - Generous Line-Height & Zero Text Overlap */}
             <h1 className="font-alexandria font-extrabold text-2xl sm:text-3xl md:text-4xl lg:text-[38px] xl:text-[42px] text-white tracking-normal leading-[1.65] space-y-3">
               <span className="block text-white leading-[1.65]">
-                ابنِ ثروتك المستدامة
+                {hero.headlineLine1}
               </span>
               <span className="gold-text-gradient block leading-[1.65] pt-1">
-                وضاعف أرباحك في السوق السعودي
+                {hero.headlineLine2}
               </span>
             </h1>
 
             {/* Sub-headline with Balanced Spacing */}
             <p className="text-sm sm:text-base md:text-lg text-slate-300 leading-[1.85] max-w-xl">
-              حلول واستشارات تسويقية مخصصة لتمكين رواد الأعمال وأصحاب المشاريع، بخبرة عملية تتجاوز 20 عاماً في السوق السعودي.
+              {hero.subheadline}
             </p>
 
             {/* Key Trust Tags Strip */}
@@ -113,7 +116,7 @@ export default function HeroSection() {
                     <div className="flex items-center gap-2">
                       <Quote className="w-4 h-4 text-brand-amber-400 shrink-0" />
                       <span className="text-xs font-bold text-brand-amber-300 leading-relaxed">
-                        "{INSTRUCTOR_INFO.slogan}"
+                        &quot;{hero.slogan}&quot;
                       </span>
                     </div>
                     <p className="text-[11px] text-slate-300 font-medium">

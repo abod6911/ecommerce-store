@@ -25,6 +25,7 @@ import {
   ChevronRight
 } from "lucide-react";
 import { INSTRUCTOR_INFO } from "@/data/mockData";
+import { useSiteContent } from "@/context/SiteContentContext";
 import { formatSAR } from "@/lib/utils";
 import MagneticButton from "@/components/animations/MagneticButton";
 import CalendarSync from "@/components/booking/CalendarSync";
@@ -98,6 +99,10 @@ const INITIAL_DAYS = [
 ];
 
 export default function BookingWidget() {
+  const { content } = useSiteContent();
+  const basePrice = content.consultationPricing.basePrice || BASE_CONSULTATION_PRICE;
+  const extraHourPrice = content.consultationPricing.extraHourPrice || EXTRA_HOUR_PRICE;
+  const durationText = content.consultationPricing.baseDurationLabel || "ساعتين";
   const { user, login, addBooking, updateBookingIntake } = useUserAuth();
   const [selectedSession, setSelectedSession] = useState<SessionType>(SESSION_TYPES[0]);
   const [selectedDateIdx, setSelectedDateIdx] = useState(0);
@@ -145,8 +150,7 @@ export default function BookingWidget() {
   };
 
   const currentActiveDay = daysList[selectedDateIdx] || INITIAL_DAYS[0];
-  const totalPrice = BASE_CONSULTATION_PRICE;
-  const durationText = "ساعتين";
+  const totalPrice = basePrice;
 
   const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -505,13 +509,13 @@ export default function BookingWidget() {
                   {/* Pricing Breakdown & CTA */}
                   <div className="pt-3 border-t border-white/10 space-y-3">
                     <div className="flex items-center justify-between text-xs text-slate-300">
-                      <span>الاستشارة الأساسية (ساعتين):</span>
-                      <span className="font-bold text-white">{formatSAR(BASE_CONSULTATION_PRICE)}</span>
+                      <span>الاستشارة الأساسية ({durationText}):</span>
+                      <span className="font-bold text-white">{formatSAR(basePrice)}</span>
                     </div>
 
                     <div className="flex items-center justify-between text-xs text-brand-emerald-300">
                       <span>ملاحظة:</span>
-                      <span>كل ساعة إضافية بعد الساعتين بـ {EXTRA_HOUR_PRICE} ر.س</span>
+                      <span>كل ساعة إضافية بعد الساعتين بـ {extraHourPrice} ر.س</span>
                     </div>
 
                     <div className="flex items-center justify-between text-sm font-bold text-white pt-1 border-t border-white/10">

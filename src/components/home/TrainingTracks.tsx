@@ -12,13 +12,17 @@ import {
   ArrowUpLeft,
   Sparkles
 } from "lucide-react";
-import { TRAINING_TRACKS_DATA } from "@/data/mockData";
+import { useSiteContent } from "@/context/SiteContentContext";
 import Link from "next/link";
 
 export default function TrainingTracks() {
-  const [activeTrackId, setActiveTrackId] = useState(TRAINING_TRACKS_DATA[0].id);
+  const { content } = useSiteContent();
+  const servicesList = content.services;
+  const [activeTrackId, setActiveTrackId] = useState(servicesList[0]?.id || "");
 
-  const currentTrack = TRAINING_TRACKS_DATA.find((t) => t.id === activeTrackId) || TRAINING_TRACKS_DATA[0];
+  const currentTrack = servicesList.find((t) => t.id === activeTrackId) || servicesList[0];
+
+  if (!currentTrack) return null;
 
   const getTrackIcon = (iconName: string) => {
     switch (iconName) {
@@ -58,7 +62,7 @@ export default function TrainingTracks() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Tabs Selector List (5 Cols) */}
           <div className="lg:col-span-5 space-y-3.5">
-            {TRAINING_TRACKS_DATA.map((track) => {
+            {servicesList.map((track) => {
               const isSelected = track.id === activeTrackId;
               return (
                 <button

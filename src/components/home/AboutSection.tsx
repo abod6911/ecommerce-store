@@ -14,9 +14,13 @@ import {
   MapPin
 } from "lucide-react";
 import { INSTRUCTOR_INFO } from "@/data/mockData";
+import { useSiteContent } from "@/context/SiteContentContext";
 import { getAssetPath } from "@/lib/utils";
 
 export default function AboutSection() {
+  const { content } = useSiteContent();
+  const { hero } = content;
+
   return (
     <section id="about" className="py-24 bg-brand-dark-900 border-t border-white/10 relative overflow-hidden font-ibm" dir="rtl">
       {/* Glow */}
@@ -44,7 +48,7 @@ export default function AboutSection() {
                     <span>اعتماد رسمي معترف به</span>
                   </div>
                   <p className="text-[11px] text-white font-semibold leading-relaxed">
-                    {INSTRUCTOR_INFO.accreditation}
+                    {hero.accreditation}
                   </p>
                 </div>
               </div>
@@ -64,11 +68,11 @@ export default function AboutSection() {
               </h2>
 
               <p className="text-base text-brand-amber-300 font-bold italic leading-relaxed py-1">
-                "{INSTRUCTOR_INFO.slogan}"
+                &quot;{hero.slogan}&quot;
               </p>
 
               <p className="text-xs sm:text-sm text-slate-300 leading-[1.9]">
-                مستشار ومدرب تسويق رقمي معتمد من المؤسسة العامة للتدريب التقني والمهني (TVTC)، متخصص في بناء المنظومات التسويقية عالية الربحية، وتدريب قادة الفرق والمبيعات، ومساعدة أصحاب المتاجر والمشاريع الناشئة في المملكة على مضاعفة عوائدهم الإعلانية والوصول للاستدامة المالية.
+                {hero.aboutBio}
               </p>
             </div>
 

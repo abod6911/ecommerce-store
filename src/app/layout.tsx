@@ -6,6 +6,7 @@ import { CartProvider } from "@/context/CartContext";
 import { AudioProvider } from "@/context/AudioContext";
 import { UserAuthProvider } from "@/context/UserAuthContext";
 import { SupabaseAuthProvider } from "@/context/SupabaseAuthContext";
+import { SiteContentProvider } from "@/context/SiteContentContext";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import MobileActionBar from "@/components/layout/MobileActionBar";
@@ -63,20 +64,22 @@ export default function RootLayout({
       </head>
       <body className="bg-brand-dark-900 text-slate-100 antialiased min-h-screen flex flex-col font-ibm selection:bg-brand-amber-400 selection:text-slate-950">
         <SupabaseAuthProvider>
-          <UserAuthProvider>
-            <CartProvider>
-              <AudioProvider>
-                <Header />
-                <main className="flex-grow pt-16 sm:pt-20 pb-16 lg:pb-0">{children}</main>
-                <Footer />
-                <CartDrawer />
-                <GlobalAudioPlayer />
-                <EmailOtpAuthModal />
-                <AbandonedCartModal />
-                <MobileActionBar />
-              </AudioProvider>
-            </CartProvider>
-          </UserAuthProvider>
+          <SiteContentProvider>
+            <UserAuthProvider>
+              <CartProvider>
+                <AudioProvider>
+                  <Header />
+                  <main className="flex-grow pt-16 sm:pt-20 pb-16 lg:pb-0">{children}</main>
+                  <Footer />
+                  <CartDrawer />
+                  <GlobalAudioPlayer />
+                  <EmailOtpAuthModal />
+                  <AbandonedCartModal />
+                  <MobileActionBar />
+                </AudioProvider>
+              </CartProvider>
+            </UserAuthProvider>
+          </SiteContentProvider>
         </SupabaseAuthProvider>
       </body>
     </html>

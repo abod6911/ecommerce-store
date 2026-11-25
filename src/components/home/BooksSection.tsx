@@ -14,7 +14,8 @@ import {
   ShieldCheck,
   ArrowLeft
 } from "lucide-react";
-import { BOOKS_DATA, BookItem } from "@/data/mockData";
+import { BookItem } from "@/data/mockData";
+import { useSiteContent } from "@/context/SiteContentContext";
 import { useCart } from "@/context/CartContext";
 import { formatSAR } from "@/lib/utils";
 import TiltCard from "@/components/animations/TiltCard";
@@ -22,6 +23,8 @@ import MagneticButton from "@/components/animations/MagneticButton";
 import { getAssetPath } from "@/lib/utils";
 
 export default function BooksSection() {
+  const { content } = useSiteContent();
+  const booksList = content.books;
   const { addItem, setIsCartOpen } = useCart();
   const [selectedBookForPreview, setSelectedBookForPreview] = useState<BookItem | null>(null);
 
@@ -60,8 +63,8 @@ export default function BooksSection() {
         </div>
 
         {/* Books Grid */}
-        <div className={BOOKS_DATA.length === 1 ? "max-w-3xl mx-auto" : "grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10"}>
-          {BOOKS_DATA.map((book) => (
+        <div className={booksList.length === 1 ? "max-w-3xl mx-auto" : "grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10"}>
+          {booksList.map((book) => (
             <div
               key={book.id}
               className="rounded-3xl bg-brand-dark-850/90 border border-brand-emerald-500/20 hover:border-brand-amber-400/40 p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 shadow-2xl backdrop-blur-xl group text-right"

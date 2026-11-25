@@ -19,6 +19,10 @@ const MediaFeatures = dynamic(() => import("@/components/home/MediaFeatures"), {
   loading: () => <div className="min-h-[300px] bg-brand-dark-900 animate-pulse" />,
 });
 
+const CustomBlocksSection = dynamic(() => import("@/components/home/CustomBlocksSection"), {
+  ssr: false,
+});
+
 export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen bg-brand-dark-900 text-slate-100 overflow-x-hidden font-ibm">
@@ -45,6 +49,9 @@ export default function HomePage() {
 
       {/* 8. Media Features */}
       <MediaFeatures />
+
+      {/* 9. Coordinator Custom Added Blocks */}
+      <CustomBlocksSection />
     </div>
   );
 }

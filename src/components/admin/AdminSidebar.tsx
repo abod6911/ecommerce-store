@@ -53,6 +53,13 @@ export default function AdminSidebar() {
       icon: Users,
       badge: null,
     },
+    {
+      id: "content",
+      label: "إدارة وتعديل الموقع (CMS)",
+      href: "/admin/content",
+      icon: Settings,
+      badge: "كامل",
+    },
   ];
 
   return (
