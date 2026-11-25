@@ -394,7 +394,7 @@ export default function BookingWidget() {
                         onClick={() => setSelectedTimeSlot(slot)}
                         className={`p-3.5 rounded-2xl border text-xs font-bold text-center transition-all duration-200 flex items-center justify-center gap-2 ${
                           isSelected
-                            ? "bg-gradient-to-r from-brand-emerald-600 to-blue-600 text-white border-brand-emerald-400 shadow-emerald-glow scale-105"
+                            ? "bg-gradient-to-r from-brand-emerald-600 to-teal-600 text-white border-brand-emerald-400 shadow-emerald-glow scale-105"
                             : "bg-white/5 border-white/10 text-slate-300 hover:bg-white/10 hover:border-brand-emerald-500/40"
                         }`}
                       >
@@ -582,7 +582,7 @@ export default function BookingWidget() {
               <button
                 type="button"
                 onClick={openWhatsAppConfirmation}
-                className="w-full sm:flex-1 py-4 rounded-2xl bg-gradient-to-r from-brand-emerald-600 via-blue-600 to-brand-emerald-700 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-emerald-glow hover:brightness-110 active:scale-95 transition-all whitespace-nowrap"
+                className="w-full sm:flex-1 py-4 rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-emerald-glow hover:brightness-110 active:scale-95 transition-all whitespace-nowrap"
               >
                 <Send className="w-4 h-4 shrink-0" />
                 <span>فتح المحادثة لتأكيد الموعد عبر الواتساب</span>
