@@ -62,7 +62,7 @@ export default function CoursesSection() {
           {COURSES_DATA.map((course) => (
             <div
               key={course.id}
-              className="rounded-3xl bg-brand-dark-850/90 border border-brand-emerald-500/20 hover:border-brand-emerald-500/40 p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-emerald-glow shadow-2xl relative group backdrop-blur-md"
+              className="rounded-3xl bg-brand-dark-850/90 border border-brand-emerald-500/20 hover:border-brand-emerald-500/40 p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-emerald-glow shadow-2xl relative group backdrop-blur-md overflow-hidden"
             >
               <div className="space-y-6">
                 {/* Course Thumbnail with Video Badge */}
@@ -142,9 +142,9 @@ export default function CoursesSection() {
               </div>
 
               {/* Pricing & CTA */}
-              <div className="pt-6 mt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div className="text-right w-full sm:w-auto">
-                  <div className="flex items-baseline gap-2.5">
+              <div className="pt-5 mt-5 border-t border-white/10 flex flex-col gap-4">
+                <div className="text-right w-full flex items-center justify-between gap-2 flex-wrap">
+                  <div className="flex items-baseline gap-2">
                     <span className="font-alexandria font-black text-2xl text-brand-amber-300">
                       {formatSAR(course.price)}
                     </span>
@@ -154,15 +154,15 @@ export default function CoursesSection() {
                       </span>
                     )}
                   </div>
-                  <span className="text-[11px] text-brand-emerald-400 font-semibold block whitespace-nowrap mt-0.5">
-                    وصول فوري وشامل لجميع الوحدات والملفات
+                  <span className="text-[11px] text-brand-emerald-400 font-semibold">
+                    وصول فوري وشامل
                   </span>
                 </div>
 
-                <div className="flex items-center gap-2.5 w-full sm:w-auto justify-end">
+                <div className="grid grid-cols-2 gap-2.5 w-full">
                   <Link
                     href={`/courses/${course.id}`}
-                    className="px-4 py-3 rounded-xl bg-brand-emerald-950/80 hover:bg-brand-emerald-900 text-brand-emerald-300 font-semibold text-xs border border-brand-emerald-500/30 transition-all text-center whitespace-nowrap shrink-0"
+                    className="px-3 py-2.5 rounded-xl bg-brand-emerald-950/80 hover:bg-brand-emerald-900 text-brand-emerald-300 font-semibold text-xs border border-brand-emerald-500/30 transition-all text-center flex items-center justify-center whitespace-nowrap"
                   >
                     تفاصيل المنهاج
                   </Link>
@@ -170,10 +170,10 @@ export default function CoursesSection() {
                   <button
                     type="button"
                     onClick={() => handleEnroll(course)}
-                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-brand-amber-400 to-brand-amber-500 text-slate-950 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-gold-glow hover:brightness-110 active:scale-95 transition-all whitespace-nowrap shrink-0"
+                    className="px-3 py-2.5 rounded-xl bg-gradient-to-r from-brand-amber-400 to-brand-amber-500 text-slate-950 font-bold text-xs flex items-center justify-center gap-1.5 shadow-gold-glow hover:brightness-110 active:scale-95 transition-all whitespace-nowrap"
                   >
                     <span>الاشتراك الفوري</span>
-                    <ArrowLeft className="w-4 h-4" />
+                    <ArrowLeft className="w-3.5 h-3.5 shrink-0" />
                   </button>
                 </div>
               </div>

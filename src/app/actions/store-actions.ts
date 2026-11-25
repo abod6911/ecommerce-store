@@ -199,7 +199,7 @@ export async function requestEmailOtp(
 
     return { success: true };
   } catch (err: any) {
-    return { success: true };
+    return { success: false, error: err?.message || "تعذر إرسال رمز التحقق." };
   }
 }
 
@@ -243,6 +243,6 @@ export async function verifyEmailOtp(
       session: data?.session,
     };
   } catch (err: any) {
-    return { success: true };
+    return { success: false, error: err?.message || "فشل التحقق من الرمز." };
   }
 }

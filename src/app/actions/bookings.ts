@@ -6,18 +6,43 @@ import { Database, ConsultationStatus } from "@/lib/supabase/types";
 export type BookingRecord = Database["public"]["Tables"]["consultation_bookings"]["Row"];
 export type BookingUpdate = Database["public"]["Tables"]["consultation_bookings"]["Update"];
 
-export async function fetchAdminBookings(): Promise<BookingRecord[]> {
+async function requireAdminSession() {
   const supabase = createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from("consultation_bookings")
-    .select("*")
-    .order("session_date", { ascending: true });
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+  if (error || !user) {
+    throw new Error("Unauthorized: Authentication required");
+  }
+  const { data: profile } = await (supabase.from("profiles") as any)
+    .select("role")
+    .eq("id", user.id)
+    .single();
+  if (!profile || (profile.role !== "admin" && profile.role !== "super_admin")) {
+    throw new Error("Forbidden: Admin access required");
+  }
+  return supabase;
+}
 
-  if (error) {
-    console.error("Error fetching bookings:", error);
+export async function fetchAdminBookings(): Promise<BookingRecord[]> {
+  try {
+    const supabase = await requireAdminSession();
+    const { data, error } = await supabase
+      .from("consultation_bookings")
+      .select("*")
+      .order("session_date", { ascending: true })
+      .limit(50);
+
+    if (error) {
+      console.error("Error fetching bookings:", error);
+      return [];
+    }
+    return data || [];
+  } catch (err) {
+    console.error("fetchAdminBookings auth error:", err);
     return [];
   }
-  return data || [];
 }
 
 export async function updateConsultationStatus(
@@ -25,26 +50,30 @@ export async function updateConsultationStatus(
   status: ConsultationStatus,
   zoomUrl?: string
 ) {
-  const supabase = createServerSupabaseClient();
-  const updatePayload: BookingUpdate = {
-    status,
-    updated_at: new Date().toISOString(),
-  };
+  try {
+    const supabase = await requireAdminSession();
+    const updatePayload: BookingUpdate = {
+      status,
+      updated_at: new Date().toISOString(),
+    };
 
-  if (zoomUrl !== undefined) updatePayload.zoom_url = zoomUrl;
+    if (zoomUrl !== undefined) updatePayload.zoom_url = zoomUrl;
 
-  const { data, error } = await (supabase.from("consultation_bookings") as any)
-    .update(updatePayload)
-    .eq("id", bookingId)
-    .select()
-    .single();
+    const { data, error } = await (supabase.from("consultation_bookings") as any)
+      .update(updatePayload)
+      .eq("id", bookingId)
+      .select()
+      .single();
 
-  if (error) {
-    console.error("Error updating consultation status:", error);
-    return { success: false, error: error.message };
+    if (error) {
+      console.error("Error updating consultation status:", error);
+      return { success: false, error: error.message };
+    }
+
+    return { success: true, data };
+  } catch (err: any) {
+    return { success: false, error: err?.message || "Unauthorized" };
   }
-
-  return { success: true, data };
 }
 
 export async function createConsultationBooking(bookingData: {

@@ -30,7 +30,7 @@ function AdminAuthGuard({ children }: { children: React.ReactNode }) {
     e.preventDefault();
     const success = authenticateAdmin(pinInput);
     if (!success) {
-      setErrorMsg("رمز الحماية غير صحيح. الرمز التجريبي هو: 8899 أو 2026");
+      setErrorMsg("رمز الحماية غير صحيح. يرجى التحقق والمحاولة مرة أخرى.");
     }
   };
 
@@ -90,7 +90,7 @@ function AdminAuthGuard({ children }: { children: React.ReactNode }) {
                 />
               </div>
               <span className="text-[10px] text-slate-500 block text-center">
-                الرمز الافتراضي المعتمد للوصول الفوري: <strong className="text-brand-amber-300 font-mono">8899</strong>
+                الوصول مقتصر على الإدارة المعتمدة فقط
               </span>
             </div>
 

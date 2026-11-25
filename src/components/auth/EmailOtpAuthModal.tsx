@@ -150,7 +150,7 @@ export default function EmailOtpAuthModal({ isOpen, onClose }: EmailOtpAuthModal
     const res = await verifyEmailOtp(email.trim(), code, fullName.trim(), phone.trim());
     setIsLoading(false);
 
-    if (res.success || code === "123456" || process.env.NODE_ENV !== "production") {
+    if (res.success) {
       setStep(3);
       setTimeout(() => {
         effectiveOnClose();

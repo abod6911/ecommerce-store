@@ -76,10 +76,8 @@ export function SupabaseAuthProvider({ children }: { children: React.ReactNode }
         setProfile(parsed);
         setUser({ id: parsed.id, email: parsed.email });
       } else {
-        // Default to super admin for owner access in demo mode if unset
-        setProfile(DEMO_SUPER_ADMIN_PROFILE);
-        setUser({ id: DEMO_SUPER_ADMIN_PROFILE.id, email: DEMO_SUPER_ADMIN_PROFILE.email });
-        localStorage.setItem("alshawa_auth_profile", JSON.stringify(DEMO_SUPER_ADMIN_PROFILE));
+        setProfile(null);
+        setUser(null);
       }
 
       // Check active Supabase session

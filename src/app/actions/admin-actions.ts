@@ -8,8 +8,7 @@ const failedAttemptsMap = new Map<string, number[]>();
 const MAX_FAILED_ATTEMPTS = 3;
 const LOCKOUT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
 
-const MASTER_SECURITY_PASSKEY =
-  process.env.MASTER_SECURITY_KEY || "SHAWA_SECURE_PASSKEY_2026";
+const MASTER_SECURITY_PASSKEY = process.env.MASTER_SECURITY_KEY || "";
 
 export interface DelegateRoleParams {
   targetUserId: string;
@@ -51,10 +50,14 @@ export function validateMasterPasskey(passkey: string, identifier = "global"): {
     };
   }
 
-  const isValid =
-    passkey.trim() === MASTER_SECURITY_PASSKEY ||
-    passkey.trim() === "SHAWA_SECURE_PASSKEY_2026" ||
-    passkey.trim() === "ALSHAWA_SUPER_2026";
+  if (!MASTER_SECURITY_PASSKEY) {
+    return {
+      valid: false,
+      error: "مفتاح الحماية الرئيسي غير مهيأ على الخادم (MASTER_SECURITY_KEY).",
+    };
+  }
+
+  const isValid = passkey.trim() === MASTER_SECURITY_PASSKEY;
 
   if (!isValid) {
     recentAttempts.push(now);
@@ -129,8 +132,8 @@ export async function delegateUserRole(params: DelegateRoleParams) {
   } catch (err: any) {
     console.error("Delegate Role Error:", err);
     return {
-      success: true,
-      message: `تم ترقية الصلاحية بنجاح إلى ${params.newRole}`,
+      success: false,
+      error: err?.message || "حدث خطأ أثناء تحديث الصلاحية.",
     };
   }
 }

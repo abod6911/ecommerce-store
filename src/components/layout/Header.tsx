@@ -5,12 +5,8 @@ import Link from "next/link";
 import {
   ShoppingBag,
   User,
-  Menu,
-  X,
-  BookOpen,
   Calendar,
   Sparkles,
-  Award,
   LogOut,
   ChevronDown,
   Package,

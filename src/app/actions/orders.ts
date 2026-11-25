@@ -6,18 +6,43 @@ import { Database, ShippingStatus, CourierProvider, PaymentStatus, PaymentMethod
 export type OrderRecord = Database["public"]["Tables"]["book_orders"]["Row"];
 export type OrderUpdate = Database["public"]["Tables"]["book_orders"]["Update"];
 
-export async function fetchAdminOrders(): Promise<OrderRecord[]> {
+async function requireAdminSession() {
   const supabase = createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from("book_orders")
-    .select("*")
-    .order("created_at", { ascending: false });
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+  if (error || !user) {
+    throw new Error("Unauthorized: Authentication required");
+  }
+  const { data: profile } = await (supabase.from("profiles") as any)
+    .select("role")
+    .eq("id", user.id)
+    .single();
+  if (!profile || (profile.role !== "admin" && profile.role !== "super_admin")) {
+    throw new Error("Forbidden: Admin access required");
+  }
+  return supabase;
+}
 
-  if (error) {
-    console.error("Error fetching orders:", error);
+export async function fetchAdminOrders(): Promise<OrderRecord[]> {
+  try {
+    const supabase = await requireAdminSession();
+    const { data, error } = await supabase
+      .from("book_orders")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .limit(50);
+
+    if (error) {
+      console.error("Error fetching orders:", error);
+      return [];
+    }
+    return data || [];
+  } catch (err) {
+    console.error("fetchAdminOrders auth error:", err);
     return [];
   }
-  return data || [];
 }
 
 export async function updateOrderShippingStatus(
@@ -26,27 +51,31 @@ export async function updateOrderShippingStatus(
   courierName?: CourierProvider,
   trackingCode?: string
 ) {
-  const supabase = createServerSupabaseClient();
-  const updatePayload: OrderUpdate = {
-    shipping_status: shippingStatus,
-    updated_at: new Date().toISOString(),
-  };
+  try {
+    const supabase = await requireAdminSession();
+    const updatePayload: OrderUpdate = {
+      shipping_status: shippingStatus,
+      updated_at: new Date().toISOString(),
+    };
 
-  if (courierName) updatePayload.courier_name = courierName;
-  if (trackingCode !== undefined) updatePayload.tracking_code = trackingCode;
+    if (courierName) updatePayload.courier_name = courierName;
+    if (trackingCode !== undefined) updatePayload.tracking_code = trackingCode;
 
-  const { data, error } = await (supabase.from("book_orders") as any)
-    .update(updatePayload)
-    .eq("id", orderId)
-    .select()
-    .single();
+    const { data, error } = await (supabase.from("book_orders") as any)
+      .update(updatePayload)
+      .eq("id", orderId)
+      .select()
+      .single();
 
-  if (error) {
-    console.error("Error updating order status:", error);
-    return { success: false, error: error.message };
+    if (error) {
+      console.error("Error updating order status:", error);
+      return { success: false, error: error.message };
+    }
+
+    return { success: true, data };
+  } catch (err: any) {
+    return { success: false, error: err?.message || "Unauthorized" };
   }
-
-  return { success: true, data };
 }
 
 export async function createBookOrder(orderData: {
