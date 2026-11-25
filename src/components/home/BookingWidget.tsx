@@ -100,14 +100,12 @@ const INITIAL_DAYS = [
 export default function BookingWidget() {
   const { user, login, addBooking, updateBookingIntake } = useUserAuth();
   const [selectedSession, setSelectedSession] = useState<SessionType>(SESSION_TYPES[0]);
-  const [extraHours, setExtraHours] = useState<number>(0);
   const [selectedDateIdx, setSelectedDateIdx] = useState(0);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(selectedSession.slots[0]);
   const [clientName, setClientName] = useState(user?.username || "");
   const [clientPhone, setClientPhone] = useState(user?.phone || "");
   const [clientEmail, setClientEmail] = useState(user?.email || "");
   const [whatsappReminder, setWhatsappReminder] = useState(true);
-  const [paymentMethod, setPaymentMethod] = useState("MADA");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isBooked, setIsBooked] = useState(false);
   const [createdBookingId, setCreatedBookingId] = useState<string>("");
@@ -147,9 +145,8 @@ export default function BookingWidget() {
   };
 
   const currentActiveDay = daysList[selectedDateIdx] || INITIAL_DAYS[0];
-  const totalHours = 2 + extraHours;
-  const totalPrice = BASE_CONSULTATION_PRICE + extraHours * EXTRA_HOUR_PRICE;
-  const durationText = totalHours === 2 ? "ساعتين" : `${totalHours} ساعات`;
+  const totalPrice = BASE_CONSULTATION_PRICE;
+  const durationText = "ساعتين";
 
   const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -170,7 +167,7 @@ export default function BookingWidget() {
       sessionDate: mappedDate,
       timeSlot: selectedTimeSlot,
       priceSar: totalPrice,
-      paymentMethod: paymentMethod,
+      paymentMethod: "MADA",
     });
 
     const zoomLink = res.zoomUrl || res.fallbackZoomUrl || `https://zoom.us/j/${Math.floor(10000000000 + Math.random() * 90000000000)}?pwd=VIP_SHAWA`;
@@ -202,7 +199,7 @@ export default function BookingWidget() {
   };
 
   const openWhatsAppConfirmation = () => {
-    const msg = `مرحباً، أود تأكيد حجز ${selectedSession.title} ليوم ${currentActiveDay.fullDate} الساعة ${selectedTimeSlot}.\n\nالاسم: ${clientName}\nالجوال: +966 ${clientPhone}\nطريقة الدفع: ${paymentMethod}`;
+    const msg = `مرحباً، أود تأكيد حجز ${selectedSession.title} ليوم ${currentActiveDay.fullDate} الساعة ${selectedTimeSlot}.\n\nالاسم: ${clientName}\nالجوال: +966 ${clientPhone}`;
     window.open(`https://wa.me/${INSTRUCTOR_INFO.whatsappNumber}?text=${encodeURIComponent(msg)}`, "_blank");
   };
 
@@ -505,73 +502,6 @@ export default function BookingWidget() {
                     <span>أرغب في استلام تذكير بالموعد وتفاصيل القاعة عبر الواتساب</span>
                   </label>
 
-                  {/* Payment Methods 2x2 Selector */}
-                  <div className="space-y-2 pt-2 border-t border-white/10">
-                    <label className="text-[11px] font-bold text-slate-300 block">
-                      اختر طريقة الدفع:
-                    </label>
-                    <div className="grid grid-cols-2 gap-2">
-                      {[
-                        { id: "MADA", label: "مدى (Mada)", sub: "بطاقات الصراف السعودية" },
-                        { id: "APPLE_PAY", label: " Apple Pay", sub: "دفع سريع وآمن" },
-                        { id: "CREDIT_CARD", label: "فيزا / ماستركارد", sub: "Credit Cards" },
-                        { id: "BANK_TRANSFER", label: "تحويل بنكي رسمي", sub: "حساب الشركة المعتمد" },
-                      ].map((pm) => {
-                        const isChosen = paymentMethod === pm.id;
-                        return (
-                          <button
-                            key={pm.id}
-                            type="button"
-                            onClick={() => setPaymentMethod(pm.id)}
-                            className={`p-2.5 rounded-xl border text-right transition-all flex items-center justify-between ${
-                              isChosen
-                                ? "bg-brand-emerald-950/80 border-brand-emerald-400 text-white shadow-emerald-glow"
-                                : "bg-white/5 border-white/10 text-slate-400 hover:bg-white/10"
-                            }`}
-                          >
-                            <div>
-                              <span className="block text-xs font-bold text-white leading-tight">{pm.label}</span>
-                              <span className="block text-[9px] text-slate-400 mt-0.5">{pm.sub}</span>
-                            </div>
-                            <div className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center shrink-0 ${
-                              isChosen ? "border-brand-emerald-400 bg-brand-emerald-400" : "border-white/30"
-                            }`}>
-                              {isChosen && <span className="w-1.5 h-1.5 rounded-full bg-slate-950" />}
-                            </div>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Extra Hours Selector */}
-                  <div className="space-y-2 pt-2 border-t border-white/10">
-                    <div className="flex items-center justify-between text-[11px]">
-                      <label className="font-bold text-slate-300">
-                        ساعات إضافية (كل ساعة بـ 200 ر.س):
-                      </label>
-                      <span className="text-brand-amber-300 font-bold">
-                        المدة الإجمالية: {durationText}
-                      </span>
-                    </div>
-                    <div className="grid grid-cols-5 gap-1.5">
-                      {[0, 1, 2, 3, 4].map((hrs) => (
-                        <button
-                          key={hrs}
-                          type="button"
-                          onClick={() => setExtraHours(hrs)}
-                          className={`py-2 rounded-xl border text-xs font-bold transition-all ${
-                            extraHours === hrs
-                              ? "bg-brand-emerald-600 text-white border-brand-emerald-400 shadow-emerald-glow"
-                              : "bg-white/5 border-white/10 text-slate-300 hover:bg-white/10"
-                          }`}
-                        >
-                          {hrs === 0 ? "ساعتين" : `+${hrs} س`}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
                   {/* Pricing Breakdown & CTA */}
                   <div className="pt-3 border-t border-white/10 space-y-3">
                     <div className="flex items-center justify-between text-xs text-slate-300">
@@ -579,12 +509,10 @@ export default function BookingWidget() {
                       <span className="font-bold text-white">{formatSAR(BASE_CONSULTATION_PRICE)}</span>
                     </div>
 
-                    {extraHours > 0 && (
-                      <div className="flex items-center justify-between text-xs text-brand-emerald-300">
-                        <span>ساعات إضافية ({extraHours} × {EXTRA_HOUR_PRICE} ر.س):</span>
-                        <span className="font-bold">{formatSAR(extraHours * EXTRA_HOUR_PRICE)}</span>
-                      </div>
-                    )}
+                    <div className="flex items-center justify-between text-xs text-brand-emerald-300">
+                      <span>ملاحظة:</span>
+                      <span>كل ساعة إضافية بعد الساعتين بـ {EXTRA_HOUR_PRICE} ر.س</span>
+                    </div>
 
                     <div className="flex items-center justify-between text-sm font-bold text-white pt-1 border-t border-white/10">
                       <span>الإجمالي ({durationText}):</span>
