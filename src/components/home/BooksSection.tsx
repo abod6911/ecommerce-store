@@ -55,28 +55,30 @@ export default function BooksSection() {
           {booksList.map((book) => (
             <div
               key={book.id}
-              className="rounded-2xl bg-brand-dark-850 border border-white/[0.08] hover:border-brand-amber-500/30 p-6 sm:p-8 flex flex-col justify-between transition-colors text-right"
+              className="rounded-2xl bg-[#0D1110] border border-brand-amber-500/25 hover:border-brand-amber-500/45 p-6 sm:p-8 flex flex-col justify-between transition-colors text-right shadow-card-luxury"
             >
               <div className="grid grid-cols-1 sm:grid-cols-12 gap-7 items-center">
-                {/* Clean Book Cover */}
+                {/* Museum-Grade Warm Ivory Display Pedestal behind Book */}
                 <div className="sm:col-span-5 flex flex-col items-center">
-                  <div className="w-full max-w-[210px] aspect-[3/4] rounded-xl overflow-hidden border border-brand-amber-500/30 bg-brand-dark-950 shadow-card-luxury">
-                    <img
-                      src={getAssetPath(book.coverImage)}
-                      alt={`${book.title} - تأليف أحمد الشوا`}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-                  <div className="mt-3.5 text-center space-y-1">
-                    <span className="text-[11px] text-brand-emerald-300 font-medium flex items-center justify-center gap-1.5">
-                      <Truck className="w-3.5 h-3.5" />
-                      توصيل داخل جدة وشحن لجميع المدن
-                    </span>
-                    <span className="text-[11px] text-stone-500 block font-mono">
-                      ISBN: {book.isbn}
-                    </span>
+                  <div className="w-full rounded-2xl bg-gradient-to-b from-[#F4EFE4] to-[#E8E0CC] border border-brand-amber-600/35 p-5 sm:p-6 flex flex-col items-center text-center shadow-inner">
+                    <div className="w-full max-w-[195px] aspect-[3/4] rounded-xl overflow-hidden border border-[#1E3A2F]/20 bg-[#0A1612] shadow-[0_22px_40px_-10px_rgba(10,22,18,0.65)]">
+                      <img
+                        src={getAssetPath(book.coverImage)}
+                        alt={`${book.title} - تأليف أحمد الشوا`}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                    <div className="mt-4 space-y-1">
+                      <span className="text-[11px] text-[#0D261D] font-bold flex items-center justify-center gap-1.5">
+                        <Truck className="w-3.5 h-3.5 text-[#8C6B30]" />
+                        توصيل داخل جدة وشحن لجميع المدن
+                      </span>
+                      <span className="text-[10px] text-[#4A5953] block font-mono">
+                        ISBN: {book.isbn}
+                      </span>
+                    </div>
                   </div>
                 </div>
 
