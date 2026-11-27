@@ -27,7 +27,7 @@ export default function Footer() {
 
   return (
     <footer id="contact" className="bg-brand-dark-950 border-t border-white/[0.07] relative pt-16 pb-28 lg:pb-12 font-ibm" dir="rtl">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-10 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-white/[0.07] text-right">
           {/* Col 1: Brand & Accreditation */}
           <div className="space-y-4">

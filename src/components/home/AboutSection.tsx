@@ -11,8 +11,8 @@ export default function AboutSection() {
   const { hero } = content;
 
   return (
-    <section id="about" className="py-20 sm:py-24 bg-brand-dark-900 border-t border-white/[0.06] font-ibm" dir="rtl">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="about" className="py-14 sm:py-16 bg-brand-dark-900 border-t border-white/[0.06] font-ibm" dir="rtl">
+      <div className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           {/* Portrait Column */}
           <div className="lg:col-span-5">

@@ -7,8 +7,8 @@ import { getAssetPath } from "@/lib/utils";
 
 export default function MediaFeatures() {
   return (
-    <section id="media" className="py-20 sm:py-24 bg-brand-dark-950 border-t border-white/[0.06] font-ibm" dir="rtl">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
+    <section id="media" className="py-14 sm:py-16 bg-brand-dark-950 border-t border-white/[0.06] font-ibm" dir="rtl">
+      <div className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-10 space-y-10">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <div className="inline-flex items-center gap-2 text-xs font-medium text-brand-amber-300">

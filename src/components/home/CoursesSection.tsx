@@ -30,10 +30,10 @@ export default function CoursesSection() {
   };
 
   return (
-    <section id="courses" className="py-20 sm:py-24 bg-brand-dark-950 border-t border-white/[0.06] font-ibm" dir="rtl">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="courses" className="py-14 sm:py-16 bg-brand-dark-950 border-t border-white/[0.06] font-ibm" dir="rtl">
+      <div className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-10">
         {/* Header */}
-        <div className="text-center max-w-2xl mx-auto space-y-3 mb-14">
+        <div className="text-center max-w-2xl mx-auto space-y-2.5 mb-10">
           <div className="inline-flex items-center gap-2 text-xs font-medium text-brand-amber-300">
             <GraduationCap className="w-4 h-4 text-brand-amber-400 shrink-0" />
             <span>البرامج التدريبية المعتمدة</span>
