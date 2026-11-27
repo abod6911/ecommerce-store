@@ -174,7 +174,13 @@ export default function BookingWidget() {
       paymentMethod: "MADA",
     });
 
-    const zoomLink = res.zoomUrl || res.fallbackZoomUrl || `https://zoom.us/j/${Math.floor(10000000000 + Math.random() * 90000000000)}?pwd=VIP_SHAWA`;
+    if (!res.success) {
+      setIsSubmitting(false);
+      alert(res.error || "يرجى التحقق من صحة البيانات المدخلة.");
+      return;
+    }
+
+    const zoomLink = res.zoomUrl || `https://zoom.us/j/${Math.floor(10000000000 + Math.random() * 90000000000)}?pwd=VIP_SHAWA`;
 
     const newBooking: BookingRecord = {
       id: res.booking?.id || bookingId,

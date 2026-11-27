@@ -95,11 +95,19 @@ export default function CheckoutPage() {
       bookTitle: primaryBookTitle,
       quantity: items.reduce((acc, i) => acc + i.quantity, 0),
       amountSar: finalTotal,
+      items: items.map((i) => ({ id: i.id, quantity: i.quantity })),
+      couponCode: couponCode.trim() || undefined,
       paymentMethod: mappedPaymentMethod,
       notes: formData.notes,
     });
 
-    const ordNum = res.orderNumber || res.fallbackOrderNumber || `SHW-${Math.floor(1000 + Math.random() * 9000)}`;
+    if (!res.success) {
+      setIsSubmitting(false);
+      alert(res.error || "تعذر إتمام الطلب. يرجى مراجعة البيانات المدخلة.");
+      return;
+    }
+
+    const ordNum = res.orderNumber || `SHW-${Math.floor(1000 + Math.random() * 9000)}`;
     setCompletedOrderNumber(ordNum);
     setOrderCompleted(true);
     setIsSubmitting(false);

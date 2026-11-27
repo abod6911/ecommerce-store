@@ -10,12 +10,13 @@ import {
   ADMIN_INITIAL_CUSTOMERS,
 } from "@/data/adminMockData";
 
+import { constantTimeEqual } from "@/lib/security";
+
 interface AdminContextType {
   orders: AdminOrder[];
   consultations: AdminConsultation[];
   customers: AdminCustomer[];
   isAdminAuthenticated: boolean;
-  adminPin: string;
   authenticateAdmin: (pin: string) => boolean;
   logoutAdmin: () => void;
   updateOrderStatus: (
@@ -43,7 +44,8 @@ interface AdminContextType {
 const AdminContext = createContext<AdminContextType | undefined>(undefined);
 
 const ADMIN_STORAGE_KEY = "ahmed_alshawa_admin_auth";
-const ADMIN_MASTER_PIN = "8899"; // Secure Admin Quick PIN
+const ADMIN_LOCKOUT_KEY = "ahmed_alshawa_admin_lockout";
+const ADMIN_MASTER_PIN = process.env.NEXT_PUBLIC_ADMIN_PIN || "8899";
 
 export function AdminProvider({ children }: { children: React.ReactNode }) {
   const [orders, setOrders] = useState<AdminOrder[]>(ADMIN_INITIAL_ORDERS);
@@ -68,11 +70,34 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const authenticateAdmin = (pin: string) => {
-    if (pin === ADMIN_MASTER_PIN || pin === "1234" || pin === "2026") {
+    try {
+      const lockRaw = sessionStorage.getItem(ADMIN_LOCKOUT_KEY);
+      if (lockRaw) {
+        const lockState = JSON.parse(lockRaw) as { count: number; lockedUntil: number };
+        if (lockState.lockedUntil && Date.now() < lockState.lockedUntil) {
+          return false;
+        }
+      }
+    } catch {}
+
+    if (constantTimeEqual(pin.trim(), ADMIN_MASTER_PIN)) {
       setIsAdminAuthenticated(true);
       sessionStorage.setItem(ADMIN_STORAGE_KEY, "true");
+      sessionStorage.removeItem(ADMIN_LOCKOUT_KEY);
       return true;
     }
+
+    try {
+      const lockRaw = sessionStorage.getItem(ADMIN_LOCKOUT_KEY);
+      const prev = lockRaw ? JSON.parse(lockRaw) : { count: 0, lockedUntil: 0 };
+      const nextCount = (prev.count || 0) + 1;
+      const lockedUntil = nextCount >= 3 ? Date.now() + 15 * 60 * 1000 : 0;
+      sessionStorage.setItem(
+        ADMIN_LOCKOUT_KEY,
+        JSON.stringify({ count: nextCount, lockedUntil })
+      );
+    } catch {}
+
     return false;
   };
 
@@ -207,7 +232,6 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
         consultations,
         customers,
         isAdminAuthenticated,
-        adminPin: ADMIN_MASTER_PIN,
         authenticateAdmin,
         logoutAdmin,
         updateOrderStatus,

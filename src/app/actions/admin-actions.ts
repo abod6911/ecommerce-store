@@ -1,6 +1,7 @@
 import { supabase } from "@/lib/supabase/client";
 import { UserRole } from "@/lib/supabase/types";
 import { logStoreActivity } from "@/app/actions/store-actions";
+import { constantTimeEqual, sanitizeText } from "@/lib/security";
 
 // Rate limiting state: stores failed attempt timestamps per identifier
 const failedAttemptsMap = new Map<string, number[]>();
@@ -57,7 +58,7 @@ export function validateMasterPasskey(passkey: string, identifier = "global"): {
     };
   }
 
-  const isValid = passkey.trim() === MASTER_SECURITY_PASSKEY;
+  const isValid = constantTimeEqual(passkey.trim(), MASTER_SECURITY_PASSKEY);
 
   if (!isValid) {
     recentAttempts.push(now);
@@ -190,8 +191,9 @@ export async function fetchUsersForDelegation(searchQuery = ""): Promise<{ succe
   try {
     let query = (supabase.from("profiles") as any).select("*").limit(20);
     
-    if (searchQuery.trim()) {
-      query = query.or(`full_name.ilike.%${searchQuery}%,email.ilike.%${searchQuery}%,phone.ilike.%${searchQuery}%`);
+    const safeSearch = sanitizeText(searchQuery, 80).replace(/[,%()]/g, "");
+    if (safeSearch) {
+      query = query.or(`full_name.ilike.%${safeSearch}%,email.ilike.%${safeSearch}%,phone.ilike.%${safeSearch}%`);
     }
 
     const { data, error } = await query;

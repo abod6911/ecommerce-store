@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Alexandria, IBM_Plex_Sans_Arabic } from "next/font/google";
+import { Cairo, Tajawal, Amiri } from "next/font/google";
 import dynamic from "next/dynamic";
 import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
@@ -17,18 +17,26 @@ const GlobalAudioPlayer = dynamic(() => import("@/components/audio/GlobalAudioPl
 const EmailOtpAuthModal = dynamic(() => import("@/components/auth/EmailOtpAuthModal"), { ssr: false });
 const AbandonedCartModal = dynamic(() => import("@/components/marketing/AbandonedCartModal"), { ssr: false });
 
-const ibmFont = IBM_Plex_Sans_Arabic({
+const tajawalFont = Tajawal({
   subsets: ["arabic"],
-  weight: ["400", "600", "700"],
+  weight: ["400", "500", "700", "800"],
   variable: "--font-ibm",
   display: "swap",
   preload: true,
 });
 
-const alexandriaFont = Alexandria({
+const cairoFont = Cairo({
   subsets: ["arabic"],
-  weight: ["400", "700", "800"],
+  weight: ["500", "600", "700", "800"],
   variable: "--font-alexandria",
+  display: "swap",
+  preload: true,
+});
+
+const amiriFont = Amiri({
+  subsets: ["arabic"],
+  weight: ["400", "700"],
+  variable: "--font-amiri",
   display: "swap",
   preload: true,
 });
@@ -55,7 +63,7 @@ export default function RootLayout({
     <html
       lang="ar"
       dir="rtl"
-      className={`dark scroll-smooth ${ibmFont.variable} ${alexandriaFont.variable}`}
+      className={`dark scroll-smooth ${tajawalFont.variable} ${cairoFont.variable} ${amiriFont.variable}`}
     >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />

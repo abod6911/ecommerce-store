@@ -18,7 +18,7 @@ import { useSupabaseAuth } from "@/context/SupabaseAuthContext";
 import { getAssetPath } from "@/lib/utils";
 
 function AdminAuthGuard({ children }: { children: React.ReactNode }) {
-  const { isAdminAuthenticated, authenticateAdmin, adminPin } = useAdmin();
+  const { isAdminAuthenticated, authenticateAdmin } = useAdmin();
   const { isAdmin: isSupabaseAdmin, profile } = useSupabaseAuth();
   const [pinInput, setPinInput] = useState("");
   const [errorMsg, setErrorMsg] = useState("");

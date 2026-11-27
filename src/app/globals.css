@@ -3,9 +3,10 @@
 @tailwind utilities;
 
 :root {
-  --font-ibm: 'IBM Plex Sans Arabic', sans-serif;
+  --font-ibm: 'Tajawal', sans-serif;
   --font-cairo: 'Cairo', sans-serif;
-  --font-alexandria: 'Alexandria', sans-serif;
+  --font-alexandria: 'Cairo', sans-serif;
+  --font-amiri: 'Amiri', serif;
 }
 
 * {
@@ -19,9 +20,12 @@ html {
   color-scheme: dark;
   background-color: #040E0B;
   color: #F5F2EB;
-  font-family: 'IBM Plex Sans Arabic', 'Cairo', system-ui, -apple-system, sans-serif;
+  font-family: var(--font-ibm), 'Tajawal', 'Cairo', system-ui, -apple-system, sans-serif;
   letter-spacing: normal !important;
   text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
 }
 
 body {
@@ -31,15 +35,18 @@ body {
   min-height: 100vh;
   line-height: 1.85;
   letter-spacing: normal !important;
+  font-weight: 500;
 }
 
-/* Headings anti-clipping & distinct scale */
+/* Headings anti-clipping & crisp luxury scale */
 h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-alexandria), 'Cairo', sans-serif;
   letter-spacing: normal !important;
-  line-height: 1.6;
+  line-height: 1.55;
   padding-top: 0.06em;
   padding-bottom: 0.12em;
   overflow: visible;
+  text-rendering: optimizeLegibility;
 }
 
 p, span, label, li, a {
@@ -84,12 +91,13 @@ p, span, label, li, a {
 }
 
 .gold-text-gradient {
+  font-family: var(--font-amiri), var(--font-alexandria), serif;
   background: linear-gradient(135deg, #FAF4E8 0%, #E5CA94 45%, #C8A25A 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
-  line-height: 1.6;
-  padding-top: 0.08em;
+  line-height: 1.55;
+  padding-top: 0.06em;
   padding-bottom: 0.14em;
   overflow: visible;
 }

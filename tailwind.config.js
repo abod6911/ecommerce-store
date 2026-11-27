@@ -57,9 +57,10 @@ module.exports = {
         },
       },
       fontFamily: {
-        ibm: ["var(--font-ibm)", "IBM Plex Sans Arabic", "Cairo", "sans-serif"],
-        cairo: ["var(--font-cairo)", "Cairo", "sans-serif"],
-        alexandria: ["var(--font-alexandria)", "Alexandria", "sans-serif"],
+        ibm: ["var(--font-ibm)", "Tajawal", "Cairo", "sans-serif"],
+        cairo: ["var(--font-alexandria)", "Cairo", "sans-serif"],
+        alexandria: ["var(--font-alexandria)", "Cairo", "sans-serif"],
+        amiri: ["var(--font-amiri)", "Amiri", "serif"],
       },
       backgroundImage: {
         "luxury-radial": "radial-gradient(ellipse at 50% 0%, rgba(46, 139, 108, 0.14), transparent 62%), radial-gradient(ellipse at 85% 20%, rgba(200, 162, 90, 0.08), transparent 50%)",

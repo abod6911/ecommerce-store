@@ -1,5 +1,13 @@
 import { supabase } from "@/lib/supabase/client";
-import { PaymentMethod, PaymentStatus, StoreEventType } from "@/lib/supabase/types";
+import { PaymentMethod, StoreEventType } from "@/lib/supabase/types";
+import {
+  sanitizeText,
+  isValidEmail,
+  isValidSaudiPhone,
+  normalizeSaudiPhone,
+  checkRateLimit,
+  computeVerifiedOrderTotal,
+} from "@/lib/security";
 
 export interface CreateOrderParams {
   userId?: string | null;
@@ -11,6 +19,8 @@ export interface CreateOrderParams {
   bookTitle: string;
   quantity: number;
   amountSar: number;
+  items?: Array<{ id: string; quantity: number }>;
+  couponCode?: string;
   paymentMethod: PaymentMethod;
   notes?: string;
 }
@@ -24,6 +34,7 @@ export interface CreateBookingParams {
   sessionDate: string;
   timeSlot: string;
   priceSar: number;
+  extraHours?: number;
   paymentMethod: string;
   intakeData?: {
     businessField?: string;
@@ -65,28 +76,57 @@ export async function logStoreActivity(
  */
 export async function createBookOrder(params: CreateOrderParams) {
   try {
+    const cleanName = sanitizeText(params.customerName, 120);
+    const cleanPhone = normalizeSaudiPhone(params.customerPhone || "");
+    const cleanEmail = params.customerEmail ? sanitizeText(params.customerEmail, 160) : null;
+    const cleanCity = sanitizeText(params.shippingCity, 60);
+    const cleanAddress = sanitizeText(params.shippingAddress, 250);
+    const cleanTitle = sanitizeText(params.bookTitle, 250);
+    const cleanNotes = params.notes ? sanitizeText(params.notes, 400) : null;
+
+    if (!cleanName || !isValidSaudiPhone(cleanPhone) || !cleanAddress) {
+      return { success: false, error: "يرجى التحقق من صحة الاسم ورقم الجوال والعنوان." };
+    }
+    if (cleanEmail && !isValidEmail(cleanEmail)) {
+      return { success: false, error: "صيغة البريد الإلكتروني غير صحيحة." };
+    }
+
+    const rate = checkRateLimit(`order:${cleanPhone}`, 5, 10 * 60 * 1000);
+    if (!rate.allowed) {
+      return { success: false, error: `تم تجاوز الحد المسموح. يرجى المحاولة بعد ${rate.retryAfterSec} ثانية.` };
+    }
+
+    // Recompute authoritative price on server side
+    const verifiedPricing = computeVerifiedOrderTotal({
+      items: params.items,
+      quantity: params.quantity,
+      shippingCity: cleanCity,
+      couponCode: params.couponCode,
+    });
+
     const randomSuffix = Math.floor(1000 + Math.random() * 9000);
     const orderNumber = `SHW-${randomSuffix}`;
     const trackingCode = `SMSA-${Date.now().toString().slice(-8)}`;
+    const safeQuantity = Math.max(1, Math.min(50, Math.floor(Number(params.quantity) || 1)));
 
     const { data, error } = await (supabase.from("book_orders") as any)
       .insert({
         order_number: orderNumber,
         user_id: params.userId || null,
-        customer_name: params.customerName,
-        customer_phone: params.customerPhone,
-        customer_email: params.customerEmail || null,
-        shipping_city: params.shippingCity,
-        shipping_address: params.shippingAddress,
-        book_title: params.bookTitle,
-        quantity: params.quantity,
-        amount_sar: params.amountSar,
+        customer_name: cleanName,
+        customer_phone: cleanPhone,
+        customer_email: cleanEmail,
+        shipping_city: cleanCity,
+        shipping_address: cleanAddress,
+        book_title: cleanTitle,
+        quantity: safeQuantity,
+        amount_sar: verifiedPricing.totalSar,
         payment_method: params.paymentMethod,
         payment_status: params.paymentMethod === "cod" ? "pending" : "paid",
         shipping_status: "processing",
-        courier_name: params.shippingCity === "جدة" ? "LOCAL_DRIVER" : "SMSA",
+        courier_name: cleanCity === "جدة" ? "LOCAL_DRIVER" : "SMSA",
         tracking_code: trackingCode,
-        notes: params.notes || null,
+        notes: cleanNotes,
       })
       .select()
       .single();
@@ -94,10 +134,10 @@ export async function createBookOrder(params: CreateOrderParams) {
     // Log telemetry event
     await logStoreActivity("book_order_created", {
       orderNumber,
-      bookTitle: params.bookTitle,
-      amountSar: params.amountSar,
+      bookTitle: cleanTitle,
+      amountSar: verifiedPricing.totalSar,
       paymentMethod: params.paymentMethod,
-      city: params.shippingCity,
+      city: cleanCity,
     }, params.userId);
 
     return {
@@ -108,11 +148,9 @@ export async function createBookOrder(params: CreateOrderParams) {
     };
   } catch (err: any) {
     console.error("Create Book Order Exception:", err);
-    const randomSuffix = Math.floor(1000 + Math.random() * 9000);
     return {
-      success: true,
-      fallbackOrderNumber: `SHW-${randomSuffix}`,
-      fallbackTrackingCode: `SMSA-${Date.now().toString().slice(-8)}`,
+      success: false,
+      error: "تعذر إنشاء الطلب حالياً. يرجى المحاولة مرة أخرى.",
     };
   }
 }
@@ -122,21 +160,44 @@ export async function createBookOrder(params: CreateOrderParams) {
  */
 export async function createConsultationBooking(params: CreateBookingParams) {
   try {
+    const cleanName = sanitizeText(params.clientName, 120);
+    const cleanPhone = normalizeSaudiPhone(params.clientPhone || "");
+    const cleanEmail = params.clientEmail ? sanitizeText(params.clientEmail, 160) : null;
+    const cleanSessionType = sanitizeText(params.sessionType, 80);
+    const cleanDate = sanitizeText(params.sessionDate, 40);
+    const cleanSlot = sanitizeText(params.timeSlot, 30);
+
+    if (!cleanName || !isValidSaudiPhone(cleanPhone)) {
+      return { success: false, error: "يرجى إدخال اسم ورقم جوال صحيحين." };
+    }
+    if (cleanEmail && !isValidEmail(cleanEmail)) {
+      return { success: false, error: "صيغة البريد الإلكتروني غير صحيحة." };
+    }
+
+    const rate = checkRateLimit(`booking:${cleanPhone}`, 5, 10 * 60 * 1000);
+    if (!rate.allowed) {
+      return { success: false, error: `تم تجاوز الحد المسموح. يرجى المحاولة بعد ${rate.retryAfterSec} ثانية.` };
+    }
+
+    // Enforce server-side consultation pricing (800 SAR base for 2h + 200 SAR/extra hour)
+    const extraHours = Math.max(0, Math.min(8, Math.floor(Number(params.extraHours) || 0)));
+    const authoritativePriceSar = 800 + extraHours * 200;
+
     const zoomMeetingId = Math.floor(10000000000 + Math.random() * 90000000000);
     const zoomUrl = `https://zoom.us/j/${zoomMeetingId}?pwd=VIP_SHAWA`;
 
     const { data, error } = await (supabase.from("consultation_bookings") as any)
       .insert({
         user_id: params.userId || null,
-        client_name: params.clientName,
-        client_phone: params.clientPhone,
-        client_email: params.clientEmail || null,
-        session_type: params.sessionType,
-        session_date: params.sessionDate,
-        time_slot: params.timeSlot,
-        price_sar: params.priceSar,
+        client_name: cleanName,
+        client_phone: cleanPhone,
+        client_email: cleanEmail,
+        session_type: cleanSessionType,
+        session_date: cleanDate,
+        time_slot: cleanSlot,
+        price_sar: authoritativePriceSar,
         payment_status: "paid",
-        payment_method: params.paymentMethod,
+        payment_method: sanitizeText(params.paymentMethod, 30),
         zoom_url: zoomUrl,
         status: "upcoming",
         intake_data: params.intakeData || {},
@@ -147,10 +208,10 @@ export async function createConsultationBooking(params: CreateBookingParams) {
     // Log telemetry event
     await logStoreActivity("consultation_booked", {
       bookingId: data?.id,
-      sessionType: params.sessionType,
-      sessionDate: params.sessionDate,
-      timeSlot: params.timeSlot,
-      priceSar: params.priceSar,
+      sessionType: cleanSessionType,
+      sessionDate: cleanDate,
+      timeSlot: cleanSlot,
+      priceSar: authoritativePriceSar,
     }, params.userId);
 
     return {
@@ -160,10 +221,9 @@ export async function createConsultationBooking(params: CreateBookingParams) {
     };
   } catch (err: any) {
     console.error("Create Consultation Exception:", err);
-    const zoomMeetingId = Math.floor(10000000000 + Math.random() * 90000000000);
     return {
-      success: true,
-      fallbackZoomUrl: `https://zoom.us/j/${zoomMeetingId}?pwd=VIP_SHAWA`,
+      success: false,
+      error: "تعذر إتمام الحجز حالياً. يرجى المحاولة مرة أخرى.",
     };
   }
 }
@@ -177,12 +237,25 @@ export async function requestEmailOtp(
   phone: string
 ): Promise<{ success: boolean; error?: string }> {
   try {
+    const cleanEmail = sanitizeText(email, 160).toLowerCase();
+    const cleanName = sanitizeText(fullName, 120);
+    const cleanPhone = normalizeSaudiPhone(phone || "");
+
+    if (!isValidEmail(cleanEmail)) {
+      return { success: false, error: "يرجى إدخال بريد إلكتروني صحيح." };
+    }
+
+    const rate = checkRateLimit(`otp-req:${cleanEmail}`, 3, 5 * 60 * 1000);
+    if (!rate.allowed) {
+      return { success: false, error: `تم إرسال عدة رموز متتالية. انتظر ${rate.retryAfterSec} ثانية.` };
+    }
+
     const { error } = await supabase.auth.signInWithOtp({
-      email,
+      email: cleanEmail,
       options: {
         data: {
-          full_name: fullName,
-          phone: phone,
+          full_name: cleanName,
+          phone: cleanPhone,
           role: "customer",
         },
         shouldCreateUser: true,
@@ -195,7 +268,7 @@ export async function requestEmailOtp(
     }
 
     // Log OTP request telemetry
-    await logStoreActivity("otp_requested", { email, phone });
+    await logStoreActivity("otp_requested", { email: cleanEmail, phone: cleanPhone });
 
     return { success: true };
   } catch (err: any) {
@@ -213,9 +286,21 @@ export async function verifyEmailOtp(
   phone?: string
 ): Promise<{ success: boolean; error?: string; user?: any; session?: any }> {
   try {
+    const cleanEmail = sanitizeText(email, 160).toLowerCase();
+    const cleanToken = (token || "").replace(/\D/g, "").slice(0, 6);
+
+    if (!isValidEmail(cleanEmail) || !/^\d{6}$/.test(cleanToken)) {
+      return { success: false, error: "رمز التحقق يجب أن يكون مكوناً من 6 أرقام صحيحة." };
+    }
+
+    const rate = checkRateLimit(`otp-verify:${cleanEmail}`, 5, 10 * 60 * 1000);
+    if (!rate.allowed) {
+      return { success: false, error: `محاولات تحقق كثيرة. انتظر ${rate.retryAfterSec} ثانية.` };
+    }
+
     const { data, error } = await supabase.auth.verifyOtp({
-      email,
-      token,
+      email: cleanEmail,
+      token: cleanToken,
       type: "email",
     });
 
@@ -228,13 +313,13 @@ export async function verifyEmailOtp(
     if (data?.user) {
       await (supabase.from("profiles") as any).upsert({
         id: data.user.id,
-        email: data.user.email || email,
-        full_name: fullName || data.user.user_metadata?.full_name || "مشترك معتمد",
-        phone: phone || data.user.user_metadata?.phone || "",
+        email: data.user.email || cleanEmail,
+        full_name: sanitizeText(fullName, 120) || data.user.user_metadata?.full_name || "مشترك معتمد",
+        phone: normalizeSaudiPhone(phone || data.user.user_metadata?.phone || ""),
         role: "customer",
       });
 
-      await logStoreActivity("otp_verified", { email, userId: data.user.id }, data.user.id);
+      await logStoreActivity("otp_verified", { email: cleanEmail, userId: data.user.id }, data.user.id);
     }
 
     return {
