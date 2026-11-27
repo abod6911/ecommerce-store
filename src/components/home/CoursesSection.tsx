@@ -68,7 +68,7 @@ export default function CoursesSection() {
                     loading="lazy"
                     decoding="async"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#070909]/80 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-dark-950/80 via-transparent to-transparent" />
 
                   <div className="absolute bottom-3 right-3 left-3 flex items-center justify-between text-xs text-stone-200">
                     <span className="flex items-center gap-1.5 bg-black/60 px-2.5 py-1 rounded-md backdrop-blur-sm">

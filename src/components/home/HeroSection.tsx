@@ -63,7 +63,7 @@ export default function HeroSection() {
                   decoding="async"
                   fetchPriority="high"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#070909]/70 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-dark-950/75 via-transparent to-transparent" />
               </div>
 
               <div className="pt-3.5 pb-1 px-2 flex items-center justify-between gap-3 text-right">

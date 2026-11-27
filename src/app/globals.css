@@ -17,7 +17,7 @@ html {
   direction: rtl;
   scroll-behavior: smooth;
   color-scheme: dark;
-  background-color: #070909;
+  background-color: #040E0B;
   color: #F5F2EB;
   font-family: 'IBM Plex Sans Arabic', 'Cairo', system-ui, -apple-system, sans-serif;
   letter-spacing: normal !important;
@@ -25,7 +25,7 @@ html {
 }
 
 body {
-  background-color: #070909;
+  background-color: #040E0B;
   color: #F5F2EB;
   overflow-x: hidden;
   min-height: 100vh;
@@ -53,11 +53,11 @@ p, span, label, li, a {
 }
 
 ::-webkit-scrollbar-track {
-  background: #070909;
+  background: #040E0B;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #242B28;
+  background: #193D32;
   border-radius: 4px;
 }
 
@@ -65,22 +65,22 @@ p, span, label, li, a {
   background: #C8A25A;
 }
 
-/* Quiet Luxury Surfaces */
+/* Quiet Luxury Heritage Emerald Surfaces */
 .glass-surface {
-  background: rgba(18, 22, 21, 0.92);
+  background: rgba(11, 32, 26, 0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(79, 168, 139, 0.16);
 }
 
 .glass-surface-hover {
   transition: all 0.25s ease;
 }
 .glass-surface-hover:hover {
-  background: rgba(24, 29, 27, 0.98);
+  background: rgba(16, 43, 35, 0.98);
   border-color: rgba(200, 162, 90, 0.35);
   transform: translateY(-2px);
-  box-shadow: 0 18px 40px -15px rgba(0, 0, 0, 0.75);
+  box-shadow: 0 18px 40px -15px rgba(0, 0, 0, 0.78);
 }
 
 .gold-text-gradient {
@@ -95,7 +95,7 @@ p, span, label, li, a {
 }
 
 .emerald-text-gradient {
-  background: linear-gradient(135deg, #E3EFEA 0%, #9CC4B4 45%, #528A74 100%);
+  background: linear-gradient(135deg, #E3F2EC 0%, #84C6B0 45%, #2E8B6C 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;

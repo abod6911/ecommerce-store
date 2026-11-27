@@ -25,7 +25,7 @@ export default function AboutSection() {
                   loading="lazy"
                   decoding="async"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#070909]/65 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-dark-950/70 via-transparent to-transparent" />
               </div>
 
               <div className="pt-3.5 pb-1 px-2 flex items-start gap-2.5 text-right">

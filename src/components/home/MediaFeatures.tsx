@@ -41,7 +41,7 @@ export default function MediaFeatures() {
                     loading="lazy"
                     decoding="async"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#070909]/80 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-dark-950/80 via-transparent to-transparent" />
 
                   <div className="absolute bottom-3 right-3 left-3 flex items-center justify-between text-xs text-[#F5F2EB]">
                     <span className="font-semibold flex items-center gap-1.5 bg-black/65 backdrop-blur-sm px-2.5 py-1 rounded-md">
