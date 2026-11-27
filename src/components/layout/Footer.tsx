@@ -26,16 +26,13 @@ export default function Footer() {
   const [activePolicyModal, setActivePolicyModal] = useState<"REFUND" | "TERMS" | null>(null);
 
   return (
-    <footer id="contact" className="bg-brand-dark-950 border-t border-white/10 relative overflow-hidden pt-20 pb-28 lg:pb-12 font-ibm" dir="rtl">
-      {/* Background radial glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-64 bg-brand-emerald-950/40 blur-3xl pointer-events-none -z-0" />
-
+    <footer id="contact" className="bg-brand-dark-950 border-t border-white/[0.07] relative pt-16 pb-28 lg:pb-12 font-ibm" dir="rtl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-14 border-b border-white/10 text-right">
-          {/* Col 1: Brand, Slogan & Official Freelance License Badge */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-white/[0.07] text-right">
+          {/* Col 1: Brand & Accreditation */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-11 h-11 rounded-xl overflow-hidden bg-black border-2 border-brand-amber-400/50 p-0.5 shadow-gold-glow flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 rounded-xl overflow-hidden bg-black border border-brand-amber-500/40 p-0.5 flex items-center justify-center shrink-0">
                 <img
                   src={getAssetPath("/images/logo.jpg")}
                   alt="أحمد الشوا - الشعار الرسمي"
@@ -43,27 +40,26 @@ export default function Footer() {
                 />
               </div>
               <div>
-                <h3 className="font-alexandria font-bold text-white text-lg leading-snug">أحمد الشوا</h3>
-                <p className="text-xs text-brand-emerald-400 font-medium">{INSTRUCTOR_INFO.title}</p>
+                <h3 className="font-alexandria font-bold text-[#F5F2EB] text-base leading-snug">أحمد الشوا</h3>
+                <p className="text-xs text-brand-amber-300 font-medium">{INSTRUCTOR_INFO.title}</p>
               </div>
             </div>
 
-            <p className="text-xs text-brand-amber-300 font-bold italic">
-              "{INSTRUCTOR_INFO.slogan}"
+            <p className="text-xs text-stone-300 font-medium">
+              &quot;{INSTRUCTOR_INFO.slogan}&quot;
             </p>
 
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              منصة تعليمية واستشارية متخصصة في تمكين رواد الأعمال وأصحاب المتاجر في السوق السعودي من بناء استراتيجيات تسويقية مربحة ومستدامة.
+            <p className="text-xs sm:text-sm text-stone-400 leading-relaxed">
+              منصة استشارية وتدريبية متخصصة في التسويق الرقمي وتطوير المبيعات وبناء المشاريع في السوق السعودي.
             </p>
 
-            {/* Saudi Freelance License & TVTC Badges */}
             <div className="space-y-2 pt-1">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold bg-brand-emerald-500/10 text-brand-emerald-300 border border-brand-emerald-500/30">
-                <ShieldCheck className="w-4 h-4 text-brand-amber-400 shrink-0" />
-                <span>وثيقة عمل حر معتمدة (وزارة الموارد البشرية والتنمية الاجتماعية)</span>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-[11px] font-medium bg-brand-dark-900 text-stone-300 border border-white/[0.08]">
+                <ShieldCheck className="w-3.5 h-3.5 text-brand-amber-400 shrink-0" />
+                <span>وثيقة عمل حر معتمدة</span>
               </div>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold bg-brand-dark-900 text-brand-amber-300 border border-brand-amber-400/30">
-                <Award className="w-4 h-4 text-brand-amber-400 shrink-0" />
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-[11px] font-medium bg-brand-dark-900 text-brand-amber-300 border border-white/[0.08]">
+                <Award className="w-3.5 h-3.5 text-brand-amber-400 shrink-0" />
                 <span>{INSTRUCTOR_INFO.accreditation}</span>
               </div>
             </div>
@@ -215,25 +211,25 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar: Payment Badges & Compliance Copyright */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
-          <div className="flex items-center gap-3 flex-wrap justify-center">
-            <span className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white font-bold text-xs">
+        {/* Bottom Bar */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-400">
+          <div className="flex items-center gap-2.5 flex-wrap justify-center">
+            <span className="px-3 py-1.5 rounded-lg bg-brand-dark-900 border border-white/[0.08] text-stone-200 font-medium text-xs">
               مدى MADA
             </span>
-            <span className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white font-bold text-xs">
-               Apple Pay
+            <span className="px-3 py-1.5 rounded-lg bg-brand-dark-900 border border-white/[0.08] text-stone-200 font-medium text-xs">
+              Apple Pay
             </span>
-            <span className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white font-bold text-xs">
+            <span className="px-3 py-1.5 rounded-lg bg-brand-dark-900 border border-white/[0.08] text-stone-200 font-medium text-xs">
               VISA / MasterCard
             </span>
-            <span className="px-3 py-1.5 rounded-lg bg-brand-emerald-500/20 text-brand-emerald-300 border border-brand-emerald-500/30 font-bold text-xs">
-              الدفع عند الاستلام بجدة (COD)
+            <span className="px-3 py-1.5 rounded-lg bg-brand-dark-900 text-brand-emerald-300 border border-white/[0.08] font-medium text-xs">
+              الدفع عند الاستلام بجدة
             </span>
           </div>
 
           <p className="text-center sm:text-right text-xs">
-            جميع الحقوق محفوظة © 2026 للمستشار أحمد محمد الشوا | وثيقة عمل حر معتمدة
+            جميع الحقوق محفوظة © 2026 المستشار أحمد محمد الشوا
           </p>
         </div>
       </div>

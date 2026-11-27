@@ -9,68 +9,48 @@ const MARQUEE_ITEMS = [
     title: "المؤسسة العامة للتدريب التقني والمهني (TVTC)",
     subtitle: "مدرب معتمد رسمياً",
     icon: Award,
-    color: "text-brand-emerald-400",
-    bg: "bg-brand-emerald-500/10 border-brand-emerald-500/30",
   },
   {
     id: "m-alarabiya",
     title: "قناة العربية",
-    subtitle: "برنامج صباح العربية - خبير تسويق",
+    subtitle: "برنامج صباح العربية",
     icon: Tv,
-    color: "text-brand-amber-400",
-    bg: "bg-brand-amber-400/10 border-brand-amber-400/30",
   },
   {
     id: "m-panorama",
-    title: "إذاعة بانوراما FM (MBC Group)",
-    subtitle: "استشارات مشاريع وريادة أعمال",
+    title: "إذاعة بانوراما FM",
+    subtitle: "مجموعة MBC الإعلامية",
     icon: Radio,
-    color: "text-brand-emerald-300",
-    bg: "bg-brand-emerald-500/10 border-brand-emerald-500/30",
   },
   {
     id: "m-chamber",
     title: "الغرفة التجارية بجدة",
-    subtitle: "ملتقيات وورش عمل التسويق الرقمي",
+    subtitle: "ملتقيات وورش العمل",
     icon: Building2,
-    color: "text-brand-amber-300",
-    bg: "bg-brand-amber-400/10 border-brand-amber-400/30",
-  },
-  {
-    id: "m-ecommerce",
-    title: "المؤتمر السعودي للتجارة الإلكترونية",
-    subtitle: "متحدث وخبير استراتيجي",
-    icon: Sparkles,
-    color: "text-brand-emerald-400",
-    bg: "bg-brand-emerald-500/10 border-brand-emerald-500/30",
   },
 ];
 
 export default function MediaMarquee() {
   return (
-    <div className="py-8 bg-brand-dark-950 border-y border-white/10 relative overflow-hidden font-ibm" dir="rtl">
-      {/* Edge Fading Mask */}
-      <div className="absolute inset-y-0 left-0 w-24 sm:w-36 bg-gradient-to-r from-brand-dark-950 to-transparent z-20 pointer-events-none" />
-      <div className="absolute inset-y-0 right-0 w-24 sm:w-36 bg-gradient-to-l from-brand-dark-950 to-transparent z-20 pointer-events-none" />
+    <div className="py-6 bg-brand-dark-950 border-y border-white/[0.06] relative overflow-hidden font-ibm" dir="rtl">
+      <div className="absolute inset-y-0 left-0 w-20 sm:w-32 bg-gradient-to-r from-brand-dark-950 to-transparent z-20 pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-20 sm:w-32 bg-gradient-to-l from-brand-dark-950 to-transparent z-20 pointer-events-none" />
 
       <div className="flex items-center">
-        {/* Continuous Marquee Ribbon */}
-        <div className="flex gap-6 animate-marquee shrink-0 items-center">
+        <div className="flex gap-5 animate-marquee shrink-0 items-center">
           {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, idx) => {
             const Icon = item.icon;
             return (
               <div
                 key={`${item.id}-${idx}`}
-                className={`flex items-center gap-3 px-6 py-3.5 rounded-2xl border ${item.bg} backdrop-blur-md shrink-0 transition-transform hover:scale-105 select-none`}
+                className="flex items-center gap-3 px-5 py-3 rounded-xl bg-brand-dark-900 border border-white/[0.07] shrink-0 select-none"
               >
-                <div className={`w-9 h-9 rounded-xl bg-brand-dark-900 border border-white/10 flex items-center justify-center ${item.color} shrink-0`}>
-                  <Icon className="w-5 h-5" />
-                </div>
+                <Icon className="w-4 h-4 text-brand-amber-400 shrink-0" />
                 <div className="text-right">
-                  <h4 className="text-xs sm:text-sm font-bold text-white whitespace-nowrap">
+                  <h4 className="text-xs font-semibold text-[#F5F2EB] whitespace-nowrap">
                     {item.title}
                   </h4>
-                  <span className="text-[10px] text-slate-400 font-medium block whitespace-nowrap">
+                  <span className="text-[10px] text-stone-400 block whitespace-nowrap">
                     {item.subtitle}
                   </span>
                 </div>

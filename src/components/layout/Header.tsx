@@ -27,34 +27,29 @@ export default function Header() {
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-brand-dark-950/95 backdrop-blur-2xl border-b border-brand-emerald-500/20 font-ibm" dir="rtl">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-brand-dark-950/95 backdrop-blur-xl border-b border-white/[0.07] font-ibm" dir="rtl">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20 gap-2 sm:gap-4">
-          {/* 1. Brand Logo & Title with Official Calligraphic Emblem */}
-          <Link href="/" className="flex items-center gap-2 sm:gap-3 shrink-0 group">
-            <div className="relative shrink-0">
-              <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl overflow-hidden bg-black border-2 border-brand-amber-400/50 shadow-gold-glow group-hover:scale-105 transition-transform flex items-center justify-center p-0.5">
-                <img
-                  src={getAssetPath("/images/logo.jpg")}
-                  alt="أحمد الشوا - الشعار الرسمي"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <span className="absolute -bottom-0.5 -left-0.5 w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-brand-emerald-500 border-2 border-brand-dark-950 flex items-center justify-center text-[7px] sm:text-[8px] text-brand-dark-950 font-black" title="مدرب معتمد TVTC">
-                ✓
-              </span>
+          {/* Brand Logo */}
+          <Link href="/" className="flex items-center gap-2.5 sm:gap-3 shrink-0 group">
+            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl overflow-hidden bg-black border border-brand-amber-500/40 flex items-center justify-center p-0.5 shrink-0">
+              <img
+                src={getAssetPath("/images/logo.jpg")}
+                alt="أحمد الشوا - الشعار الرسمي"
+                className="w-full h-full object-cover"
+              />
             </div>
 
             <div className="flex flex-col text-right">
-              <div className="flex items-center gap-1.5 sm:gap-2">
-                <span className="font-alexandria font-bold text-white text-sm sm:text-lg group-hover:text-brand-amber-300 transition-colors whitespace-nowrap">
+              <div className="flex items-center gap-2">
+                <span className="font-alexandria font-bold text-[#F5F2EB] text-sm sm:text-base group-hover:text-brand-amber-300 transition-colors whitespace-nowrap">
                   أحمد الشوا
                 </span>
-                <span className="inline-flex items-center px-1.5 sm:px-2 py-0.5 rounded text-[9px] sm:text-[10px] font-black bg-brand-emerald-500/20 text-brand-emerald-300 border border-brand-emerald-500/30 whitespace-nowrap">
+                <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-brand-dark-850 text-brand-amber-300 border border-brand-amber-500/25 whitespace-nowrap">
                   TVTC معتمد
                 </span>
               </div>
-              <span className="text-[10px] sm:text-[11px] text-slate-400 font-medium whitespace-nowrap hidden xs:block">
+              <span className="text-[10px] sm:text-[11px] text-stone-400 font-normal whitespace-nowrap hidden xs:block">
                 مستشار ومدرب تسويق رقمي
               </span>
             </div>
@@ -112,10 +107,10 @@ export default function Header() {
             {isAdmin && (
               <Link
                 href="/admin"
-                className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-gradient-to-r from-brand-amber-500/20 to-brand-amber-600/20 border border-brand-amber-400 text-brand-amber-300 text-xs font-bold shadow-gold-glow animate-pulse hover:brightness-125 transition-all shrink-0"
+                className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-brand-dark-850 border border-brand-amber-500/40 text-brand-amber-300 text-xs font-semibold hover:border-brand-amber-400 transition-colors shrink-0"
               >
                 <LayoutDashboard className="w-3.5 h-3.5" />
-                <span>لوحة الإدارة ⚡</span>
+                <span>لوحة الإدارة</span>
               </Link>
             )}
 
@@ -123,11 +118,11 @@ export default function Header() {
             <button
               onClick={() => setIsCartOpen(true)}
               aria-label="سلة الشراء"
-              className="relative p-2 sm:p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-200 border border-white/10 transition-colors shrink-0"
+              className="relative p-2 sm:p-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] text-stone-200 border border-white/10 transition-colors shrink-0"
             >
               <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5 text-brand-amber-400" />
               {itemCount > 0 && (
-                <span className="absolute -top-1 -right-1 sm:-top-1.5 sm:-right-1.5 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-brand-emerald-500 text-brand-dark-950 text-[10px] sm:text-xs font-black flex items-center justify-center animate-bounce shadow-md">
+                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-brand-amber-500 text-[#070909] text-[10px] font-bold flex items-center justify-center">
                   {itemCount}
                 </span>
               )}
@@ -241,9 +236,8 @@ export default function Header() {
             {/* Booking CTA Button (Desktop) */}
             <Link
               href="/#booking"
-              className="hidden sm:inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-amber-400 via-brand-amber-500 to-brand-amber-600 text-slate-950 font-alexandria font-bold text-xs sm:text-sm whitespace-nowrap shadow-gold-glow hover:brightness-110 active:scale-95 transition-all shrink-0"
+              className="hidden sm:inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl bg-brand-amber-500 hover:bg-brand-amber-400 text-[#070909] font-alexandria font-bold text-xs sm:text-sm whitespace-nowrap transition-colors shrink-0"
             >
-              <Sparkles className="w-4 h-4 shrink-0" />
               <span>احجز استشارتك</span>
             </Link>
 

@@ -9,8 +9,7 @@ import {
   CheckCircle2,
   Users,
   Award,
-  ArrowUpLeft,
-  Sparkles
+  ArrowUpLeft
 } from "lucide-react";
 import { useSiteContent } from "@/context/SiteContentContext";
 import Link from "next/link";
@@ -27,128 +26,126 @@ export default function TrainingTracks() {
   const getTrackIcon = (iconName: string) => {
     switch (iconName) {
       case "Share2":
-        return <Share2 className="w-5 h-5 text-brand-emerald-400" />;
+        return <Share2 className="w-4 h-4 text-brand-amber-400" />;
       case "Megaphone":
-        return <Megaphone className="w-5 h-5 text-brand-amber-400" />;
+        return <Megaphone className="w-4 h-4 text-brand-amber-400" />;
       case "BookOpen":
-        return <BookOpen className="w-5 h-5 text-brand-emerald-400" />;
+        return <BookOpen className="w-4 h-4 text-brand-amber-400" />;
       case "Stethoscope":
-        return <Stethoscope className="w-5 h-5 text-brand-amber-400" />;
+        return <Stethoscope className="w-4 h-4 text-brand-amber-400" />;
       default:
-        return <Award className="w-5 h-5 text-brand-amber-400" />;
+        return <Award className="w-4 h-4 text-brand-amber-400" />;
     }
   };
 
   return (
-    <section id="services" className="py-24 bg-brand-dark-950 relative overflow-hidden font-ibm" dir="rtl">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="services" className="py-20 sm:py-24 bg-brand-dark-900 border-t border-white/[0.06] font-ibm" dir="rtl">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-emerald-500/10 border border-brand-emerald-500/30 text-brand-emerald-300 text-xs sm:text-sm font-bold">
+        <div className="text-center max-w-2xl mx-auto space-y-3 mb-14">
+          <div className="inline-flex items-center gap-2 text-xs font-medium text-brand-amber-300">
             <Award className="w-4 h-4 text-brand-amber-400 shrink-0" />
-            <span>الخدمات التسويقية الاحترافية</span>
+            <span>الخدمات التسويقية التنفيذية</span>
           </div>
 
-          <h2 className="font-alexandria font-extrabold text-2xl sm:text-3xl md:text-4xl text-white leading-[1.45] pb-1">
+          <h2 className="font-alexandria font-bold text-2xl sm:text-3xl md:text-4xl text-[#F5F2EB] leading-[1.45]">
             خدمات متخصصة <span className="gold-text-gradient">لإدارة ونمو مشاريعك</span>
           </h2>
 
-          <p className="text-sm sm:text-base text-slate-300 leading-[1.85] max-w-2xl mx-auto">
-            نقدم حلولاً تنفيذية متكاملة في إدارة حسابات التواصل الاجتماعي، الحملات الإعلانية، تسويق كتب المؤلفين، وتسويق العيادات.
+          <p className="text-sm sm:text-base text-stone-400 leading-[1.85]">
+            إدارة حسابات التواصل الاجتماعي، تخطيط الحملات الإعلانية، تسويق كتب المؤلفين، وتسويق العيادات.
           </p>
         </div>
 
-        {/* Tracks Tabs & Details */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Tabs Selector List (5 Cols) */}
-          <div className="lg:col-span-5 space-y-3.5">
+        {/* Architectural 2-Column Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          {/* Selector List */}
+          <div className="lg:col-span-5 space-y-3">
             {servicesList.map((track) => {
-              const isSelected = track.id === activeTrackId;
+              const isSelected = track.id === currentTrack.id;
               return (
                 <button
                   key={track.id}
                   onClick={() => setActiveTrackId(track.id)}
-                  className={`w-full p-5 rounded-2xl border text-right transition-all flex items-center justify-between ${
+                  className={`w-full p-4 sm:p-5 rounded-2xl border text-right transition-colors flex items-center justify-between ${
                     isSelected
-                      ? "bg-gradient-to-r from-brand-emerald-950 to-brand-dark-850 border-brand-amber-400 shadow-gold-glow"
-                      : "bg-brand-dark-850/60 border-white/10 hover:border-white/20 text-slate-300"
+                      ? "bg-brand-dark-850 border-brand-amber-500/45"
+                      : "bg-brand-dark-950/60 border-white/[0.07] hover:border-white/15"
                   }`}
                 >
                   <div className="flex items-center gap-3.5 min-w-0">
-                    <div className="w-10 h-10 rounded-xl bg-brand-dark-900 border border-white/10 flex items-center justify-center shrink-0">
+                    <div className={`w-10 h-10 rounded-xl border flex items-center justify-center shrink-0 ${
+                      isSelected
+                        ? "bg-brand-amber-500/15 border-brand-amber-500/40"
+                        : "bg-brand-dark-900 border-white/[0.08]"
+                    }`}>
                       {getTrackIcon(track.icon)}
                     </div>
                     <div className="min-w-0">
-                      <h4 className={`text-sm font-bold leading-snug pb-0.5 ${isSelected ? "text-white" : "text-slate-200"}`}>
+                      <h4 className={`font-alexandria text-sm font-bold leading-snug ${isSelected ? "text-[#F5F2EB]" : "text-stone-300"}`}>
                         {track.title}
                       </h4>
-                      <p className="text-xs text-slate-400 truncate max-w-[220px] sm:max-w-xs mt-0.5 leading-relaxed">
+                      <p className="text-xs text-stone-500 truncate max-w-[220px] sm:max-w-xs mt-0.5">
                         {track.tagline}
                       </p>
                     </div>
                   </div>
 
-                  <ArrowUpLeft className={`w-4 h-4 shrink-0 transition-transform ${isSelected ? "text-brand-amber-400 -translate-x-1" : "text-slate-500"}`} />
+                  <ArrowUpLeft className={`w-4 h-4 shrink-0 transition-transform ${isSelected ? "text-brand-amber-400 -translate-x-0.5" : "text-stone-600"}`} />
                 </button>
               );
             })}
           </div>
 
-          {/* Active Track Detailed View (7 Cols) */}
-          <div className="lg:col-span-7 rounded-3xl bg-brand-dark-850/90 border border-brand-emerald-500/25 p-7 sm:p-9 shadow-2xl backdrop-blur-xl space-y-6 text-right">
-            <div className="space-y-3 pb-5 border-b border-white/10">
-              <div className="flex items-center gap-2 text-xs font-bold text-brand-amber-300">
-                <Sparkles className="w-4 h-4 shrink-0" />
-                <span>{currentTrack.tagline}</span>
-              </div>
-              <h3 className="font-alexandria font-bold text-xl sm:text-2xl text-white leading-[1.45] pb-1">
+          {/* Active Service Details */}
+          <div className="lg:col-span-7 rounded-2xl bg-brand-dark-850 border border-white/[0.08] p-6 sm:p-8 space-y-6 text-right">
+            <div className="space-y-2.5 pb-5 border-b border-white/[0.07]">
+              <span className="text-xs font-medium text-brand-amber-300 block">
+                {currentTrack.tagline}
+              </span>
+              <h3 className="font-alexandria font-bold text-xl sm:text-2xl text-[#F5F2EB]">
                 {currentTrack.title}
               </h3>
-              <p className="text-xs sm:text-sm text-slate-300 leading-[1.85]">
+              <p className="text-xs sm:text-sm text-stone-300 leading-[1.85]">
                 {currentTrack.summary}
               </p>
             </div>
 
-            {/* Key Outcomes */}
-            <div className="space-y-3.5">
-              <h4 className="font-bold text-sm text-white flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-brand-emerald-400 shrink-0" />
-                <span>أبرز المكتسبات والمخرجات التنفيذية:</span>
+            <div className="space-y-3">
+              <h4 className="font-bold text-xs sm:text-sm text-[#F5F2EB]">
+                نطاق العمل والمخرجات:
               </h4>
-              <div className="space-y-3">
+              <div className="space-y-2.5">
                 {currentTrack.outcomes.map((out, idx) => (
-                  <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-white/5 border border-white/5 text-xs sm:text-sm text-slate-300 leading-relaxed">
-                    <span className="w-5 h-5 rounded-full bg-brand-emerald-500/20 text-brand-emerald-400 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">
-                      ✓
-                    </span>
+                  <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-brand-dark-900 border border-white/[0.05] text-xs sm:text-sm text-stone-300 leading-relaxed">
+                    <CheckCircle2 className="w-4 h-4 text-brand-emerald-400 shrink-0 mt-0.5" />
                     <span>{out}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Target Audience */}
-            <div className="p-4 rounded-2xl bg-brand-dark-900 border border-white/10 flex items-center gap-3 text-xs sm:text-sm leading-relaxed">
-              <Users className="w-5 h-5 text-brand-amber-400 shrink-0" />
+            <div className="p-4 rounded-xl bg-brand-dark-900 border border-white/[0.06] flex items-center gap-3 text-xs sm:text-sm">
+              <Users className="w-4 h-4 text-brand-amber-400 shrink-0" />
               <div>
-                <span className="font-bold text-white block">الفئة المستهدفة للبرنامج:</span>
-                <span className="text-slate-300">{currentTrack.targetAudience}</span>
+                <span className="font-semibold text-[#F5F2EB] ml-1.5">الفئة المستهدفة:</span>
+                <span className="text-stone-400">{currentTrack.targetAudience}</span>
               </div>
             </div>
 
-            {/* Action CTA */}
-            <div className="pt-3 flex flex-col sm:flex-row items-center gap-3">
+            <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
               <Link
                 href="/#booking"
-                className="w-full sm:flex-1 py-3.5 rounded-xl bg-gradient-to-r from-brand-amber-400 via-brand-amber-500 to-brand-amber-600 text-slate-950 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-gold-glow hover:brightness-110 transition-all whitespace-nowrap"
+                className="w-full sm:flex-1 py-3 px-5 rounded-xl bg-brand-amber-500 hover:bg-brand-amber-400 text-[#070909] font-alexandria font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-colors whitespace-nowrap"
               >
                 <span>طلب الخدمة أو حجز استشارة</span>
+                <ArrowUpLeft className="w-4 h-4" />
               </Link>
               <Link
                 href="/#courses"
-                className="w-full sm:w-auto px-5 py-3.5 rounded-xl bg-brand-emerald-950/80 hover:bg-brand-emerald-900 text-brand-emerald-300 border border-brand-emerald-500/30 text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-all whitespace-nowrap"
+                className="w-full sm:w-auto px-5 py-3 rounded-xl bg-transparent hover:bg-white/[0.04] text-stone-200 border border-white/15 text-xs sm:text-sm font-semibold flex items-center justify-center transition-colors whitespace-nowrap"
               >
-                <span>استعراض الدورات التدريبية</span>
+                <span>استعراض الدورات</span>
               </Link>
             </div>
           </div>

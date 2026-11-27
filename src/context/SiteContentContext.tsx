@@ -49,10 +49,10 @@ export interface SiteContentState {
 
 const DEFAULT_SITE_CONTENT: SiteContentState = {
   hero: {
-    headlineLine1: "ابنِ ثروتك المستدامة",
-    headlineLine2: "وضاعف أرباحك في السوق السعودي",
+    headlineLine1: "أحمد محمد الشوا",
+    headlineLine2: "التسويق أساس نجاح أي مشروع",
     subheadline:
-      "حلول واستشارات تسويقية مخصصة لتمكين رواد الأعمال وأصحاب المشاريع، بخبرة عملية تتجاوز 20 عاماً في السوق السعودي.",
+      "خبرة عملية تتجاوز عشرين عاماً في صياغة الخطط التسويقية، تأهيل فرق المبيعات، وتقديم الاستشارات التنفيذية لأصحاب المشاريع في المملكة العربية السعودية.",
     accreditation: INSTRUCTOR_INFO.accreditation,
     slogan: INSTRUCTOR_INFO.slogan,
     phone: INSTRUCTOR_INFO.phone,

@@ -2,18 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import {
-  Award,
-  ShieldCheck,
-  CheckCircle2,
-  Sparkles,
-  ArrowUpLeft,
-  Briefcase,
-  GraduationCap,
-  TrendingUp,
-  MapPin
-} from "lucide-react";
-import { INSTRUCTOR_INFO } from "@/data/mockData";
+import { Award, ShieldCheck, ArrowUpLeft, GraduationCap, MapPin } from "lucide-react";
 import { useSiteContent } from "@/context/SiteContentContext";
 import { getAssetPath } from "@/lib/utils";
 
@@ -22,98 +11,89 @@ export default function AboutSection() {
   const { hero } = content;
 
   return (
-    <section id="about" className="py-24 bg-brand-dark-900 border-t border-white/10 relative overflow-hidden font-ibm" dir="rtl">
-      {/* Glow */}
-      <div className="absolute top-1/3 right-0 w-96 h-96 bg-brand-emerald-500/10 rounded-full blur-[150px] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Left Column: Image & Badges (5 Cols) */}
-          <div className="lg:col-span-5 relative space-y-6">
-            <div className="relative mx-auto max-w-md rounded-3xl overflow-hidden bg-brand-dark-950 border-2 border-brand-amber-400/40 p-2.5 shadow-gold-glow">
-              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
+    <section id="about" className="py-20 sm:py-24 bg-brand-dark-900 border-t border-white/[0.06] font-ibm" dir="rtl">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          {/* Portrait Column */}
+          <div className="lg:col-span-5">
+            <div className="mx-auto max-w-md rounded-2xl bg-brand-dark-950 border border-white/[0.08] p-3">
+              <div className="relative aspect-[4/4.8] rounded-xl overflow-hidden">
                 <img
                   src={getAssetPath("/images/ahmed-alshawa-about.jpg")}
-                  alt={INSTRUCTOR_INFO.name}
+                  alt="أحمد محمد الشوا"
                   className="w-full h-full object-cover object-top"
                   loading="lazy"
                   decoding="async"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-dark-950 via-transparent to-transparent opacity-75" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#070909]/65 via-transparent to-transparent" />
+              </div>
 
-                {/* Floating Accreditation Badge */}
-                <div className="absolute bottom-4 right-4 left-4 p-4 rounded-2xl bg-brand-dark-900/95 border border-brand-emerald-500/30 backdrop-blur-md text-right space-y-1">
-                  <div className="flex items-center gap-1.5 text-brand-emerald-400 font-bold text-xs">
-                    <ShieldCheck className="w-4 h-4 text-brand-amber-400 shrink-0" />
-                    <span>اعتماد رسمي معترف به</span>
-                  </div>
-                  <p className="text-[11px] text-white font-semibold leading-relaxed">
-                    {hero.accreditation}
-                  </p>
-                </div>
+              <div className="pt-3.5 pb-1 px-2 flex items-start gap-2.5 text-right">
+                <ShieldCheck className="w-4 h-4 text-brand-amber-400 shrink-0 mt-0.5" />
+                <p className="text-xs text-stone-300 leading-relaxed">
+                  {hero.accreditation}
+                </p>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Bio & Core Values (7 Cols) */}
+          {/* Editorial Bio Column */}
           <div className="lg:col-span-7 space-y-6 text-right">
-            <div className="space-y-4">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-emerald-500/10 border border-brand-emerald-500/30 text-brand-emerald-300 text-xs sm:text-sm font-bold">
+            <div className="space-y-3">
+              <div className="inline-flex items-center gap-2 text-xs font-medium text-brand-amber-300">
                 <GraduationCap className="w-4 h-4 text-brand-amber-400 shrink-0" />
-                <span>عن المستشار أحمد الشوا</span>
+                <span>نبذة عن المستشار</span>
               </div>
 
-              <h2 className="font-alexandria font-extrabold text-2xl sm:text-3xl md:text-4xl text-white leading-[1.45] pb-1">
-                خبرة تمتد لأكثر من <span className="gold-text-gradient">20 عاماً</span> في تمكين المشاريع السعودية
+              <h2 className="font-alexandria font-bold text-2xl sm:text-3xl md:text-4xl text-[#F5F2EB] leading-[1.45]">
+                خبرة تتجاوز <span className="gold-text-gradient">عشرين عاماً</span> في التسويق والتدريب
               </h2>
 
-              <p className="text-base text-brand-amber-300 font-bold italic leading-relaxed py-1">
+              <p className="text-base text-brand-amber-300 font-semibold pt-1">
                 &quot;{hero.slogan}&quot;
               </p>
 
-              <p className="text-xs sm:text-sm text-slate-300 leading-[1.9]">
+              <p className="text-sm sm:text-base text-stone-300 leading-[1.9]">
                 {hero.aboutBio}
               </p>
             </div>
 
-            {/* Credibility Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-              <div className="p-5 rounded-2xl bg-brand-dark-850 border border-brand-emerald-500/20 space-y-2.5">
-                <div className="flex items-center gap-2 text-brand-amber-400 font-bold text-xs">
+              <div className="p-5 rounded-2xl bg-brand-dark-850 border border-white/[0.07] space-y-2">
+                <div className="flex items-center gap-2 text-brand-amber-300 font-semibold text-xs">
                   <Award className="w-4 h-4 shrink-0" />
-                  <span>اعتماد التدريب المهني</span>
+                  <span>التأهيل والاعتماد المهني</span>
                 </div>
-                <p className="text-xs text-slate-300 leading-relaxed">
-                  برامج وشهادات تدريبية متوافقة مع معايير المؤسسة العامة للتدريب التقني والمهني (TVTC).
+                <p className="text-xs text-stone-400 leading-relaxed">
+                  برامج تدريبية معتمدة ومتوافقة مع معايير المؤسسة العامة للتدريب التقني والمهني.
                 </p>
               </div>
 
-              <div className="p-5 rounded-2xl bg-brand-dark-850 border border-brand-emerald-500/20 space-y-2.5">
-                <div className="flex items-center gap-2 text-brand-emerald-400 font-bold text-xs">
+              <div className="p-5 rounded-2xl bg-brand-dark-850 border border-white/[0.07] space-y-2">
+                <div className="flex items-center gap-2 text-brand-emerald-300 font-semibold text-xs">
                   <MapPin className="w-4 h-4 shrink-0" />
-                  <span>متاح حضورياً وعن بُعد</span>
+                  <span>حضورياً في جدة وعن بُعد</span>
                 </div>
-                <p className="text-xs text-slate-300 leading-relaxed">
-                  جلسات استشارية واستراتيجية مباشرة في مدينة جدة، بالإضافة للاستشارات الأونلاين لكافة مناطق المملكة.
+                <p className="text-xs text-stone-400 leading-relaxed">
+                  استشارات مباشرة في مدينة جدة واستشارات مرئية عن بُعد لجميع مناطق المملكة والخليج.
                 </p>
               </div>
             </div>
 
-            {/* CTAs */}
-            <div className="pt-4 flex flex-col sm:flex-row items-center gap-4">
+            <div className="pt-3 flex flex-col sm:flex-row items-center gap-3.5">
               <Link
                 href="/#booking"
-                className="w-full sm:w-auto px-7 py-4 rounded-2xl bg-gradient-to-r from-brand-amber-400 via-brand-amber-500 to-brand-amber-600 text-slate-950 font-alexandria font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-gold-glow hover:brightness-110 transition-all whitespace-nowrap"
+                className="w-full sm:w-auto px-7 py-3 rounded-xl bg-brand-amber-500 hover:bg-brand-amber-400 text-[#070909] font-alexandria font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-colors whitespace-nowrap"
               >
-                <span>احجز جلسة استشارية مع أحمد الشوا</span>
+                <span>حجز استشارة</span>
                 <ArrowUpLeft className="w-4 h-4" />
               </Link>
 
               <Link
                 href="/#media"
-                className="w-full sm:w-auto px-6 py-4 rounded-2xl bg-white/5 hover:bg-white/10 text-slate-200 border border-white/15 text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all whitespace-nowrap"
+                className="w-full sm:w-auto px-6 py-3 rounded-xl bg-transparent hover:bg-white/[0.04] text-stone-200 border border-white/15 text-xs sm:text-sm font-semibold flex items-center justify-center transition-colors whitespace-nowrap"
               >
-                <span>مشاهدة الظهور الإعلامي</span>
+                <span>اللقاءات الإعلامية</span>
               </Link>
             </div>
           </div>

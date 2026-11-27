@@ -78,19 +78,19 @@ export default function MagneticButton({
     }
   };
 
-  // Base styling per variant
+  // Base styling per variant - refined quiet luxury without neon glows
   const getVariantStyles = () => {
     switch (variant) {
       case "primary":
-        return "bg-gradient-to-r from-brand-amber-400 via-brand-amber-500 to-brand-amber-600 text-slate-950 shadow-gold-glow hover:brightness-110";
+        return "bg-brand-amber-500 hover:bg-brand-amber-400 text-[#070909] shadow-sm";
       case "emerald":
-        return "bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 text-white shadow-emerald-glow hover:brightness-110";
+        return "bg-brand-emerald-600 hover:bg-brand-emerald-500 text-[#F5F2EB] shadow-sm";
       case "secondary":
-        return "bg-brand-emerald-950/80 text-brand-emerald-300 border border-brand-emerald-500/40 shadow-emerald-glow hover:bg-brand-emerald-900";
+        return "bg-brand-dark-850 hover:bg-brand-dark-800 text-brand-amber-300 border border-brand-amber-500/35";
       case "outline":
-        return "bg-white/5 hover:bg-white/10 text-slate-200 border border-white/15 hover:border-white/30";
+        return "bg-transparent hover:bg-white/[0.04] text-[#F5F2EB] border border-white/15 hover:border-brand-amber-500/40";
       default:
-        return "bg-gradient-to-r from-brand-amber-400 to-brand-amber-500 text-slate-950 shadow-gold-glow";
+        return "bg-brand-amber-500 hover:bg-brand-amber-400 text-[#070909]";
     }
   };
 

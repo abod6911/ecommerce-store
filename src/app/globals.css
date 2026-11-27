@@ -17,16 +17,16 @@ html {
   direction: rtl;
   scroll-behavior: smooth;
   color-scheme: dark;
-  background-color: #061412;
-  color: #F8FAFC;
+  background-color: #070909;
+  color: #F5F2EB;
   font-family: 'IBM Plex Sans Arabic', 'Cairo', system-ui, -apple-system, sans-serif;
   letter-spacing: normal !important;
   text-rendering: optimizeLegibility;
 }
 
 body {
-  background-color: #061412;
-  color: #F8FAFC;
+  background-color: #070909;
+  color: #F5F2EB;
   overflow-x: hidden;
   min-height: 100vh;
   line-height: 1.85;
@@ -53,39 +53,38 @@ p, span, label, li, a {
 }
 
 ::-webkit-scrollbar-track {
-  background: #040D0B;
+  background: #070909;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #143833;
+  background: #242B28;
   border-radius: 4px;
-  border: 1px solid rgba(245, 158, 11, 0.15);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #059669;
+  background: #C8A25A;
 }
 
-/* Ultra Luxury Glassmorphic Surfaces */
+/* Quiet Luxury Surfaces */
 .glass-surface {
-  background: rgba(13, 38, 34, 0.65);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(52, 211, 153, 0.15);
+  background: rgba(18, 22, 21, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .glass-surface-hover {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s ease;
 }
 .glass-surface-hover:hover {
-  background: rgba(13, 38, 34, 0.85);
-  border-color: rgba(245, 158, 11, 0.35);
-  transform: translateY(-4px);
-  box-shadow: 0 16px 35px -10px rgba(0, 0, 0, 0.7), 0 0 25px -5px rgba(245, 158, 11, 0.2);
+  background: rgba(24, 29, 27, 0.98);
+  border-color: rgba(200, 162, 90, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px -15px rgba(0, 0, 0, 0.75);
 }
 
 .gold-text-gradient {
-  background: linear-gradient(135deg, #FFFBEB 0%, #FDE68A 30%, #F59E0B 70%, #D97706 100%);
+  background: linear-gradient(135deg, #FAF4E8 0%, #E5CA94 45%, #C8A25A 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
@@ -96,7 +95,7 @@ p, span, label, li, a {
 }
 
 .emerald-text-gradient {
-  background: linear-gradient(135deg, #ECFDF5 0%, #6EE7B7 40%, #10B981 80%, #059669 100%);
+  background: linear-gradient(135deg, #E3EFEA 0%, #9CC4B4 45%, #528A74 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
